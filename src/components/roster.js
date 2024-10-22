@@ -1,25 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import api from "../utils/api";
-import { Container } from "react-bootstrap";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Button, TextField } from "@mui/material";
 
-const Roster = () => {
+const Roster = ({ userList, getUser }) => {
   // 상태값을 설정합니다.
-  const [nameList, setNameList] = useState([]);
   const [nameValue, setNameValue] = useState("");
-
-  // getUsers 함수를 정의합니다.
-  // getUsers : 선수 정보를 가져오는 함수
-  const getUsers = async () => {
-    const response = await api.get("/user");
-    setNameList(response.data);
-    console.log(response.data);
-    console.log(response.data.data[0].name);
-  };
-
-  // useEffect 훅을 사용하여 getUsers 함수를 호출합니다.
-  useEffect(() => {
-    getUsers();
-  }, []);
 
   // addUser 함수를 정의합니다.
   // addUser : 선수 정보를 추가하는 함수
@@ -27,33 +15,61 @@ const Roster = () => {
     try {
       const response = await api.post("/user", { name: nameValue });
       if (response.status === 200) {
-        getUsers();
+        getUser();
+        setNameValue("");
       }
     } catch (e) {}
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await api.delete(`/user/${id}`);
+      if (response.status === 200) {
+        getUser();
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   // JSX를 반환합니다.
   return (
     <>
-      <p>선수 명단</p>
-
-      {nameList.length > 0 ? (
-        nameList.map((data) => {
-          return <div key={data.data._id}>{data.data.name}</div>;
-        })
-      ) : (
-        <p>선수 목록이 없습니다.</p>
-      )}
-
-      <Container>
-        <input
-          type="text"
-          placeholder="선수 이름을 입력해주세요"
+      <Box sx={{ marginX: 5, marginTop: 5 }}>
+        <TextField
+          id="outlined-basic"
+          label="선수 이름"
+          variant="outlined"
           onChange={(e) => setNameValue(e.target.value)}
           value={nameValue}
         />
-        <button onClick={addUser}>선수 추가</button>
-      </Container>
+        <Button onClick={addUser} variant="contained">
+          선수 추가
+        </Button>
+      </Box>
+      <Box>
+        <Box sx={{ color: "#46505A", fontSize: 34, fontWeight: "bold" }}>
+          선수 명단
+        </Box>
+        {userList.length > 0 ? (
+          userList.map((data) => {
+            return (
+              <div key={data._id} className="justify-between">
+                {data.name}
+                <IconButton
+                  aria-label="delete"
+                  size="small"
+                  onClick={() => handleDelete(data._id)}
+                >
+                  <DeleteIcon fontSize="inherit" />
+                </IconButton>
+              </div>
+            );
+          })
+        ) : (
+          <p>선수 목록이 없습니다.</p>
+        )}
+      </Box>
     </>
   );
 };

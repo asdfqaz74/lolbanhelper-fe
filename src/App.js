@@ -1,13 +1,16 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+import PickPlayers from "./pages/PickPlayers";
+import Navbar from "./components/NavBar/navbar";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/team" element={<PickPlayers />} />
+      </Routes>
+    </>
   );
 }
 
