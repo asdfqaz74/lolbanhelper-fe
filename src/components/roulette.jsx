@@ -27,7 +27,9 @@ const Roullete = ({ userList }) => {
 
   return (
     <Box className="mt-5">
-      <p className="font-bold text-[2.125rem] text-[#46505A]">[ 대장 뽑기 ]</p>
+      <p className="font-bold text-[2.125rem] text-[#46505A]">
+        [ 대장을 뽑아주세요 ]
+      </p>
       <Button variant="contained" onClick={pickRandomPlayers}>
         뽑기
       </Button>
