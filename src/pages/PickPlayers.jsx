@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import Roster from "../components/roster";
-import Roullete from "../components/roulette";
+import Roster from "../components/PickTool/roster";
+import Roullete from "../components/PickTool/roulette";
 import api from "../utils/api";
+import { Box } from "@mui/material";
+import TeamMaker from "../components/PickTool/teamMaker";
 
 const PickPlayers = () => {
   // 유저 정보를 저장할 상태값을 설정합니다.
@@ -20,10 +22,21 @@ const PickPlayers = () => {
   });
 
   return (
-    <div>
-      <Roster userList={nameList} getUser={getUser} />
-      <Roullete userList={nameList} />
-    </div>
+    <Box
+      sx={{ display: "flex", justifyContent: "space-between", marginTop: 5 }}
+    >
+      <TeamMaker userList={nameList} />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
+        }}
+      >
+        <Roster userList={nameList} getUser={getUser} />
+        <Roullete userList={nameList} />
+      </Box>
+    </Box>
   );
 };
 
