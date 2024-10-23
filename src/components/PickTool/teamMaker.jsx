@@ -45,18 +45,80 @@ const TeamMaker = ({ userList }) => {
             onClick={() => handleOpenModal(user)}
             className="cursor-pointer text-lg"
           >
-            {user.name}
+            {!user.today_team && user.name}
           </div>
         ))}
       </div>
-
-      <div className="flex mt-5">
-        <div>
-          <p>A팀</p>
-        </div>
-        <div>
-          <p>B팀</p>
-        </div>
+      <div className="mt-5">
+        <table className="w-full border-collapse border border-gray-400">
+          <thead>
+            <tr>
+              <th className="border border-gray-400 p-2">
+                A팀 ({userList.filter((user) => user.today_team === "A").length}
+                )
+              </th>
+              <th className="border border-gray-400 p-2">
+                B팀 ({userList.filter((user) => user.today_team === "B").length}
+                )
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from({
+              length: Math.max(
+                userList.filter((user) => user.today_team === "A").length,
+                userList.filter((user) => user.today_team === "B").length
+              ),
+            }).map((_, index) => (
+              <tr key={index}>
+                <td className="border border-gray-400 p-2 text-center">
+                  {userList.filter((user) => user.today_team === "A")[
+                    index
+                  ] && (
+                    <span
+                      onClick={() =>
+                        handleOpenModal(
+                          userList.filter((user) => user.today_team === "A")[
+                            index
+                          ]
+                        )
+                      }
+                      className="cursor-pointer"
+                    >
+                      {
+                        userList.filter((user) => user.today_team === "A")[
+                          index
+                        ].name
+                      }
+                    </span>
+                  )}
+                </td>
+                <td className="border border-gray-400 p-2 text-center">
+                  {userList.filter((user) => user.today_team === "B")[
+                    index
+                  ] && (
+                    <span
+                      onClick={() =>
+                        handleOpenModal(
+                          userList.filter((user) => user.today_team === "B")[
+                            index
+                          ]
+                        )
+                      }
+                      className="cursor-pointer"
+                    >
+                      {
+                        userList.filter((user) => user.today_team === "B")[
+                          index
+                        ].name
+                      }
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <Dialog open={open} onClose={handleCloseModal}>
@@ -66,7 +128,7 @@ const TeamMaker = ({ userList }) => {
         <DialogActions>
           <Button onClick={() => handleTeamSelect("A")}>A팀</Button>
           <Button onClick={() => handleTeamSelect("B")}>B팀</Button>
-          <Button onClick={handleCloseModal}>취소</Button>
+          <Button onClick={() => handleTeamSelect(null)}>팀 초기화</Button>
         </DialogActions>
       </Dialog>
     </div>
