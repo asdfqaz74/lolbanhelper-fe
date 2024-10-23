@@ -23,7 +23,14 @@ const PickPlayers = () => {
 
   return (
     <Box
-      sx={{ display: "flex", justifyContent: "space-between", marginTop: 5 }}
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        marginTop: 5,
+        backgroundColor: "white",
+        padding: 2,
+        borderRadius: 2,
+      }}
     >
       <TeamMaker userList={nameList} />
       <Box

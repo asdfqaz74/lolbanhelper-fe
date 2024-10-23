@@ -4,30 +4,30 @@ const hoverMenu = "hover:text-black";
 
 const Navbar = () => {
   return (
-    <div className="w-full flex justify-around text-lg font-semibold mt-3 bg-slate-400 h-14 items-center offset border border-slate-500 text-slate-700 rounded-md">
+    <div className="w-full flex justify-around text-lg font-bold mt-3 bg-slate-400 h-14 items-center offset border border-slate-500 text-slate-700 rounded-md">
       <NavLink
         to="/"
         className={({ isActive }) => (isActive ? "text-black" : hoverMenu)}
       >
-        홈
+        HOME
       </NavLink>
       <NavLink
         to="/team"
         className={({ isActive }) => (isActive ? "text-black" : hoverMenu)}
       >
-        대장 뽑기
+        Team Maker
       </NavLink>
       <NavLink
         to="/playerdb"
         className={({ isActive }) => (isActive ? "text-black" : hoverMenu)}
       >
-        선수 DB
+        Player DB
       </NavLink>
       <NavLink
         to="/archive"
         className={({ isActive }) => (isActive ? "text-black" : hoverMenu)}
       >
-        내전 아카이브
+        Archive
       </NavLink>
     </div>
   );
