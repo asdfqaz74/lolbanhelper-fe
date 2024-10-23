@@ -3,24 +3,41 @@ import { useState } from "react";
 import api from "../../utils/api";
 
 const TeamMaker = ({ userList }) => {
+  // 상태값을 설정합니다.
   const [open, setOpen] = useState(false);
+  const [openReset, setOpenReset] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
+  // playableUsers : 오늘 출전 가능한 선수 목록
   const playableUsers = userList.filter((user) => user.today_player);
 
+  // 선수 목록을 이름 순으로 정렬합니다.
   const sortedUserList = [...playableUsers].sort((a, b) =>
     a.name.localeCompare(b.name, "ko-KR")
   );
 
+  // handleOpenModal 함수를 정의합니다.
   const handleOpenModal = (user) => {
     setSelectedUser(user);
     setOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setOpen(false);
+  // handleResetButton 함수를 정의합니다.
+  // handleResetButton : 팀 초기화 함수
+  const handleResetButton = async () => {
+    try {
+      const response = await api.put("/user/reset-today");
+
+      if (response.status === 200) {
+        setOpenReset(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
+  // handleTeamSelect 함수를 정의합니다.
+  // handleTeamSelect : 팀을 선택하는 함수
   const handleTeamSelect = async (team) => {
     try {
       const response = await api.put(`/user/${selectedUser._id}`, {
@@ -32,12 +49,17 @@ const TeamMaker = ({ userList }) => {
     } catch (e) {
       console.log(e);
     }
-    handleCloseModal();
+    setOpen(false);
   };
 
   return (
     <div>
-      <p className="text-[2.125rem] text-[#46505A] font-bold">대기인원</p>
+      <div className="flex items-center gap-5">
+        <p className="text-[2.125rem] text-[#46505A] font-bold">대기인원</p>
+        <Button variant="contained" onClick={() => setOpenReset(true)}>
+          리셋
+        </Button>
+      </div>
       <div className="flex gap-2 border w-[62.5rem] h-20 px-2 items-center">
         {sortedUserList.map((user) => (
           <div
@@ -121,7 +143,8 @@ const TeamMaker = ({ userList }) => {
         </table>
       </div>
 
-      <Dialog open={open} onClose={handleCloseModal}>
+      {/* 팀 선택 모달창 */}
+      <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>
           {selectedUser ? `${selectedUser.name} 님의 팀 선택` : ""}
         </DialogTitle>
@@ -129,6 +152,15 @@ const TeamMaker = ({ userList }) => {
           <Button onClick={() => handleTeamSelect("A")}>A팀</Button>
           <Button onClick={() => handleTeamSelect("B")}>B팀</Button>
           <Button onClick={() => handleTeamSelect(null)}>팀 초기화</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* 팀 초기화 모달창 */}
+      <Dialog open={openReset} onClose={() => setOpenReset(false)}>
+        <DialogTitle>팀 초기화를 하시겠습니까?</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleResetButton}>예</Button>
+          <Button onClick={() => setOpenReset(false)}>아니오</Button>
         </DialogActions>
       </Dialog>
     </div>
