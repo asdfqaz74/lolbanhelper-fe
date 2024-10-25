@@ -1,31 +1,31 @@
 import { NavLink } from "react-router-dom";
 
-const hoverMenu = "hover:text-black";
+const hoverMenu = "hover:text-primaryHover transition duration-200";
 
 const Navbar = () => {
   return (
-    <div className="w-full flex justify-around text-lg font-bold mt-3 bg-slate-400 h-14 items-center offset border border-slate-500 text-slate-700 rounded-md">
+    <div className="w-full flex justify-around text-lg font-semibold bg-white h-20 items-center border  text-black rounded-b-lg shadow-md">
       <NavLink
         to="/"
-        className={({ isActive }) => (isActive ? "text-black" : hoverMenu)}
+        className={({ isActive }) => (isActive ? "text-primary " : hoverMenu)}
       >
         HOME
       </NavLink>
       <NavLink
         to="/team"
-        className={({ isActive }) => (isActive ? "text-black" : hoverMenu)}
+        className={({ isActive }) => (isActive ? "text-primary " : hoverMenu)}
       >
         Team Maker
       </NavLink>
       <NavLink
         to="/playerdb"
-        className={({ isActive }) => (isActive ? "text-black" : hoverMenu)}
+        className={({ isActive }) => (isActive ? "text-primary" : hoverMenu)}
       >
         Player DB
       </NavLink>
       <NavLink
         to="/archive"
-        className={({ isActive }) => (isActive ? "text-black" : hoverMenu)}
+        className={({ isActive }) => (isActive ? "text-primary" : hoverMenu)}
       >
         Archive
       </NavLink>

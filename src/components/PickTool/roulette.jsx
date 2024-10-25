@@ -1,9 +1,12 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { useState } from "react";
 
+// Roullete 컴포넌트를 정의합니다.
+// Roullete : 대장을 랜덤으로 뽑는 컴포넌트
 const Roullete = ({ userList }) => {
   // 랜덤으로 뽑힌 선수를 저장할 상태값을 설정합니다.
   const [randomPlayers, setRandomPlayers] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
 
   const playableUsers = userList.filter((user) => user.today_player);
 
@@ -12,7 +15,7 @@ const Roullete = ({ userList }) => {
   const pickRandomPlayers = () => {
     // 선수가 2명 이상인지 확인합니다.
     if (playableUsers.length < 2) {
-      alert("2명 이상의 선수가 필요합니다.");
+      setOpenModal(true);
       return;
     }
 
@@ -28,23 +31,35 @@ const Roullete = ({ userList }) => {
   };
 
   return (
-    <Box className="mt-5 flex flex-col items-center justify-center gap-5">
-      <p className="font-bold text-[2.125rem] text-[#46505A]">
-        [ 대장을 뽑아주세요 ]
-      </p>
-      <p>체크된 인원 ({playableUsers.length}명)</p>
-      <Button variant="contained" onClick={pickRandomPlayers} className="w-44">
-        뽑기
-      </Button>
+    <>
+      <Box className="mt-5 flex flex-col items-center justify-center gap-5">
+        <p className="font-bold text-[2.125rem] text-[#46505A]">
+          [ 대장을 뽑아주세요 ]
+        </p>
+        <p>체크된 인원 ({playableUsers.length}명)</p>
+        <Button
+          variant="contained"
+          onClick={pickRandomPlayers}
+          className="w-44"
+        >
+          뽑기
+        </Button>
 
-      {randomPlayers.length > 0 && (
-        <div>
-          {randomPlayers.map((player) => (
-            <div key={player._id}>{player.name}</div>
-          ))}
-        </div>
-      )}
-    </Box>
+        {randomPlayers.length > 0 && (
+          <div className="flex gap-3">
+            {randomPlayers.map((player) => (
+              <div key={player._id}>{player.name}</div>
+            ))}
+          </div>
+        )}
+      </Box>
+      <Dialog onClose={() => setOpenModal(false)} open={openModal}>
+        <DialogTitle>대장 뽑기에는 최소 2명의 선수가 필요합니다</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => setOpenModal(false)}>확인</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

@@ -24,7 +24,7 @@ const TeamMaker = ({ userList }) => {
 
   // handleResetButton 함수를 정의합니다.
   // handleResetButton : 팀 초기화 함수
-  const handleResetButton = async () => {
+  const handleTeamResetButton = async () => {
     try {
       const response = await api.put("/user/reset-today");
 
@@ -52,6 +52,20 @@ const TeamMaker = ({ userList }) => {
     setOpen(false);
   };
 
+  // handleRosterResetButton 함수를 정의합니다.
+  // handleRosterResetButton : 대기명단 초기화 함수
+  const handleRosterResetButton = async () => {
+    try {
+      const response = await api.put("/user/reset-wait");
+
+      if (response.status === 200) {
+        setOpenReset(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center gap-5">
@@ -60,16 +74,18 @@ const TeamMaker = ({ userList }) => {
           리셋
         </Button>
       </div>
-      <div className="flex gap-2 border w-[62.5rem] h-20 px-2 items-center">
-        {sortedUserList.map((user) => (
-          <div
-            key={user._id}
-            onClick={() => handleOpenModal(user)}
-            className="cursor-pointer text-lg"
-          >
-            {!user.today_team && user.name}
-          </div>
-        ))}
+      <div className="flex gap-4 border w-[62.5rem] h-20 px-2 items-center">
+        {sortedUserList
+          .filter((user) => !user.today_team)
+          .map((user) => (
+            <div
+              key={user._id}
+              onClick={() => handleOpenModal(user)}
+              className="cursor-pointer text-lg"
+            >
+              {!user.today_team && user.name}
+            </div>
+          ))}
       </div>
       <div className="mt-5">
         <table className="w-full border-collapse border border-gray-400">
@@ -151,7 +167,7 @@ const TeamMaker = ({ userList }) => {
         <DialogActions>
           <Button onClick={() => handleTeamSelect("A")}>A팀</Button>
           <Button onClick={() => handleTeamSelect("B")}>B팀</Button>
-          <Button onClick={() => handleTeamSelect(null)}>팀 초기화</Button>
+          <Button onClick={() => handleTeamSelect(null)}>대기인원으로</Button>
         </DialogActions>
       </Dialog>
 
@@ -159,7 +175,8 @@ const TeamMaker = ({ userList }) => {
       <Dialog open={openReset} onClose={() => setOpenReset(false)}>
         <DialogTitle>팀 초기화를 하시겠습니까?</DialogTitle>
         <DialogActions>
-          <Button onClick={handleResetButton}>예</Button>
+          <Button onClick={handleRosterResetButton}>대기명단 초기화</Button>
+          <Button onClick={handleTeamResetButton}>팀 초기화</Button>
           <Button onClick={() => setOpenReset(false)}>아니오</Button>
         </DialogActions>
       </Dialog>
