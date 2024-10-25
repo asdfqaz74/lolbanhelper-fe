@@ -9,6 +9,7 @@ module.exports = {
         primaryActive: "#7280cc",
         dark: "#6b78bf",
         light: "#f4f6ff",
+        title: "#46505A",
       },
       backgroundImage: {
         backgroundImage: "url('/public/background.webp')",

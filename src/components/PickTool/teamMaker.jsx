@@ -68,8 +68,8 @@ const TeamMaker = ({ userList }) => {
 
   return (
     <div>
-      <div className="flex items-center gap-5">
-        <p className="text-[2.125rem] text-[#46505A] font-bold ">대기인원</p>
+      <div className="flex items-center justify-between">
+        <p className="text-[2.125rem] text-title font-bold ">대기인원</p>
         <Button
           variant="contained"
           onClick={() => setOpenReset(true)}

@@ -71,7 +71,14 @@ const Roster = ({ userList, getUser }) => {
         </Button>
       </Box>
       <Box>
-        <Box sx={{ color: "#46505A", fontSize: 34, fontWeight: "bold" }}>
+        <Box
+          sx={{
+            color: "#46505A",
+            fontSize: 34,
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
           선수 명단 ({userList.length}명)
         </Box>
         <div className="border px-4 py-1 h-80 w-80 overflow-auto flex flex-col gap-3">

@@ -47,7 +47,7 @@ const Roullete = ({ userList }) => {
   return (
     <>
       <Box className="mt-5 flex flex-col items-center justify-center gap-5">
-        <p className="font-bold text-[2.125rem] text-[#46505A]">
+        <p className="font-bold text-[2.125rem] text-title">
           [ 대장을 뽑아주세요 ]
         </p>
         <p>체크된 인원 ({playableUsers.length}명)</p>
@@ -61,12 +61,14 @@ const Roullete = ({ userList }) => {
         </Button>
 
         {loading ? (
-          <CircularProgress />
+          <CircularProgress color="secondary" />
         ) : (
           randomPlayers.length > 0 && (
             <div className="flex gap-3">
               {randomPlayers.map((player) => (
-                <div key={player._id}>{player.name}</div>
+                <div key={player._id} className="font-semibold">
+                  {player.name}
+                </div>
               ))}
             </div>
           )
