@@ -1,9 +1,8 @@
 import { useState } from "react";
 import api from "../../utils/api";
 import Box from "@mui/material/Box";
-import DeleteIcon from "@mui/icons-material/Delete";
 import SendIcon from "@mui/icons-material/Done";
-import { Button, ButtonGroup, TextField } from "@mui/material";
+import { Button, IconButton, TextField } from "@mui/material";
 
 const Roster = ({ userList, getUser }) => {
   // 상태값을 설정합니다.
@@ -19,19 +18,6 @@ const Roster = ({ userList, getUser }) => {
         setNameValue("");
       }
     } catch (e) {}
-  };
-
-  // handleDelete 함수를 정의합니다.
-  // handleDelete : 선수 정보를 삭제하는 함수
-  const handleDelete = async (id) => {
-    try {
-      const response = await api.delete(`/user/${id}`);
-      if (response.status === 200) {
-        getUser();
-      }
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   // handleTogglePlayer 함수를 정의합니다.
@@ -85,34 +71,27 @@ const Roster = ({ userList, getUser }) => {
           {sortedUserList.length > 0 ? (
             sortedUserList.map((data) => {
               return (
-                <div key={data._id} className="flex justify-between">
+                <div
+                  key={data._id}
+                  className="flex justify-between items-center"
+                >
                   <p
                     className={`${
-                      data.today_player ? "line-through text-slate-500" : ""
+                      data.today_player
+                        ? "line-through text-dark text-lg"
+                        : "text-lg text-primary"
                     }`}
                   >
                     {data.name}
                   </p>
-                  <ButtonGroup
-                    variant="outlined"
-                    aria-label="outlined button group"
+                  <IconButton
                     size="small"
+                    onClick={() => handleTogglePlayer(data._id)}
+                    color="secondary"
+                    variant="contained"
                   >
-                    <Button
-                      endIcon={<SendIcon />}
-                      size="small"
-                      onClick={() => handleTogglePlayer(data._id)}
-                      color="secondary"
-                    />
-                    <Button
-                      aria-label="delete"
-                      size="small"
-                      onClick={() => handleDelete(data._id)}
-                      color="secondary"
-                    >
-                      <DeleteIcon fontSize="inherit" />
-                    </Button>
-                  </ButtonGroup>
+                    <SendIcon />
+                  </IconButton>
                 </div>
               );
             })

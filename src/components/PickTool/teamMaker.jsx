@@ -1,4 +1,10 @@
-import { Dialog, DialogActions, Button, DialogTitle } from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  Button,
+  DialogTitle,
+  CircularProgress,
+} from "@mui/material";
 import { useState } from "react";
 import api from "../../utils/api";
 
@@ -7,6 +13,9 @@ const TeamMaker = ({ userList }) => {
   const [open, setOpen] = useState(false);
   const [openReset, setOpenReset] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [openRoulette, setOpenRoulette] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showResult, setShowResult] = useState(false);
 
   // playableUsers : 오늘 출전 가능한 선수 목록
   const playableUsers = userList.filter((user) => user.today_player);
@@ -66,17 +75,63 @@ const TeamMaker = ({ userList }) => {
     }
   };
 
+  const handleOpenRoulette = () => {
+    setOpenRoulette(true);
+    setLoading(false);
+    setShowResult(false);
+  };
+
+  const remainingUsers = playableUsers.filter((user) => !user.today_team);
+
+  const handleRandom = async () => {
+    setLoading(true);
+    setShowResult(false);
+
+    const randomIndex = Math.floor(Math.random() * remainingUsers.length);
+
+    const teamAUser = remainingUsers[randomIndex];
+    const teamBUser = remainingUsers[1 - randomIndex];
+
+    try {
+      // 2초 후에 팀을 선택합니다.
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // API 호출로 팀을 선택합니다.
+      await Promise.all([
+        api.put(`/user/${teamAUser._id}`, { today_team: "A" }),
+        api.put(`/user/${teamBUser._id}`, { today_team: "B" }),
+      ]);
+
+      await api.get("/user");
+
+      setLoading(false);
+      setShowResult(true);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between">
         <p className="text-[2.125rem] text-title font-bold ">대기인원</p>
-        <Button
-          variant="contained"
-          onClick={() => setOpenReset(true)}
-          color="secondary"
-        >
-          리셋
-        </Button>
+        <div className="flex gap-10">
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleOpenRoulette}
+            disabled={remainingUsers.length === 2 ? false : true}
+          >
+            룰렛
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => setOpenReset(true)}
+            color="secondary"
+          >
+            리셋
+          </Button>
+        </div>
       </div>
       <div className="flex gap-4 border w-[62.5rem] h-20 px-5 items-center bg-light border-gray-400">
         {sortedUserList
@@ -194,6 +249,29 @@ const TeamMaker = ({ userList }) => {
           <Button onClick={() => setOpenReset(false)} color="secondary">
             아니오
           </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* 룰렛 모달창 */}
+      <Dialog open={openRoulette} onClose={() => setOpenRoulette(false)}>
+        <DialogTitle>마지막 팀원의 팀을 뽑아주세요</DialogTitle>
+        <DialogActions>
+          {loading ? (
+            <CircularProgress color="secondary" />
+          ) : showResult ? (
+            <Button
+              onClick={() => {
+                setOpenRoulette(false);
+              }}
+              color="secondary"
+            >
+              확인
+            </Button>
+          ) : (
+            <Button onClick={handleRandom} color="secondary">
+              돌리기!
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>
