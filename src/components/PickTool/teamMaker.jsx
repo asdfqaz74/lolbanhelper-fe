@@ -175,7 +175,7 @@ const TeamMaker = ({ userList }) => {
       <Dialog open={openReset} onClose={() => setOpenReset(false)}>
         <DialogTitle>팀 초기화를 하시겠습니까?</DialogTitle>
         <DialogActions>
-          <Button onClick={handleRosterResetButton}>대기명단 초기화</Button>
+          <Button onClick={handleRosterResetButton}>전체 초기화</Button>
           <Button onClick={handleTeamResetButton}>팀 초기화</Button>
           <Button onClick={() => setOpenReset(false)}>아니오</Button>
         </DialogActions>
