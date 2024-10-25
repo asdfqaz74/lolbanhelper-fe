@@ -69,12 +69,16 @@ const TeamMaker = ({ userList }) => {
   return (
     <div>
       <div className="flex items-center gap-5">
-        <p className="text-[2.125rem] text-[#46505A] font-bold">대기인원</p>
-        <Button variant="contained" onClick={() => setOpenReset(true)}>
+        <p className="text-[2.125rem] text-[#46505A] font-bold ">대기인원</p>
+        <Button
+          variant="contained"
+          onClick={() => setOpenReset(true)}
+          color="secondary"
+        >
           리셋
         </Button>
       </div>
-      <div className="flex gap-4 border w-[62.5rem] h-20 px-2 items-center">
+      <div className="flex gap-4 border w-[62.5rem] h-20 px-5 items-center bg-light border-gray-400">
         {sortedUserList
           .filter((user) => !user.today_team)
           .map((user) => (
@@ -91,11 +95,11 @@ const TeamMaker = ({ userList }) => {
         <table className="w-full border-collapse border border-gray-400">
           <thead>
             <tr>
-              <th className="border border-gray-400 p-2">
+              <th className="border border-gray-400 p-2 bg-light">
                 A팀 ({userList.filter((user) => user.today_team === "A").length}
                 )
               </th>
-              <th className="border border-gray-400 p-2">
+              <th className="border border-gray-400 p-2 bg-light">
                 B팀 ({userList.filter((user) => user.today_team === "B").length}
                 )
               </th>
@@ -165,9 +169,15 @@ const TeamMaker = ({ userList }) => {
           {selectedUser ? `${selectedUser.name} 님의 팀 선택` : ""}
         </DialogTitle>
         <DialogActions>
-          <Button onClick={() => handleTeamSelect("A")}>A팀</Button>
-          <Button onClick={() => handleTeamSelect("B")}>B팀</Button>
-          <Button onClick={() => handleTeamSelect(null)}>대기인원으로</Button>
+          <Button onClick={() => handleTeamSelect("A")} color="secondary">
+            A팀
+          </Button>
+          <Button onClick={() => handleTeamSelect("B")} color="secondary">
+            B팀
+          </Button>
+          <Button onClick={() => handleTeamSelect("")} color="secondary">
+            대기인원으로
+          </Button>
         </DialogActions>
       </Dialog>
 
@@ -175,9 +185,15 @@ const TeamMaker = ({ userList }) => {
       <Dialog open={openReset} onClose={() => setOpenReset(false)}>
         <DialogTitle>팀 초기화를 하시겠습니까?</DialogTitle>
         <DialogActions>
-          <Button onClick={handleRosterResetButton}>전체 초기화</Button>
-          <Button onClick={handleTeamResetButton}>팀 초기화</Button>
-          <Button onClick={() => setOpenReset(false)}>아니오</Button>
+          <Button onClick={handleRosterResetButton} color="secondary">
+            전체 초기화
+          </Button>
+          <Button onClick={handleTeamResetButton} color="secondary">
+            팀 초기화
+          </Button>
+          <Button onClick={() => setOpenReset(false)} color="secondary">
+            아니오
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

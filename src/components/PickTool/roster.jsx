@@ -66,7 +66,7 @@ const Roster = ({ userList, getUser }) => {
           onChange={(e) => setNameValue(e.target.value)}
           value={nameValue}
         />
-        <Button onClick={addUser} variant="contained">
+        <Button onClick={addUser} variant="contained" color="secondary">
           선수 추가
         </Button>
       </Box>
@@ -95,11 +95,13 @@ const Roster = ({ userList, getUser }) => {
                       endIcon={<SendIcon />}
                       size="small"
                       onClick={() => handleTogglePlayer(data._id)}
+                      color="secondary"
                     />
                     <Button
                       aria-label="delete"
                       size="small"
                       onClick={() => handleDelete(data._id)}
+                      color="secondary"
                     >
                       <DeleteIcon fontSize="inherit" />
                     </Button>

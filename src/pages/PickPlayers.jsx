@@ -30,6 +30,7 @@ const PickPlayers = () => {
         backgroundColor: "white",
         padding: 2,
         boxShadow: 4,
+        height: "80vh",
       }}
     >
       <TeamMaker userList={nameList} />
