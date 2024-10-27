@@ -4,34 +4,33 @@ import {
   Button,
   DialogTitle,
   CircularProgress,
+  DialogContent,
 } from "@mui/material";
 import { useState } from "react";
 import api from "../../utils/api";
+import DraggableUser from "./DraggableUser";
+import TeamDropZone from "./TeamDropZone";
 
 const TeamMaker = ({ userList }) => {
   // 상태값을 설정합니다.
-  const [open, setOpen] = useState(false);
-  const [openReset, setOpenReset] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [openRoulette, setOpenRoulette] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [showResult, setShowResult] = useState(false);
+  const [openReset, setOpenReset] = useState(false); // 팀 초기화 모달창
+  const [openRoulette, setOpenRoulette] = useState(false); // 룰렛 모달창
+  const [loading, setLoading] = useState(false); // 로딩 상태
+  const [showResult, setShowResult] = useState(false); // 결과 보여주기 상태
+  const [teamA, setTeamA] = useState(null); // A팀
+  const [teamB, setTeamB] = useState(null); // B팀
 
   // playableUsers : 오늘 출전 가능한 선수 목록
   const playableUsers = userList.filter((user) => user.today_player);
+
+  // remainingUsers : 오늘 팀이 없는 선수 목록
+  const remainingUsers = playableUsers.filter((user) => !user.today_team);
 
   // 선수 목록을 이름 순으로 정렬합니다.
   const sortedUserList = [...playableUsers].sort((a, b) =>
     a.name.localeCompare(b.name, "ko-KR")
   );
 
-  // handleOpenModal 함수를 정의합니다.
-  const handleOpenModal = (user) => {
-    setSelectedUser(user);
-    setOpen(true);
-  };
-
-  // handleResetButton 함수를 정의합니다.
   // handleResetButton : 팀 초기화 함수
   const handleTeamResetButton = async () => {
     try {
@@ -45,23 +44,6 @@ const TeamMaker = ({ userList }) => {
     }
   };
 
-  // handleTeamSelect 함수를 정의합니다.
-  // handleTeamSelect : 팀을 선택하는 함수
-  const handleTeamSelect = async (team) => {
-    try {
-      const response = await api.put(`/user/${selectedUser._id}`, {
-        today_team: team,
-      });
-      if (response.status === 200) {
-        setSelectedUser(null);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-    setOpen(false);
-  };
-
-  // handleRosterResetButton 함수를 정의합니다.
   // handleRosterResetButton : 대기명단 초기화 함수
   const handleRosterResetButton = async () => {
     try {
@@ -75,14 +57,14 @@ const TeamMaker = ({ userList }) => {
     }
   };
 
+  // handleOpenRoulette : 룰렛 모달창을 열어주는 함수
   const handleOpenRoulette = () => {
     setOpenRoulette(true);
     setLoading(false);
     setShowResult(false);
   };
 
-  const remainingUsers = playableUsers.filter((user) => !user.today_team);
-
+  // handleRandom : 룰렛을 돌려 팀을 선택하는 함수
   const handleRandom = async () => {
     setLoading(true);
     setShowResult(false);
@@ -104,6 +86,8 @@ const TeamMaker = ({ userList }) => {
 
       await api.get("/user");
 
+      setTeamA(teamAUser);
+      setTeamB(teamBUser);
       setLoading(false);
       setShowResult(true);
     } catch (e) {
@@ -111,8 +95,23 @@ const TeamMaker = ({ userList }) => {
     }
   };
 
+  // assignUserToTeam : 팀에 선수를 배정하는 함수
+  const assignUserToTeam = async (userId, teamName) => {
+    try {
+      const response = await api.put(`/user/${userId}`, {
+        today_team: teamName,
+      });
+      if (response.status === 200) {
+        await api.get("/user");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div>
+      {/* 대기명단 */}
       <div className="flex items-center justify-between">
         <p className="text-[2.125rem] text-title font-bold ">대기인원</p>
         <div className="flex gap-10">
@@ -133,108 +132,52 @@ const TeamMaker = ({ userList }) => {
           </Button>
         </div>
       </div>
-      <div className="flex gap-4 border w-[62.5rem] h-20 px-5 items-center bg-light border-gray-400">
+
+      {/* 명단 리스트 */}
+      <TeamDropZone
+        teamName=""
+        onDropUser={assignUserToTeam}
+        className="flex gap-4 border w-[62.5rem] h-20 px-5 items-center border-gray-400"
+      >
         {sortedUserList
           .filter((user) => !user.today_team)
           .map((user) => (
-            <div
-              key={user._id}
-              onClick={() => handleOpenModal(user)}
-              className="cursor-pointer text-lg"
-            >
-              {!user.today_team && user.name}
-            </div>
+            <DraggableUser key={user._id} user={user} />
           ))}
-      </div>
-      <div className="mt-5">
-        <table className="w-full border-collapse border border-gray-400">
-          <thead>
-            <tr>
-              <th className="border border-gray-400 p-2 bg-light">
-                A팀 ({userList.filter((user) => user.today_team === "A").length}
-                )
-              </th>
-              <th className="border border-gray-400 p-2 bg-light">
-                B팀 ({userList.filter((user) => user.today_team === "B").length}
-                )
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({
-              length: Math.max(
-                userList.filter((user) => user.today_team === "A").length,
-                userList.filter((user) => user.today_team === "B").length
-              ),
-            }).map((_, index) => (
-              <tr key={index}>
-                <td className="border border-gray-400 p-2 text-center">
-                  {userList.filter((user) => user.today_team === "A")[
-                    index
-                  ] && (
-                    <span
-                      onClick={() =>
-                        handleOpenModal(
-                          userList.filter((user) => user.today_team === "A")[
-                            index
-                          ]
-                        )
-                      }
-                      className="cursor-pointer"
-                    >
-                      {
-                        userList.filter((user) => user.today_team === "A")[
-                          index
-                        ].name
-                      }
-                    </span>
-                  )}
-                </td>
-                <td className="border border-gray-400 p-2 text-center">
-                  {userList.filter((user) => user.today_team === "B")[
-                    index
-                  ] && (
-                    <span
-                      onClick={() =>
-                        handleOpenModal(
-                          userList.filter((user) => user.today_team === "B")[
-                            index
-                          ]
-                        )
-                      }
-                      className="cursor-pointer"
-                    >
-                      {
-                        userList.filter((user) => user.today_team === "B")[
-                          index
-                        ].name
-                      }
-                    </span>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      </TeamDropZone>
 
-      {/* 팀 선택 모달창 */}
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>
-          {selectedUser ? `${selectedUser.name} 님의 팀 선택` : ""}
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={() => handleTeamSelect("A")} color="secondary">
-            A팀
-          </Button>
-          <Button onClick={() => handleTeamSelect("B")} color="secondary">
-            B팀
-          </Button>
-          <Button onClick={() => handleTeamSelect("")} color="secondary">
-            대기인원으로
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {/* 팀 목록 */}
+      <div className="flex gap-10 mt-10 justify-center">
+        {/* A팀 드랍존 */}
+        <TeamDropZone
+          teamName="A"
+          onDropUser={assignUserToTeam}
+          className="h-[300px] border border-gray-400 flex flex-col items-center rounded-lg gap-4"
+        >
+          <p className="text-[2.125rem] text-title font-bold px-32">A팀</p>
+          {sortedUserList
+            .filter((user) => user.today_team === "A")
+            .map((user) => (
+              <DraggableUser key={user._id} user={user}>
+                {user.name}
+              </DraggableUser>
+            ))}
+        </TeamDropZone>
+        <TeamDropZone
+          teamName="B"
+          onDropUser={assignUserToTeam}
+          className="h-[300px] border border-gray-400 flex flex-col items-center rounded-lg gap-4"
+        >
+          <p className="text-[2.125rem] text-title font-bold px-32">B팀</p>
+          {sortedUserList
+            .filter((user) => user.today_team === "B")
+            .map((user) => (
+              <DraggableUser key={user._id} user={user}>
+                {user.name}
+              </DraggableUser>
+            ))}
+        </TeamDropZone>
+      </div>
 
       {/* 팀 초기화 모달창 */}
       <Dialog open={openReset} onClose={() => setOpenReset(false)}>
@@ -255,10 +198,22 @@ const TeamMaker = ({ userList }) => {
       {/* 룰렛 모달창 */}
       <Dialog open={openRoulette} onClose={() => setOpenRoulette(false)}>
         <DialogTitle>마지막 팀원의 팀을 뽑아주세요</DialogTitle>
-        <DialogActions>
+        <DialogContent
+          sx={{ display: "flex", justifyContent: "center", gap: 5 }}
+        >
           {loading ? (
             <CircularProgress color="secondary" />
           ) : showResult ? (
+            <>
+              <p>A팀 : {teamA ? teamA.name : "미정"}</p>
+              <p>B팀 : {teamB ? teamB.name : "미정"}</p>
+            </>
+          ) : (
+            <p>팀원을 배정하려면 '돌리기!' 버튼을 클릭하세요.</p>
+          )}
+        </DialogContent>
+        <DialogActions>
+          {showResult ? (
             <Button
               onClick={() => {
                 setOpenRoulette(false);
