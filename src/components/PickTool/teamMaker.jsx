@@ -181,8 +181,20 @@ const TeamMaker = ({ userList }) => {
 
       {/* 팀 초기화 모달창 */}
       <Dialog open={openReset} onClose={() => setOpenReset(false)}>
-        <DialogTitle>팀 초기화를 하시겠습니까?</DialogTitle>
-        <DialogActions>
+        <DialogTitle>초기화를 진행하시겠습니까?</DialogTitle>
+        <DialogContent
+          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+        >
+          <p>
+            <span className="text-dark">전체 초기화</span> : 팀과 대기인원 모두
+            초기화 됩니다.
+          </p>
+          <p>
+            <span className="text-dark">팀 초기화</span> : 선택된 팀만 초기화
+            됩니다.
+          </p>
+        </DialogContent>
+        <DialogActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
           <Button onClick={handleRosterResetButton} color="secondary">
             전체 초기화
           </Button>

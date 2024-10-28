@@ -12,7 +12,11 @@ module.exports = {
         title: "#46505A",
       },
       backgroundImage: {
-        backgroundImage: "url('/public/background.webp')",
+        backgroundImage: "url('/public/images/background.webp')",
+        rock: "url('/public/images/Rock.png')",
+        scissors: "url('/public/images/Scissors.png')",
+        paper: "url('/public/images/Paper.png')",
+        rsp: "url('/public/images/rsp.png')",
       },
     },
   },
