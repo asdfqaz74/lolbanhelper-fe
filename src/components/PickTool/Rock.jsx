@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../utils/api";
 
 const Rock = () => {
@@ -24,6 +24,8 @@ const Rock = () => {
   const handleResult = () => {
     setOpenResult(true);
   };
+
+  useEffect(() => {}, []);
 
   // 결과 확인 모달창 확인 버튼
   const handleConfirm = async () => {

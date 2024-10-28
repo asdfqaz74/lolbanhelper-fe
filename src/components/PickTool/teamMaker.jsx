@@ -113,7 +113,12 @@ const TeamMaker = ({ userList }) => {
     <div>
       {/* 대기명단 */}
       <div className="flex items-center justify-between">
-        <p className="text-[2.125rem] text-title font-bold ">대기인원</p>
+        <div>
+          <span className="text-[2.125rem] text-title font-bold ">
+            대기인원
+          </span>
+          <span className="text-title text-sm">(드래그 앤 드롭 해주세요)</span>
+        </div>
         <div className="flex gap-10">
           <Button
             variant="contained"
