@@ -11,6 +11,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useState } from "react";
+import api from "../utils/api";
 
 const validationSchema = yup.object({
   name: yup
@@ -40,8 +41,13 @@ const EditPlayer = () => {
       sub_position: playerData.sub_position || "탑",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        const response = await api.put(`/user/${id}`, values);
+        console.log(response);
+      } catch (e) {
+        console.error(e);
+      }
     },
   });
 
