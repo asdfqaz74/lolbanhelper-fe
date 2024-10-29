@@ -55,11 +55,14 @@ const UserFolder = ({ user }) => {
   return (
     <div className="grid grid-cols-3 gap-10 justify-items-center">
       {sortedUser.map((user) => (
-        <div key={user._id} className="">
+        <div key={user._id} className="min-w-96">
           <div className="flex items-center justify-between">
-            <p className="border-t border-primary bg-dark rounded-t-lg px-2 text-gray-200 text-xl max-w-20 py-1">
-              {user.name}
-            </p>
+            <div className="flex items-end gap-3 text-primary">
+              <p className="border-t border-primary bg-dark rounded-t-lg px-2 text-gray-200 text-xl max-w-20 py-1">
+                {user.name}
+              </p>
+              <p className="text-sm">{user.game_id}</p>
+            </div>
             <Button
               variant="text"
               sx={{ display: "flex" }}
