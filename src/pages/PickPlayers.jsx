@@ -20,7 +20,7 @@ const PickPlayers = () => {
   // useEffect 훅을 사용하여 getUser 함수를 호출합니다.
   useEffect(() => {
     getUser();
-  });
+  }, []);
   return (
     <div className="flex mt-5 p-2 bg-white shadow-2xl h-[80vh] justify-between rounded-b-lg">
       <HowTo />
