@@ -21,19 +21,8 @@ const PickPlayers = () => {
   useEffect(() => {
     getUser();
   });
-
   return (
-    <Box
-      sx={{
-        display: "flex",
-        marginTop: 5,
-        backgroundColor: "white",
-        justifyContent: "space-between",
-        padding: 2,
-        boxShadow: 4,
-        height: "80vh",
-      }}
-    >
+    <div className="flex mt-5 p-2 bg-white shadow-2xl h-[80vh] justify-between rounded-b-lg">
       <HowTo />
       <TeamMaker userList={nameList} />
 
@@ -47,7 +36,7 @@ const PickPlayers = () => {
         <Roster userList={nameList} getUser={getUser} />
         <Roullete userList={nameList} />
       </Box>
-    </Box>
+    </div>
   );
 };
 

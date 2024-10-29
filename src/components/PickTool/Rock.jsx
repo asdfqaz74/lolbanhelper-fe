@@ -25,7 +25,7 @@ const Rock = () => {
     setOpenResult(true);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {});
 
   // 결과 확인 모달창 확인 버튼
   const handleConfirm = async () => {
