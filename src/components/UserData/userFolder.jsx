@@ -75,10 +75,21 @@ const UserFolder = ({ user }) => {
           </div>
 
           <div className="border border-primary bg-light px-2 flex flex-col shadow-md rounded-tr-lg pr-24 py-4">
-            <p>Main Position : {user.main_position}</p>
-            <p>Sub Position : {user.sub_position}</p>
-            <p>Recent Played</p>
-            <RecentPlayed user={userRecords} />
+            <div className="flex items-center justify-between">
+              <div>
+                <p>Main Position : {user.main_position}</p>
+                <p>Sub Position : {user.sub_position}</p>
+                <p>Recent Played</p>
+                <RecentPlayed user={userRecords} />
+              </div>
+              <div>
+                <img
+                  src={`/images/${user.main_position}.png`}
+                  className="w-20"
+                  alt=""
+                />
+              </div>
+            </div>
           </div>
         </div>
       ))}
