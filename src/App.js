@@ -9,6 +9,7 @@ import PlayerStats from "./pages/PlayerStats";
 import EditPlayer from "./pages/EditPlayer";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import AddPlayerResult from "./pages/AddPlayerResult";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/archive" element={<ArchivePage />} />
           <Route path="/playerdb/:id" element={<PlayerStats />} />
           <Route path="/playerdb/:id/edit" element={<EditPlayer />} />
+          <Route path="/playerdb/:id/record" element={<AddPlayerResult />} />
         </Routes>
       </DndProvider>
     </>

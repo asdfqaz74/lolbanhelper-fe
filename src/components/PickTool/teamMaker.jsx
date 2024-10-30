@@ -86,12 +86,11 @@ const TeamMaker = ({ userList, getUser }) => {
         api.put(`/user/${teamBUser._id}`, { today_team: "B" }),
       ]);
 
-      await api.get("/user");
-
       setTeamA(teamAUser);
       setTeamB(teamBUser);
       setLoading(false);
       setShowResult(true);
+      getUser();
     } catch (e) {
       console.log(e);
     }

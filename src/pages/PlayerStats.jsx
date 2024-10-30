@@ -3,6 +3,7 @@ import api from "../utils/api";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const PlayerStats = () => {
   const { id } = useParams();
@@ -30,6 +31,10 @@ const PlayerStats = () => {
     navigate(`/playerdb/${id}/edit`, { state: { data: playerData } });
   };
 
+  const handleAdd = (id) => {
+    navigate(`/playerdb/${id}/record`, { state: { data: playerData } });
+  };
+
   return (
     <>
       {playerData ? (
@@ -38,13 +43,22 @@ const PlayerStats = () => {
             <span className="bg-dark border-t border-primary text-3xl font-bold text-gray-200 max-w-36 text-center p-4 rounded-t-lg">
               {playerData.name}
             </span>
-            <Button
-              variant="outlined"
-              endIcon={<EditIcon />}
-              onClick={() => handleEdit(playerData._id)}
-            >
-              수정하기
-            </Button>
+            <div className="flex gap-4">
+              <Button
+                variant="outlined"
+                endIcon={<AddCircleOutlineIcon />}
+                onClick={() => handleAdd(playerData._id)}
+              >
+                전적 추가
+              </Button>
+              <Button
+                variant="outlined"
+                endIcon={<EditIcon />}
+                onClick={() => handleEdit(playerData._id)}
+              >
+                수정하기
+              </Button>
+            </div>
           </div>
           <div className="bg-light px-14 pt-10 border border-primary rounded-tr-lg">
             <p className="text-xl font-semibold mb-5">INFO</p>
