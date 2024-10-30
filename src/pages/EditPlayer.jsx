@@ -107,6 +107,7 @@ const EditPlayer = () => {
               <MenuItem value={"미드"}>미드</MenuItem>
               <MenuItem value={"원딜"}>원딜</MenuItem>
               <MenuItem value={"서포터"}>서포터</MenuItem>
+              <MenuItem value={"올라운드"}>올라운드</MenuItem>
             </Select>
             {formik.touched.main_position && formik.errors.main_position && (
               <FormHelperText>{formik.errors.main_position}</FormHelperText>
@@ -132,6 +133,7 @@ const EditPlayer = () => {
               <MenuItem value={"미드"}>미드</MenuItem>
               <MenuItem value={"원딜"}>원딜</MenuItem>
               <MenuItem value={"서포터"}>서포터</MenuItem>
+              <MenuItem value={"나머지"}>나머지</MenuItem>
             </Select>
             {formik.touched.sub_position && formik.errors.sub_position && (
               <FormHelperText>{formik.errors.sub_position}</FormHelperText>

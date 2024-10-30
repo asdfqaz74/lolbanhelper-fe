@@ -78,7 +78,7 @@ const UserFolder = ({ user }) => {
             </Button>
           </div>
 
-          <div className="border border-primary bg-light px-2 flex flex-col shadow-md rounded-tr-lg py-4">
+          <div className="border border-primary bg-light p-4 flex flex-col shadow-md rounded-tr-lg">
             <div className="flex items-center justify-between">
               <div className="flex flex-col gap-4">
                 <p>Main Position : {user.main_position}</p>
