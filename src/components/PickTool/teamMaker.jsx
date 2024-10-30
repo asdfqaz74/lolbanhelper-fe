@@ -11,7 +11,7 @@ import api from "../../utils/api";
 import DraggableUser from "./DraggableUser";
 import TeamDropZone from "./TeamDropZone";
 
-const TeamMaker = ({ userList }) => {
+const TeamMaker = ({ userList, getUser }) => {
   // 상태값을 설정합니다.
   const [openReset, setOpenReset] = useState(false); // 팀 초기화 모달창
   const [openRoulette, setOpenRoulette] = useState(false); // 룰렛 모달창
@@ -38,6 +38,7 @@ const TeamMaker = ({ userList }) => {
 
       if (response.status === 200) {
         setOpenReset(false);
+        getUser();
       }
     } catch (e) {
       console.log(e);
@@ -51,6 +52,7 @@ const TeamMaker = ({ userList }) => {
 
       if (response.status === 200) {
         setOpenReset(false);
+        getUser();
       }
     } catch (e) {
       console.log(e);
@@ -102,7 +104,7 @@ const TeamMaker = ({ userList }) => {
         today_team: teamName,
       });
       if (response.status === 200) {
-        await api.get("/user");
+        getUser();
       }
     } catch (e) {
       console.log(e);
@@ -122,17 +124,12 @@ const TeamMaker = ({ userList }) => {
         <div className="flex gap-10">
           <Button
             variant="contained"
-            color="secondary"
             onClick={handleOpenRoulette}
             disabled={remainingUsers.length === 2 ? false : true}
           >
             룰렛
           </Button>
-          <Button
-            variant="contained"
-            onClick={() => setOpenReset(true)}
-            color="secondary"
-          >
+          <Button variant="contained" onClick={() => setOpenReset(true)}>
             리셋
           </Button>
         </div>
@@ -200,15 +197,9 @@ const TeamMaker = ({ userList }) => {
           </p>
         </DialogContent>
         <DialogActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <Button onClick={handleRosterResetButton} color="secondary">
-            전체 초기화
-          </Button>
-          <Button onClick={handleTeamResetButton} color="secondary">
-            팀 초기화
-          </Button>
-          <Button onClick={() => setOpenReset(false)} color="secondary">
-            아니오
-          </Button>
+          <Button onClick={handleRosterResetButton}>전체 초기화</Button>
+          <Button onClick={handleTeamResetButton}>팀 초기화</Button>
+          <Button onClick={() => setOpenReset(false)}>아니오</Button>
         </DialogActions>
       </Dialog>
 
@@ -219,7 +210,7 @@ const TeamMaker = ({ userList }) => {
           sx={{ display: "flex", justifyContent: "center", gap: 5 }}
         >
           {loading ? (
-            <CircularProgress color="secondary" />
+            <CircularProgress />
           ) : showResult ? (
             <>
               <p>A팀 : {teamA ? teamA.name : "미정"}</p>
@@ -235,14 +226,11 @@ const TeamMaker = ({ userList }) => {
               onClick={() => {
                 setOpenRoulette(false);
               }}
-              color="secondary"
             >
               확인
             </Button>
           ) : (
-            <Button onClick={handleRandom} color="secondary">
-              돌리기!
-            </Button>
+            <Button onClick={handleRandom}>돌리기!</Button>
           )}
         </DialogActions>
       </Dialog>

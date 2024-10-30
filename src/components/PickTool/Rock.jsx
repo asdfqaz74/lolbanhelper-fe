@@ -142,7 +142,6 @@ const Rock = () => {
         <div className="flex flex-col gap-5">
           <Button
             variant="contained"
-            color="secondary"
             sx={{ paddingX: 5 }}
             onClick={handleTeamA}
           >
@@ -161,7 +160,6 @@ const Rock = () => {
         <div className="flex flex-col gap-5">
           <Button
             variant="contained"
-            color="secondary"
             sx={{ paddingX: 5 }}
             onClick={handleTeamB}
           >
@@ -176,12 +174,7 @@ const Rock = () => {
           )}
         </div>
       </div>
-      <Button
-        variant="contained"
-        color="secondary"
-        sx={{ paddingX: 5 }}
-        onClick={handleResult}
-      >
+      <Button variant="contained" sx={{ paddingX: 5 }} onClick={handleResult}>
         결과 확인
       </Button>
       {result && <p className="text-center">{result.outcome}</p>}
@@ -190,15 +183,9 @@ const Rock = () => {
       <Dialog open={openA} onClose={() => setOpenA(false)}>
         <DialogTitle>A팀 가위바위보</DialogTitle>
         <DialogActions>
-          <Button color="secondary" onClick={handleTeamAScissors}>
-            가위
-          </Button>
-          <Button color="secondary" onClick={handleTeamARock}>
-            바위
-          </Button>
-          <Button color="secondary" onClick={handleTeamAPaper}>
-            보
-          </Button>
+          <Button onClick={handleTeamAScissors}>가위</Button>
+          <Button onClick={handleTeamARock}>바위</Button>
+          <Button onClick={handleTeamAPaper}>보</Button>
         </DialogActions>
       </Dialog>
 
@@ -206,15 +193,9 @@ const Rock = () => {
       <Dialog open={openB} onClose={() => setOpenB(false)}>
         <DialogTitle>B팀 가위바위보</DialogTitle>
         <DialogActions>
-          <Button color="secondary" onClick={handleTeamBScissors}>
-            가위
-          </Button>
-          <Button color="secondary" onClick={handleTeamBRock}>
-            바위
-          </Button>
-          <Button color="secondary" onClick={handleTeamBPaper}>
-            보
-          </Button>
+          <Button onClick={handleTeamBScissors}>가위</Button>
+          <Button onClick={handleTeamBRock}>바위</Button>
+          <Button onClick={handleTeamBPaper}>보</Button>
         </DialogActions>
       </Dialog>
 
@@ -222,9 +203,7 @@ const Rock = () => {
       <Dialog open={openResult} onClose={() => setOpenResult(false)}>
         <DialogTitle>결과를 확인하시겠습니까?</DialogTitle>
         <DialogActions>
-          <Button color="secondary" onClick={handleConfirm}>
-            확인
-          </Button>
+          <Button onClick={handleConfirm}>확인</Button>
         </DialogActions>
       </Dialog>
     </>

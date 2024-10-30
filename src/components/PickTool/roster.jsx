@@ -52,7 +52,7 @@ const Roster = ({ userList, getUser }) => {
           onChange={(e) => setNameValue(e.target.value)}
           value={nameValue}
         />
-        <Button onClick={addUser} variant="contained" color="secondary">
+        <Button onClick={addUser} variant="contained">
           선수 추가
         </Button>
       </Box>
@@ -87,7 +87,6 @@ const Roster = ({ userList, getUser }) => {
                   <IconButton
                     size="small"
                     onClick={() => handleTogglePlayer(data._id)}
-                    color="secondary"
                     variant="contained"
                   >
                     <SendIcon />

@@ -22,9 +22,9 @@ const PickPlayers = () => {
     getUser();
   }, []);
   return (
-    <div className="flex mt-5 p-2 bg-white shadow-2xl h-[80vh] justify-between rounded-b-lg">
+    <div className="flex mt-5 px-6 py-10 bg-white shadow-2xl h-[80vh] justify-between rounded-b-lg">
       <HowTo />
-      <TeamMaker userList={nameList} />
+      <TeamMaker userList={nameList} getUser={getUser} />
 
       <Box
         sx={{

@@ -55,13 +55,12 @@ const Roullete = ({ userList }) => {
           variant="contained"
           onClick={pickRandomPlayers}
           className="w-44"
-          color="secondary"
         >
           뽑기
         </Button>
 
         {loading ? (
-          <CircularProgress color="secondary" />
+          <CircularProgress />
         ) : (
           randomPlayers.length > 0 && (
             <div className="flex gap-3">
@@ -77,9 +76,7 @@ const Roullete = ({ userList }) => {
       <Dialog onClose={() => setOpenModal(false)} open={openModal}>
         <DialogTitle>대장 뽑기에는 최소 2명의 선수가 필요합니다</DialogTitle>
         <DialogActions>
-          <Button onClick={() => setOpenModal(false)} color="secondary">
-            확인
-          </Button>
+          <Button onClick={() => setOpenModal(false)}>확인</Button>
         </DialogActions>
       </Dialog>
     </>
