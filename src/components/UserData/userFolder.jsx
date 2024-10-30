@@ -22,6 +22,10 @@ const PlusIcon = createSvgIcon(
   "Plus"
 );
 
+const HorizonLine = () => {
+  return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
+};
+
 const UserFolder = ({ user }) => {
   const [userRecords, setUserRecords] = useState({});
 
@@ -74,22 +78,21 @@ const UserFolder = ({ user }) => {
             </Button>
           </div>
 
-          <div className="border border-primary bg-light px-2 flex flex-col shadow-md rounded-tr-lg pr-24 py-4">
+          <div className="border border-primary bg-light px-2 flex flex-col shadow-md rounded-tr-lg py-4">
             <div className="flex items-center justify-between">
-              <div>
+              <div className="flex flex-col gap-4">
                 <p>Main Position : {user.main_position}</p>
                 <p>Sub Position : {user.sub_position}</p>
-                <p>Recent Played</p>
-                <RecentPlayed user={userRecords} />
               </div>
-              <div>
-                <img
-                  src={`/images/${user.main_position}.png`}
-                  className="w-20"
-                  alt=""
-                />
-              </div>
+              <img
+                src={`/images/${user.main_position}.png`}
+                className="w-20"
+                alt=""
+              />
             </div>
+            <HorizonLine />
+            <p>Recent Played</p>
+            <RecentPlayed user={userRecords} />
           </div>
         </div>
       ))}
