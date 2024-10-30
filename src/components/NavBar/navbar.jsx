@@ -4,7 +4,7 @@ const hoverMenu = "hover:text-primaryHover transition duration-200";
 
 const Navbar = () => {
   return (
-    <div className="w-full flex justify-around text-lg font-semibold bg-white h-20 items-center border  text-black rounded-b-lg shadow-md">
+    <div className="flex justify-around text-lg font-semibold bg-white h-20 items-center border  text-black rounded-b-lg shadow-md mx-4">
       <NavLink
         to="/"
         className={({ isActive }) => (isActive ? "text-primary " : hoverMenu)}

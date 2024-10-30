@@ -7,6 +7,7 @@ import { Button, IconButton, TextField } from "@mui/material";
 const Roster = ({ userList, getUser }) => {
   // 상태값을 설정합니다.
   const [nameValue, setNameValue] = useState("");
+  const [checked, setChecked] = useState({});
 
   // addUser 함수를 정의합니다.
   // addUser : 선수 정보를 추가하는 함수
@@ -29,6 +30,10 @@ const Roster = ({ userList, getUser }) => {
         today_player: !todayPlayer.today_player,
       });
       if (response.status === 200) {
+        setChecked((prevChecked) => ({
+          ...prevChecked,
+          [id]: !todayPlayer.today_player,
+        }));
         getUser();
       }
     } catch (e) {
@@ -89,7 +94,11 @@ const Roster = ({ userList, getUser }) => {
                     onClick={() => handleTogglePlayer(data._id)}
                     variant="contained"
                   >
-                    <SendIcon />
+                    {checked[data._id] ? (
+                      <SendIcon color="secondary" />
+                    ) : (
+                      <SendIcon />
+                    )}
                   </IconButton>
                 </div>
               );

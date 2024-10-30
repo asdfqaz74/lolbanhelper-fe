@@ -15,7 +15,7 @@ const PlayerDB = () => {
   }, []);
 
   return (
-    <div className="flex flex-col mt-5 py-10 px-6 bg-white shadow-2xl justify-between rounded-b-lg">
+    <div className="flex flex-col mt-5 py-10 px-6 bg-white shadow-2xl justify-between rounded-b-lg mx-4">
       <UserFolder user={userList} />
     </div>
   );
