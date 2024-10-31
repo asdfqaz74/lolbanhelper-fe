@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import ResultTable from "../components/UserData/ResultTable";
 
 const HorizonLine = () => {
   return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
@@ -22,7 +23,6 @@ const PlayerStats = () => {
     .sort((a, b) => {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
-  console.log(userResult);
 
   const playerId = id;
 
@@ -64,6 +64,8 @@ const PlayerStats = () => {
   const mostChampionData = championList.find(
     (res) => res._id === mostPlayedChampion
   );
+
+  console.log(userResult);
 
   return (
     <>
@@ -124,38 +126,9 @@ const PlayerStats = () => {
               </div>
               <HorizonLine />
               <p className="text-xl font-semibold mb-5">RECORD</p>
-              <div>
-                <div className="flex justify-between">
-                  <div className="flex flex-col gap-3">
-                    <p>최근 게임</p>
-                    <p>최근 승률</p>
-                    <p>최근 KDA</p>
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    <p>
-                      {userResult[0].result === "Win" ? "Win" : "Lose"}{" "}
-                      {userResult[0].champion}
-                    </p>
-                    <p>
-                      {Math.round(
-                        (userResult.filter((res) => res.result === "Win")
-                          .length /
-                          userResult.length) *
-                          100
-                      )}
-                      %
-                    </p>
-                    <p>
-                      {(
-                        userResult.reduce((acc, cur) => {
-                          return (
-                            acc + cur.kill + cur.assist / 2 - cur.death / 2
-                          );
-                        }, 0) / userResult.length
-                      ).toFixed(2)}
-                    </p>
-                  </div>
-                </div>
+              <p>최근 경기</p>
+              <div className="flex flex-col">
+                <ResultTable userResult={userResult} />
               </div>
             </div>
           </div>
