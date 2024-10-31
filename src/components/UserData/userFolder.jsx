@@ -24,7 +24,7 @@ const HorizonLine = () => {
   return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
 };
 
-const UserFolder = ({ user, result }) => {
+const UserFolder = ({ user, result, championList }) => {
   const navigate = useNavigate();
 
   const sortedUser = user.sort((a, b) => {
@@ -32,7 +32,7 @@ const UserFolder = ({ user, result }) => {
   });
 
   const handleMoreInfo = (userId) => {
-    navigate(`/playerdb/${userId}`);
+    navigate(`/playerdb/${userId}`, { state: { result, championList } });
   };
 
   return (

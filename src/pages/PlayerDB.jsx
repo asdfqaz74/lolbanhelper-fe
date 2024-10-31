@@ -5,6 +5,7 @@ import api from "../utils/api";
 const PlayerDB = () => {
   const [userList, setUserList] = useState([]);
   const [totalResult, setTotalResult] = useState([]);
+  const [championList, setChampionList] = useState([]);
 
   const getUser = async () => {
     const response = await api.get("/user");
@@ -16,14 +17,24 @@ const PlayerDB = () => {
     setTotalResult(response.data.data);
   };
 
+  const getChampionList = async () => {
+    const response = await api.get("/result/champion");
+    setChampionList(response.data.data);
+  };
+
   useEffect(() => {
     getUser();
     getTotalResult();
+    getChampionList();
   }, []);
 
   return (
     <div className="flex flex-col mt-5 py-10 px-6 bg-white shadow-2xl justify-between rounded-b-lg mx-4">
-      <UserFolder user={userList} result={totalResult} />
+      <UserFolder
+        user={userList}
+        result={totalResult}
+        championList={championList}
+      />
     </div>
   );
 };
