@@ -36,7 +36,7 @@ const UserFolder = ({ user, result }) => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-10 justify-items-center">
+    <div className="grid grid-cols-3 gap-14 justify-items-center">
       {sortedUser.map((user) => {
         const userResult = result
           .filter((res) => res.user === user._id)
@@ -61,11 +61,14 @@ const UserFolder = ({ user, result }) => {
               </Button>
             </div>
 
-            <div className="border border-primary bg-light p-4 flex flex-col shadow-md rounded-tr-lg">
+            <div className="border border-primary bg-light p-4 flex flex-col shadow-xl rounded-tr-lg">
               <div className="flex items-center justify-between">
-                <div className="flex flex-col gap-4">
-                  <p>Main Position : {user.main_position}</p>
-                  <p>Sub Position : {user.sub_position}</p>
+                <div className="flex flex-col gap-3">
+                  <p className="text-lg font-semibold">Position</p>
+                  <div className="flex flex-col gap-2">
+                    <p>Main : {user.main_position}</p>
+                    <p>Sub : {user.sub_position}</p>
+                  </div>
                 </div>
                 <img
                   src={`/images/${user.main_position}.png`}
@@ -74,7 +77,7 @@ const UserFolder = ({ user, result }) => {
                 />
               </div>
               <HorizonLine />
-              <p>Recent Played</p>
+              <p className="text-lg font-semibold">Recent Played</p>
               <RecentPlayed match={userResult} />
             </div>
           </div>
