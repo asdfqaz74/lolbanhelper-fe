@@ -49,21 +49,23 @@ const PlayerStats = () => {
     navigate(`/playerdb/${id}/record`, { state: { data: playerData } });
   };
 
-  const championCounts = userResult.reduce((acc, cur) => {
-    acc[cur.champion] = (acc[cur.champion] || 0) + 1;
-    return acc;
-  }, {});
+  const championCounts = userResult
+    ? userResult.reduce((acc, cur) => {
+        acc[cur.champion] = (acc[cur.champion] || 0) + 1;
+        return acc;
+      }, {})
+    : {};
 
-  if (Object.keys(championCounts).length === 0) {
-    return <p>게임 기록이 없습니다.</p>;
-  }
-  const mostPlayedChampion = Object.keys(championCounts).reduce((a, b) =>
-    championCounts[a] > championCounts[b] ? a : b
-  );
+  const mostPlayedChampion =
+    Object.keys(championCounts).length > 0
+      ? Object.keys(championCounts).reduce((a, b) =>
+          championCounts[a] > championCounts[b] ? a : b
+        )
+      : null;
 
-  const mostChampionData = championList.find(
-    (res) => res._id === mostPlayedChampion
-  );
+  const mostChampionData = championList
+    ? championList.find((res) => res._id === mostPlayedChampion)
+    : null;
 
   console.log(userResult);
 
@@ -126,9 +128,12 @@ const PlayerStats = () => {
               </div>
               <HorizonLine />
               <p className="text-xl font-semibold mb-5">RECORD</p>
-              <p>최근 경기</p>
-              <div className="flex flex-col">
-                <ResultTable userResult={userResult} />
+              <div>
+                <p className="text-lg mb-3">최근 경기</p>
+                <ResultTable
+                  userResult={userResult}
+                  championList={championList}
+                />
               </div>
             </div>
           </div>
