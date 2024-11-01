@@ -78,13 +78,13 @@ const ResultTable = ({ userResult, championList }) => {
           <TableRow sx={{ backgroundColor: "#8fa0ff" }}>
             <TableCell sx={{ fontWeight: 900, fontSize: 18 }}>챔피언</TableCell>
             <TableCell align="center" sx={{ fontWeight: 900, fontSize: 18 }}>
-              킬
+              K
             </TableCell>
             <TableCell align="center" sx={{ fontWeight: 900, fontSize: 18 }}>
-              데스
+              D
             </TableCell>
             <TableCell align="center" sx={{ fontWeight: 900, fontSize: 18 }}>
-              어시스트
+              A
             </TableCell>
             <TableCell align="center" sx={{ fontWeight: 900, fontSize: 18 }}>
               승패
