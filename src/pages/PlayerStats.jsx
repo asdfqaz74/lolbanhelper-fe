@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ResultTable from "../components/UserData/ResultTable";
+import ChampionStats from "../components/UserData/ChampionStats";
 
 const HorizonLine = () => {
   return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
@@ -18,6 +19,7 @@ const PlayerStats = () => {
   const [resultList] = useState(location.state?.result);
   const [championList] = useState(location.state?.championList);
 
+  // 전체 결과 중 해당 유저의 결과만 필터링
   const userResult = resultList
     .filter((res) => res.user === id)
     .sort((a, b) => {
@@ -66,8 +68,6 @@ const PlayerStats = () => {
   const mostChampionData = championList
     ? championList.find((res) => res._id === mostPlayedChampion)
     : null;
-
-  console.log(userResult);
 
   return (
     <>
@@ -128,12 +128,21 @@ const PlayerStats = () => {
               </div>
               <HorizonLine />
               <p className="text-xl font-semibold mb-5">RECORD</p>
-              <div>
-                <p className="text-lg mb-3">최근 경기</p>
-                <ResultTable
-                  userResult={userResult}
-                  championList={championList}
-                />
+              <div className="max-h-[28.125rem] flex justify-around">
+                <div className="">
+                  <p className="text-lg mb-3">최근 경기</p>
+                  <ResultTable
+                    userResult={userResult}
+                    championList={championList}
+                  />
+                </div>
+                <div>
+                  <p>챔피언 성적</p>
+                  <ChampionStats
+                    userResult={userResult}
+                    championList={championList}
+                  />
+                </div>
               </div>
             </div>
           </div>
