@@ -47,6 +47,7 @@ const EditPlayer = () => {
     onSubmit: async (values) => {
       try {
         await api.put(`/user/${id}`, values);
+        setOpenModal(false);
         navigate(`/playerdb/${id}`);
       } catch (e) {
         console.error(e);
