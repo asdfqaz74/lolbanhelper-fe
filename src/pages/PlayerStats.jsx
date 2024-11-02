@@ -16,8 +16,8 @@ const PlayerStats = () => {
   const [playerData, setPlayerData] = useState({});
   const navigate = useNavigate();
   const location = useLocation();
-  const [resultList] = useState(location.state?.result);
-  const [championList] = useState(location.state?.championList);
+  const [resultList] = useState(location.state?.result || []);
+  const [championList] = useState(location.state?.championList || []);
 
   // 전체 결과 중 해당 유저의 결과만 필터링
   const userResult = resultList

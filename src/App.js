@@ -10,10 +10,11 @@ import EditPlayer from "./pages/EditPlayer";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import AddPlayerResult from "./pages/AddPlayerResult";
+import { Provider } from "jotai";
 
 function App() {
   return (
-    <>
+    <Provider>
       <Navbar />
       <DndProvider backend={HTML5Backend}>
         <Routes>
@@ -26,7 +27,7 @@ function App() {
           <Route path="/playerdb/:id/record" element={<AddPlayerResult />} />
         </Routes>
       </DndProvider>
-    </>
+    </Provider>
   );
 }
 

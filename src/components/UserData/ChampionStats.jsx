@@ -8,19 +8,6 @@ import {
   TableRow,
 } from "@mui/material";
 
-// userList : 전체 성적 중 해당 유저의 성적
-// championList : 챔피언 목록
-
-// res 구조
-// {
-//   user: "유저 ID",
-//   champion: "챔피언 ID",
-//   kills: "킬 수",
-//   deaths: "데스 수",
-//   assists: "어시스트 수",
-//   victoryordefeat: "승리여부"
-// }
-
 const ChampionStats = ({ userResult, championList }) => {
   const createData = (name, rateBar, gameCounts, winRate) => {
     return { name, rateBar, gameCounts, winRate };
