@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Roster from "../components/PickTool/roster";
-import Roullete from "../components/PickTool/roulette";
-import api from "../utils/api";
+import Roster from "components/PickTool/roster";
+import Roullete from "components/PickTool/roulette";
+import api from "utils/api";
 import { Box } from "@mui/material";
-import TeamMaker from "../components/PickTool/teamMaker";
-import HowTo from "../components/PickTool/howTo";
+import TeamMaker from "components/PickTool/teamMaker";
+import HowTo from "components/PickTool/howTo";
 
 const PickPlayers = () => {
   // 유저 정보를 저장할 상태값을 설정합니다.

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import UserFolder from "../components/UserData/userFolder";
-import api from "../utils/api";
+import UserFolder from "components/UserData/userFolder";
+import api from "utils/api";
 
 const PlayerDB = () => {
   const [userList, setUserList] = useState([]);

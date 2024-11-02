@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../utils/api";
+import api from "utils/api";
 import { useLocation, useParams } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";

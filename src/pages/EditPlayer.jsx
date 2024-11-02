@@ -14,7 +14,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useState } from "react";
-import api from "../utils/api";
+import api from "utils/api";
 
 const validationSchema = yup.object({
   name: yup

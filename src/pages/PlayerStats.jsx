@@ -1,11 +1,11 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import api from "../utils/api";
+import api from "utils/api";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import ResultTable from "../components/UserData/ResultTable";
-import ChampionStats from "../components/UserData/ChampionStats";
+import ResultTable from "components/UserData/ResultTable";
+import ChampionStats from "components/UserData/ChampionStats";
 
 const HorizonLine = () => {
   return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
