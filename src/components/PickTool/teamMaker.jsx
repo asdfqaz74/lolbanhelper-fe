@@ -10,6 +10,8 @@ import { useState } from "react";
 import DraggableUser from "./DraggableUser";
 import TeamDropZone from "./TeamDropZone";
 import { useResetTeam, useUserUpdateData } from "hooks/User";
+import { useAtom } from "jotai";
+import { checkedAtom } from "atoms/userAtoms";
 
 const TeamMaker = ({ userList }) => {
   // 상태값을 설정합니다.
@@ -19,6 +21,7 @@ const TeamMaker = ({ userList }) => {
   const [showResult, setShowResult] = useState(false); // 결과 보여주기 상태
   const [teamA, setTeamA] = useState(null); // A팀 설정
   const [teamB, setTeamB] = useState(null); // B팀 설정
+  const [, setChecked] = useAtom(checkedAtom); // 오늘 출전하는 선수 체크
   const { mutate: assignTeam } = useUserUpdateData(); // 팀 배정 함수
   const { mutate: resetTeam } = useResetTeam(); // 팀 초기화 함수
 
@@ -53,11 +56,12 @@ const TeamMaker = ({ userList }) => {
     });
   };
 
-  // handleRosterResetButton : 대기명단 초기화 함수
+  // handleRosterResetButton : 전체 초기화 함수
   const handleRosterResetButton = () => {
     resetTeam("/user/reset-wait", {
       onSuccess: () => {
         setOpenReset(false);
+        setChecked({});
       },
     });
   };

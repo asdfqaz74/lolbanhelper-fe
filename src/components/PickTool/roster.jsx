@@ -3,10 +3,12 @@ import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Done";
 import { Button, IconButton, TextField } from "@mui/material";
 import { useAddUser, useUserUpdateData } from "hooks/User";
+import { useAtom } from "jotai";
+import { checkedAtom } from "atoms/userAtoms";
 
 const Roster = ({ userList }) => {
   const [nameValue, setNameValue] = useState(""); // 선수 이름
-  const [checked, setChecked] = useState({}); // 오늘 출전하는 선수 체크
+  const [checked, setChecked] = useAtom(checkedAtom); // 오늘 출전하는 선수 체크
   const addUser = useAddUser(); // 선수 추가 함수
   const { mutate } = useUserUpdateData(); // 선수 업데이트 함수
 
