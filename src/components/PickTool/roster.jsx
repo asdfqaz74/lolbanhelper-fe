@@ -5,14 +5,12 @@ import { Button, IconButton, TextField } from "@mui/material";
 import { useAddUser, useUserUpdateData } from "hooks/User";
 
 const Roster = ({ userList }) => {
-  // 상태값을 설정합니다.
-  const [nameValue, setNameValue] = useState("");
-  const [checked, setChecked] = useState({});
-  const addUser = useAddUser();
-  const { mutate } = useUserUpdateData();
-  // addUser 함수를 정의합니다.
-  // addUser : 선수 정보를 추가하는 함수
+  const [nameValue, setNameValue] = useState(""); // 선수 이름
+  const [checked, setChecked] = useState({}); // 오늘 출전하는 선수 체크
+  const addUser = useAddUser(); // 선수 추가 함수
+  const { mutate } = useUserUpdateData(); // 선수 업데이트 함수
 
+  // addUser : 선수 정보를 추가하는 함수
   const handleAddUser = async () => {
     addUser.mutate(nameValue, {
       onSuccess: () => {
@@ -21,7 +19,6 @@ const Roster = ({ userList }) => {
     });
   };
 
-  // handleTogglePlayer 함수를 정의합니다.
   // handleTogglePlayer : 오늘 출전하는 선수를 추가하는 함수
   const handleTogglePlayer = async (id) => {
     const todayPlayer = userList.find((user) => user._id === id);
@@ -39,12 +36,6 @@ const Roster = ({ userList }) => {
     );
   };
 
-  // 선수 목록을 이름 순으로 정렬합니다.
-  const sortedUserList = [...userList].sort((a, b) =>
-    a.name.localeCompare(b.name, "ko-KR")
-  );
-
-  // JSX를 반환합니다.
   return (
     <>
       <Box sx={{ display: "flex", gap: 2 }}>
@@ -71,8 +62,8 @@ const Roster = ({ userList }) => {
           선수 명단 ({userList.length}명)
         </Box>
         <div className="border px-4 py-1 h-80 w-80 overflow-auto flex flex-col gap-3">
-          {sortedUserList.length > 0 ? (
-            sortedUserList.map((data) => {
+          {userList.length > 0 ? (
+            userList.map((data) => {
               return (
                 <div
                   key={data._id}

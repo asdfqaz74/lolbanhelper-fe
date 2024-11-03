@@ -7,7 +7,6 @@ import {
   DialogContent,
 } from "@mui/material";
 import { useState } from "react";
-import api from "../../utils/api";
 import DraggableUser from "./DraggableUser";
 import TeamDropZone from "./TeamDropZone";
 import { useResetTeam, useUserUpdateData } from "hooks/User";
@@ -18,11 +17,10 @@ const TeamMaker = ({ userList }) => {
   const [openRoulette, setOpenRoulette] = useState(false); // 룰렛 모달창
   const [loading, setLoading] = useState(false); // 로딩 상태
   const [showResult, setShowResult] = useState(false); // 결과 보여주기 상태
-  const [teamA, setTeamA] = useState(null); // A팀
-  const [teamB, setTeamB] = useState(null); // B팀
-  // const updateUser = useUserUpdateData();
-  const { mutate: assignTeam } = useUserUpdateData();
-  const { mutate: resetTeam } = useResetTeam();
+  const [teamA, setTeamA] = useState(null); // A팀 설정
+  const [teamB, setTeamB] = useState(null); // B팀 설정
+  const { mutate: assignTeam } = useUserUpdateData(); // 팀 배정 함수
+  const { mutate: resetTeam } = useResetTeam(); // 팀 초기화 함수
 
   console.log(userList);
 
@@ -87,8 +85,8 @@ const TeamMaker = ({ userList }) => {
 
       // API 호출로 팀을 선택합니다.
       await Promise.all([
-        api.put(`/user/${teamAUser._id}`, { today_team: "A" }),
-        api.put(`/user/${teamBUser._id}`, { today_team: "B" }),
+        assignUserToTeam(teamAUser._id, "A"),
+        assignUserToTeam(teamBUser._id, "B"),
       ]);
 
       setTeamA(teamAUser);
@@ -131,7 +129,7 @@ const TeamMaker = ({ userList }) => {
         className="flex gap-4 border w-[62.5rem] h-20 px-5 items-center border-gray-400"
       >
         {userList
-          .filter((user) => user.today_player)
+          .filter((user) => user.today_player && !user.today_team)
           .map((user) => (
             <DraggableUser key={user._id} user={user} />
           ))}
