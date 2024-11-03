@@ -4,12 +4,14 @@ import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Done";
 import { Button, IconButton, TextField } from "@mui/material";
 import { useAddUser } from "hooks/User/useAddUser";
+import { useUserUpdateData } from "hooks/User/useUserUpdateData";
 
 const Roster = ({ userList }) => {
   // 상태값을 설정합니다.
   const [nameValue, setNameValue] = useState("");
   const [checked, setChecked] = useState({});
   const addUser = useAddUser();
+  const { mutate } = useUserUpdateData();
   // addUser 함수를 정의합니다.
   // addUser : 선수 정보를 추가하는 함수
 
@@ -24,20 +26,19 @@ const Roster = ({ userList }) => {
   // handleTogglePlayer 함수를 정의합니다.
   // handleTogglePlayer : 오늘 출전하는 선수를 추가하는 함수
   const handleTogglePlayer = async (id) => {
-    try {
-      const todayPlayer = userList.find((user) => user._id === id);
-      const response = await api.put(`/user/${id}`, {
-        today_player: !todayPlayer.today_player,
-      });
-      if (response.status === 200) {
-        setChecked((prevChecked) => ({
-          ...prevChecked,
-          [id]: !todayPlayer.today_player,
-        }));
+    const todayPlayer = userList.find((user) => user._id === id);
+
+    mutate(
+      { id, updateData: { today_player: !todayPlayer.today_player } },
+      {
+        onSuccess: () => {
+          setChecked((prev) => ({
+            ...prev,
+            [id]: !todayPlayer.today_player,
+          }));
+        },
       }
-    } catch (e) {
-      console.log(e);
-    }
+    );
   };
 
   // 선수 목록을 이름 순으로 정렬합니다.
