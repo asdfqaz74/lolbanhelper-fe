@@ -25,8 +25,6 @@ const TeamMaker = ({ userList }) => {
   const { mutate: assignTeam } = useUserUpdateData(); // 팀 배정 함수
   const { mutate: resetTeam } = useOnlyPut(); // 팀 초기화 함수
 
-  console.log(userList);
-
   // playableUsers : 오늘 출전 가능한 선수 목록
   const playableUsers = userList.filter((user) => user.today_player);
 

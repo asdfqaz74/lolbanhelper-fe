@@ -1,6 +1,9 @@
-export { useAddUser } from "./useAddUser";
-export { useUserData } from "./useUserData";
-export { useUserUpdateData } from "./useUserUpdateData";
-export { useOnlyPut } from "./useOnlyPut";
+export {
+  useAddUser,
+  useOnlyPut,
+  useUserUpdateData,
+  useUserDatas,
+  useOneUserData,
+} from "./User";
 export { useResultData } from "./useResultData";
 export { useChampionData } from "./useChampionData";

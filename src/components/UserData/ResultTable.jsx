@@ -8,14 +8,14 @@ import {
   TableRow,
 } from "@mui/material";
 
-const ResultTable = ({ userResult, championList }) => {
+const ResultTable = ({ userResult, championDatas }) => {
   const createData = (name, kills, deaths, assists, result, id) => {
     return { name, kills, deaths, assists, result, id };
   };
 
   const rows = [
     userResult.map((res) => {
-      const championData = championList.find(
+      const championData = championDatas.find(
         (champion) => champion._id === res.champion
       );
 

@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@mui/material";
 
-const ChampionStats = ({ userResult, championList }) => {
+const ChampionStats = ({ userResult, championDatas }) => {
   const createData = (name, rateBar, gameCounts, winRate) => {
     return { name, rateBar, gameCounts, winRate };
   };
@@ -19,7 +19,7 @@ const ChampionStats = ({ userResult, championList }) => {
     userResult
       .reduce((acc, res) => {
         // championList에서 해당 챔피언의 이름을 찾아서 반환
-        const championData = championList.find(
+        const championData = championDatas.find(
           (champion) => champion._id === res.champion
         );
 

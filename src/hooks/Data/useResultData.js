@@ -13,6 +13,8 @@ export const useResultData = () => {
       const response = await api.get("/result").then((res) => res.data.data);
       return response;
     },
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 60,
   });
 
   useEffect(() => {

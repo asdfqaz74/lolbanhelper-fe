@@ -1,11 +1,12 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import api from "utils/api";
-import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ResultTable from "components/UserData/ResultTable";
 import ChampionStats from "components/UserData/ChampionStats";
+import { useAtom } from "jotai";
+import { championDataAtom, resultDataAtom } from "atoms/dataAtoms";
+import { useOneUserData } from "hooks/Data";
 
 const HorizonLine = () => {
   return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
@@ -13,35 +14,19 @@ const HorizonLine = () => {
 
 const PlayerStats = () => {
   const { id } = useParams();
-  const [playerData, setPlayerData] = useState({});
   const navigate = useNavigate();
-  const location = useLocation();
-  const [resultList] = useState(location.state?.result || []);
-  const [championList] = useState(location.state?.championList || []);
+
+  const [resultData] = useAtom(resultDataAtom);
+  const [championData] = useAtom(championDataAtom);
+  const playerId = id;
+  const { data: playerData } = useOneUserData(playerId);
 
   // 전체 결과 중 해당 유저의 결과만 필터링
-  const userResult = resultList
+  const userResult = resultData
     .filter((res) => res.user === id)
     .sort((a, b) => {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
-
-  const playerId = id;
-
-  useEffect(() => {
-    const getPlayerData = async () => {
-      try {
-        const response = await api.get(`/user/${id}`, {
-          params: { _id: playerId },
-        });
-
-        setPlayerData(response.data.data[0]);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    getPlayerData();
-  }, [id, playerId]);
 
   const handleEdit = (id) => {
     navigate(`/playerdb/${id}/edit`, { state: { data: playerData } });
@@ -65,8 +50,8 @@ const PlayerStats = () => {
         )
       : null;
 
-  const mostChampionData = championList
-    ? championList.find((res) => res._id === mostPlayedChampion)
+  const mostChampionData = championData
+    ? championData.find((res) => res._id === mostPlayedChampion)
     : null;
 
   return (
@@ -133,14 +118,14 @@ const PlayerStats = () => {
                   <p className="text-lg mb-3">최근 경기</p>
                   <ResultTable
                     userResult={userResult}
-                    championList={championList}
+                    championDatas={championData}
                   />
                 </div>
                 <div>
                   <p>챔피언 성적</p>
                   <ChampionStats
                     userResult={userResult}
-                    championList={championList}
+                    championDatas={championData}
                   />
                 </div>
               </div>

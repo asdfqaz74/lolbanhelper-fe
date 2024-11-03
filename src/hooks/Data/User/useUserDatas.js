@@ -4,7 +4,7 @@ import { useAtom } from "jotai";
 import { useEffect } from "react";
 import api from "utils/api";
 
-export const useUserData = () => {
+export const useUserDatas = () => {
   const [userData, setUserData] = useAtom(userDataAtom);
 
   const { data, status } = useQuery({
@@ -16,6 +16,8 @@ export const useUserData = () => {
       );
       return sortedData;
     },
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 60,
   });
 
   useEffect(() => {

@@ -24,21 +24,17 @@ const HorizonLine = () => {
   return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
 };
 
-const UserFolder = ({ user, result, championList }) => {
+const UserFolder = ({ userList, resultData, championList }) => {
   const navigate = useNavigate();
 
-  const sortedUser = user.sort((a, b) => {
-    return a.name.localeCompare(b.name);
-  });
-
   const handleMoreInfo = (userId) => {
-    navigate(`/playerdb/${userId}`, { state: { result, championList } });
+    navigate(`/playerdb/${userId}`);
   };
 
   return (
     <div className="grid grid-cols-3 gap-14 justify-items-center">
-      {sortedUser.map((user) => {
-        const userResult = result
+      {userList.map((user) => {
+        const userResult = resultData
           .filter((res) => res.user === user._id)
           .slice(0, 5);
         return (
