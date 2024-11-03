@@ -10,8 +10,9 @@ import { useState } from "react";
 import api from "../../utils/api";
 import DraggableUser from "./DraggableUser";
 import TeamDropZone from "./TeamDropZone";
+import { useUserUpdateData } from "hooks/User/useUserUpdateData";
 
-const TeamMaker = ({ userList, getUser }) => {
+const TeamMaker = ({ userList }) => {
   // 상태값을 설정합니다.
   const [openReset, setOpenReset] = useState(false); // 팀 초기화 모달창
   const [openRoulette, setOpenRoulette] = useState(false); // 룰렛 모달창
@@ -31,6 +32,17 @@ const TeamMaker = ({ userList, getUser }) => {
     a.name.localeCompare(b.name, "ko-KR")
   );
 
+  const updateUser = useUserUpdateData();
+
+  const assignUserToTeam = async (userId, teamName) => {
+    const updateData = { today_team: teamName };
+    updateUser.mutate(updateData, {
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  };
+
   // handleResetButton : 팀 초기화 함수
   const handleTeamResetButton = async () => {
     try {
@@ -38,7 +50,6 @@ const TeamMaker = ({ userList, getUser }) => {
 
       if (response.status === 200) {
         setOpenReset(false);
-        getUser();
       }
     } catch (e) {
       console.log(e);
@@ -52,7 +63,6 @@ const TeamMaker = ({ userList, getUser }) => {
 
       if (response.status === 200) {
         setOpenReset(false);
-        getUser();
       }
     } catch (e) {
       console.log(e);
@@ -90,21 +100,6 @@ const TeamMaker = ({ userList, getUser }) => {
       setTeamB(teamBUser);
       setLoading(false);
       setShowResult(true);
-      getUser();
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // assignUserToTeam : 팀에 선수를 배정하는 함수
-  const assignUserToTeam = async (userId, teamName) => {
-    try {
-      const response = await api.put(`/user/${userId}`, {
-        today_team: teamName,
-      });
-      if (response.status === 200) {
-        getUser();
-      }
     } catch (e) {
       console.log(e);
     }

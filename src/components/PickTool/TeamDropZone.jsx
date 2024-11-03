@@ -11,9 +11,11 @@ const TeamDropZone = ({ teamName, onDropUser, className, children }) => {
   }));
 
   return (
-    <div ref={drop} className={`${className} ${isOver ? "bg-light" : ""}`}>
-      {children}
-    </div>
+    <>
+      <div ref={drop} className={`${className} ${isOver ? "bg-light" : ""}`}>
+        {children}
+      </div>
+    </>
   );
 };
 

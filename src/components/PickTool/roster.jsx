@@ -3,22 +3,22 @@ import api from "../../utils/api";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Done";
 import { Button, IconButton, TextField } from "@mui/material";
+import { useAddUser } from "hooks/User/useAddUser";
 
-const Roster = ({ userList, getUser }) => {
+const Roster = ({ userList }) => {
   // 상태값을 설정합니다.
   const [nameValue, setNameValue] = useState("");
   const [checked, setChecked] = useState({});
-
+  const addUser = useAddUser();
   // addUser 함수를 정의합니다.
   // addUser : 선수 정보를 추가하는 함수
-  const addUser = async () => {
-    try {
-      const response = await api.post("/user", { name: nameValue });
-      if (response.status === 200) {
-        getUser();
+
+  const handleAddUser = async () => {
+    addUser.mutate(nameValue, {
+      onSuccess: () => {
         setNameValue("");
-      }
-    } catch (e) {}
+      },
+    });
   };
 
   // handleTogglePlayer 함수를 정의합니다.
@@ -34,7 +34,6 @@ const Roster = ({ userList, getUser }) => {
           ...prevChecked,
           [id]: !todayPlayer.today_player,
         }));
-        getUser();
       }
     } catch (e) {
       console.log(e);
@@ -57,7 +56,7 @@ const Roster = ({ userList, getUser }) => {
           onChange={(e) => setNameValue(e.target.value)}
           value={nameValue}
         />
-        <Button onClick={addUser} variant="contained">
+        <Button onClick={handleAddUser} variant="contained">
           선수 추가
         </Button>
       </Box>
