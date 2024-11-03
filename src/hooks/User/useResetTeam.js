@@ -1,14 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "utils/api";
 
-export const useUserUpdateData = () => {
+export const useResetTeam = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, updateData }) =>
-      await api.put(`/user/${id}`, updateData),
+    mutationFn: async (endpoint) => {
+      await api.put(endpoint);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["userData"] });
+    },
+    onError: (error) => {
+      console.log(error);
     },
   });
 };

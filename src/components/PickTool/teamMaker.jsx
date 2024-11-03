@@ -10,7 +10,7 @@ import { useState } from "react";
 import api from "../../utils/api";
 import DraggableUser from "./DraggableUser";
 import TeamDropZone from "./TeamDropZone";
-import { useUserUpdateData } from "hooks/User/useUserUpdateData";
+import { useResetTeam, useUserUpdateData } from "hooks/User";
 
 const TeamMaker = ({ userList }) => {
   // 상태값을 설정합니다.
@@ -20,6 +20,11 @@ const TeamMaker = ({ userList }) => {
   const [showResult, setShowResult] = useState(false); // 결과 보여주기 상태
   const [teamA, setTeamA] = useState(null); // A팀
   const [teamB, setTeamB] = useState(null); // B팀
+  // const updateUser = useUserUpdateData();
+  const { mutate: assignTeam } = useUserUpdateData();
+  const { mutate: resetTeam } = useResetTeam();
+
+  console.log(userList);
 
   // playableUsers : 오늘 출전 가능한 선수 목록
   const playableUsers = userList.filter((user) => user.today_player);
@@ -27,46 +32,36 @@ const TeamMaker = ({ userList }) => {
   // remainingUsers : 오늘 팀이 없는 선수 목록
   const remainingUsers = playableUsers.filter((user) => !user.today_team);
 
-  // 선수 목록을 이름 순으로 정렬합니다.
-  const sortedUserList = [...playableUsers].sort((a, b) =>
-    a.name.localeCompare(b.name, "ko-KR")
-  );
-
-  const updateUser = useUserUpdateData();
-
-  const assignUserToTeam = async (userId, teamName) => {
+  // assignUserToTeam : 팀에 선수를 배정하는 함수
+  const assignUserToTeam = (userId, teamName) => {
     const updateData = { today_team: teamName };
-    updateUser.mutate(updateData, {
-      onError: (error) => {
-        console.log(error);
+
+    assignTeam(
+      { id: userId, updateData },
+      {
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
+  };
+
+  // handleResetButton : 팀 초기화 함수
+  const handleTeamResetButton = () => {
+    resetTeam("/user/reset-today", {
+      onSuccess: () => {
+        setOpenReset(false);
       },
     });
   };
 
-  // handleResetButton : 팀 초기화 함수
-  const handleTeamResetButton = async () => {
-    try {
-      const response = await api.put("/user/reset-today");
-
-      if (response.status === 200) {
-        setOpenReset(false);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   // handleRosterResetButton : 대기명단 초기화 함수
-  const handleRosterResetButton = async () => {
-    try {
-      const response = await api.put("/user/reset-wait");
-
-      if (response.status === 200) {
+  const handleRosterResetButton = () => {
+    resetTeam("/user/reset-wait", {
+      onSuccess: () => {
         setOpenReset(false);
-      }
-    } catch (e) {
-      console.log(e);
-    }
+      },
+    });
   };
 
   // handleOpenRoulette : 룰렛 모달창을 열어주는 함수
@@ -135,8 +130,8 @@ const TeamMaker = ({ userList }) => {
         onDropUser={assignUserToTeam}
         className="flex gap-4 border w-[62.5rem] h-20 px-5 items-center border-gray-400"
       >
-        {sortedUserList
-          .filter((user) => !user.today_team)
+        {userList
+          .filter((user) => user.today_player)
           .map((user) => (
             <DraggableUser key={user._id} user={user} />
           ))}
@@ -151,7 +146,7 @@ const TeamMaker = ({ userList }) => {
           className="h-[300px] border border-gray-400 flex flex-col items-center rounded-lg gap-4"
         >
           <p className="text-[2.125rem] text-title font-bold px-32">A팀</p>
-          {sortedUserList
+          {userList
             .filter((user) => user.today_team === "A")
             .map((user) => (
               <DraggableUser key={user._id} user={user}>
@@ -165,7 +160,7 @@ const TeamMaker = ({ userList }) => {
           className="h-[300px] border border-gray-400 flex flex-col items-center rounded-lg gap-4"
         >
           <p className="text-[2.125rem] text-title font-bold px-32">B팀</p>
-          {sortedUserList
+          {userList
             .filter((user) => user.today_team === "B")
             .map((user) => (
               <DraggableUser key={user._id} user={user}>

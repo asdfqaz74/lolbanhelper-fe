@@ -1,10 +1,8 @@
 import { useState } from "react";
-import api from "../../utils/api";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Done";
 import { Button, IconButton, TextField } from "@mui/material";
-import { useAddUser } from "hooks/User/useAddUser";
-import { useUserUpdateData } from "hooks/User/useUserUpdateData";
+import { useAddUser, useUserUpdateData } from "hooks/User";
 
 const Roster = ({ userList }) => {
   // 상태값을 설정합니다.

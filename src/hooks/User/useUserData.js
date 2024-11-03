@@ -11,7 +11,10 @@ export const useUserData = () => {
     queryKey: ["userData"],
     queryFn: async () => {
       const response = await api.get("/user").then((res) => res.data.data);
-      return response;
+      const sortedData = response.sort((a, b) =>
+        a.name.localeCompare(b.name, "ko-KR")
+      );
+      return sortedData;
     },
   });
 
