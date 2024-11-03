@@ -2,7 +2,7 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Done";
 import { Button, IconButton, TextField } from "@mui/material";
-import { useAddUser, useUserUpdateData } from "hooks/User";
+import { useAddUser, useUserUpdateData } from "hooks/Data";
 import { useAtom } from "jotai";
 import { checkedAtom } from "atoms/userAtoms";
 

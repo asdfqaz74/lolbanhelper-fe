@@ -22,7 +22,7 @@ export const useUserData = () => {
     if (status === "success" && data) {
       setUserData(data);
     }
-  }, [status, data, setUserData]);
+  }, [data, setUserData, status]);
 
   return userData;
 };

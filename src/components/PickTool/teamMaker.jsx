@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import DraggableUser from "./DraggableUser";
 import TeamDropZone from "./TeamDropZone";
-import { useResetTeam, useUserUpdateData } from "hooks/User";
+import { useOnlyPut, useUserUpdateData } from "hooks/Data";
 import { useAtom } from "jotai";
 import { checkedAtom } from "atoms/userAtoms";
 
@@ -23,7 +23,7 @@ const TeamMaker = ({ userList }) => {
   const [teamB, setTeamB] = useState(null); // B팀 설정
   const [, setChecked] = useAtom(checkedAtom); // 오늘 출전하는 선수 체크
   const { mutate: assignTeam } = useUserUpdateData(); // 팀 배정 함수
-  const { mutate: resetTeam } = useResetTeam(); // 팀 초기화 함수
+  const { mutate: resetTeam } = useOnlyPut(); // 팀 초기화 함수
 
   console.log(userList);
 

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "utils/api";
 
-export const useResetTeam = () => {
+export const useOnlyPut = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

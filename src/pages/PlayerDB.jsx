@@ -1,39 +1,17 @@
-import { useEffect, useState } from "react";
 import UserFolder from "components/UserData/userFolder";
-import api from "utils/api";
+import { useChampionData, useResultData, useUserData } from "hooks/Data";
 
 const PlayerDB = () => {
-  const [userList, setUserList] = useState([]);
-  const [totalResult, setTotalResult] = useState([]);
-  const [championList, setChampionList] = useState([]);
-
-  const getUser = async () => {
-    const response = await api.get("/user");
-    setUserList(response.data.data);
-  };
-
-  const getTotalResult = async () => {
-    const response = await api.get("/result");
-    setTotalResult(response.data.data);
-  };
-
-  const getChampionList = async () => {
-    const response = await api.get("/result/champion");
-    setChampionList(response.data.data);
-  };
-
-  useEffect(() => {
-    getUser();
-    getTotalResult();
-    getChampionList();
-  }, []);
+  const userList = useUserData();
+  const resultData = useResultData();
+  const championData = useChampionData();
 
   return (
     <div className="flex flex-col mt-5 py-10 px-6 bg-white shadow-2xl justify-between rounded-b-lg mx-4">
       <UserFolder
         user={userList}
-        result={totalResult}
-        championList={championList}
+        result={resultData}
+        championList={championData}
       />
     </div>
   );
