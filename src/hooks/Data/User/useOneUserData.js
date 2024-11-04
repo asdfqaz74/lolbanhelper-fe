@@ -9,5 +9,6 @@ export const useOneUserData = (userId) => {
       return response.data.data[0];
     },
     staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 60,
   });
 };

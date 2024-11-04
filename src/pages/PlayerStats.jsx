@@ -4,20 +4,18 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ResultTable from "components/UserData/ResultTable";
 import ChampionStats from "components/UserData/ChampionStats";
-import { useAtom } from "jotai";
-import { championDataAtom, resultDataAtom } from "atoms/dataAtoms";
-import { useOneUserData } from "hooks/Data";
+import { useChampionData, useOneUserData, useResultData } from "hooks/Data";
 
 const HorizonLine = () => {
   return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
 };
 
 const PlayerStats = () => {
+  const resultData = useResultData();
+  const championData = useChampionData();
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [resultData] = useAtom(resultDataAtom);
-  const [championData] = useAtom(championDataAtom);
   const playerId = id;
   const { data: playerData } = useOneUserData(playerId);
 
@@ -33,7 +31,7 @@ const PlayerStats = () => {
   };
 
   const handleAdd = (id) => {
-    navigate(`/playerdb/${id}/record`, { state: { data: playerData } });
+    navigate(`/playerdb/${id}/record`);
   };
 
   const championCounts = userResult
@@ -71,8 +69,6 @@ const PlayerStats = () => {
   const mostChampionData = championData
     ? championData.find((res) => res._id === mostPlayedChampion)
     : null;
-
-  console.log(mostChampionData.name);
 
   return (
     <>
@@ -142,7 +138,7 @@ const PlayerStats = () => {
                   />
                 </div>
                 <div>
-                  <p>챔피언 성적</p>
+                  <p className="text-lg mb-3">챔피언 성적</p>
                   <ChampionStats
                     userResult={userResult}
                     championDatas={championData}

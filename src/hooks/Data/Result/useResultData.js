@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import api from "utils/api";
 
 export const useResultData = () => {
-  const [resultData, setUserData] = useAtom(resultDataAtom);
+  const [resultData, setResultData] = useAtom(resultDataAtom);
 
   const { data, status } = useQuery({
     queryKey: ["resultData"],
@@ -13,15 +13,16 @@ export const useResultData = () => {
       const response = await api.get("/result").then((res) => res.data.data);
       return response;
     },
+    placeholderData: resultData,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 60,
   });
 
   useEffect(() => {
-    if (status === "success" && data) {
-      setUserData(data);
+    if (status === "success" && data && data !== resultData) {
+      setResultData(data);
     }
-  }, [data, setUserData, status]);
+  }, [data, setResultData, status, resultData]);
 
   return resultData;
 };

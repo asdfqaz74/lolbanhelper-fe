@@ -6,8 +6,7 @@ export const useAddResult = () => {
 
   const mutation = useMutation({
     mutationFn: async (data) => {
-      const response = await api.post("/result", { ...data });
-      console.log(response);
+      const response = await api.post("/result", data);
       return response.data;
     },
     onSuccess: () => {

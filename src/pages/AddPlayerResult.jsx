@@ -58,7 +58,7 @@ const AddPlayerResult = () => {
         deaths: Number(values.deaths),
         assists: Number(values.assists),
       };
-      addResult.mutate({ data: formData });
+      addResult.mutate(formData);
       resetForm();
       setOpenModal(false);
     },
@@ -91,11 +91,14 @@ const AddPlayerResult = () => {
               onChange={(e, value) =>
                 formik.setFieldValue("champion", value?._id)
               }
+              onBlur={formik.handleBlur}
               renderInput={(params) => (
                 <TextField
                   {...params}
+                  id="champion"
                   label="챔피언"
                   variant="outlined"
+                  onBlur={formik.handleBlur}
                   error={
                     formik.touched.champion && Boolean(formik.errors.champion)
                   }
@@ -139,6 +142,7 @@ const AddPlayerResult = () => {
                   id="kills"
                   type="number"
                   label="킬 수"
+                  onBlur={formik.handleBlur}
                   value={formik.values.kills}
                   onChange={(e) =>
                     formik.setFieldValue("kills", e.target.value)
@@ -155,6 +159,7 @@ const AddPlayerResult = () => {
                   id="deaths"
                   type="number"
                   label="데스 수"
+                  onBlur={formik.handleBlur}
                   value={formik.values.deaths}
                   onChange={(e) =>
                     formik.setFieldValue("deaths", e.target.value)
@@ -172,6 +177,7 @@ const AddPlayerResult = () => {
                   type="number"
                   label="어시스트 수"
                   value={formik.values.assists}
+                  onBlur={formik.handleBlur}
                   onChange={(e) =>
                     formik.setFieldValue("assists", e.target.value)
                   }
