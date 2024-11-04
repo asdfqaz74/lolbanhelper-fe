@@ -64,7 +64,18 @@ const ChampionStats = ({ userResult, championDatas }) => {
 
         return acc;
       }, [])
-      .sort((a, b) => b.gameCounts - a.gameCounts),
+      .sort((a, b) => {
+        if (a.gameCounts > b.gameCounts) return -1;
+        if (a.gameCounts < b.gameCounts) return 1;
+
+        const winRateA = parseFloat(a.winRate);
+        const winRateB = parseFloat(b.winRate);
+
+        if (winRateA > winRateB) return -1;
+        if (winRateA < winRateB) return 1;
+
+        return 0;
+      }),
   ];
 
   return (

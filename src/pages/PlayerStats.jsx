@@ -38,21 +38,41 @@ const PlayerStats = () => {
 
   const championCounts = userResult
     ? userResult.reduce((acc, cur) => {
-        acc[cur.champion] = (acc[cur.champion] || 0) + 1;
+        const { champion, victoryordefeat } = cur;
+
+        if (!acc[champion]) {
+          acc[champion] = { games: 0, wins: 0 };
+        }
+        acc[champion].games += 1;
+
+        if (victoryordefeat === "win") {
+          acc[champion].wins += 1;
+        }
         return acc;
       }, {})
     : {};
 
   const mostPlayedChampion =
     Object.keys(championCounts).length > 0
-      ? Object.keys(championCounts).reduce((a, b) =>
-          championCounts[a] > championCounts[b] ? a : b
-        )
+      ? Object.keys(championCounts).reduce((a, b) => {
+          const gamesA = championCounts[a].games;
+          const gamesB = championCounts[b].games;
+
+          if (gamesA > gamesB) return a;
+          if (gamesA < gamesB) return b;
+
+          const winRateA = gamesA > 0 ? championCounts[a].wins / gamesA : 0;
+          const winRateB = gamesB > 0 ? championCounts[b].wins / gamesB : 0;
+
+          return winRateA > winRateB ? a : b;
+        })
       : null;
 
   const mostChampionData = championData
     ? championData.find((res) => res._id === mostPlayedChampion)
     : null;
+
+  console.log(mostChampionData.name);
 
   return (
     <>
