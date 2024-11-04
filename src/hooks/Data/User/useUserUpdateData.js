@@ -7,8 +7,11 @@ export const useUserUpdateData = () => {
   return useMutation({
     mutationFn: async ({ id, updateData }) =>
       await api.put(`/user/${id}`, updateData),
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["userData"] });
+      queryClient.invalidateQueries({
+        queryKey: ["oneUserData", variables.id],
+      });
     },
   });
 };

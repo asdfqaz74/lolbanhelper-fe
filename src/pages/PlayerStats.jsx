@@ -29,7 +29,7 @@ const PlayerStats = () => {
     });
 
   const handleEdit = (id) => {
-    navigate(`/playerdb/${id}/edit`, { state: { data: playerData } });
+    navigate(`/playerdb/${id}/edit`);
   };
 
   const handleAdd = (id) => {

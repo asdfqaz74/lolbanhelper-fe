@@ -5,5 +5,5 @@ export {
   useUserDatas,
   useOneUserData,
 } from "./User";
-export { useResultData } from "./useResultData";
+export { useResultData, useAddResult } from "./Result";
 export { useChampionData } from "./useChampionData";

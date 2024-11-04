@@ -10,11 +10,11 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useState } from "react";
-import api from "utils/api";
+import { useOneUserData, useUserUpdateData } from "hooks/Data";
 
 const validationSchema = yup.object({
   name: yup
@@ -31,10 +31,10 @@ const validationSchema = yup.object({
 
 const EditPlayer = () => {
   const { id } = useParams();
-  const location = useLocation();
-  const [playerData] = useState(location.state?.data);
-  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+  const { mutate: updatePlayerData } = useUserUpdateData();
+  const { data: playerData } = useOneUserData(id);
+  const [openModal, setOpenModal] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -44,14 +44,18 @@ const EditPlayer = () => {
       sub_position: playerData.sub_position || "탑",
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      try {
-        await api.put(`/user/${id}`, values);
-        setOpenModal(false);
-        navigate(`/playerdb/${id}`);
-      } catch (e) {
-        console.error(e);
-      }
+    onSubmit: (values) => {
+      updatePlayerData(
+        { id, updateData: values },
+        {
+          onError: (error) => {
+            console.log(error);
+          },
+          onSuccess: () => {
+            navigate(`/playerdb/${id}`);
+          },
+        }
+      );
     },
   });
 

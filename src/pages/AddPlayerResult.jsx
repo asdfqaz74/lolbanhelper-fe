@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import api from "utils/api";
-import { useLocation, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import {
@@ -15,6 +14,9 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { useAddResult, useOneUserData } from "hooks/Data";
+import { useAtom } from "jotai";
+import { championDataAtom } from "atoms/dataAtoms";
 
 const validationSchema = yup.object({
   champion: yup
@@ -34,28 +36,10 @@ const validationSchema = yup.object({
 
 const AddPlayerResult = () => {
   const { id } = useParams();
-  const [championList, setChampionList] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-
-  const location = useLocation();
-  const [playerData] = useState(location.state?.data);
-
-  useEffect(() => {
-    const getChampionList = async () => {
-      try {
-        setLoading(true);
-        const response = await api.get("/result/champion");
-        setChampionList(response.data.data);
-        if (championList.length > 0) {
-          setLoading(false);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    getChampionList();
-  }, [championList.length]);
+  const { data: playerData } = useOneUserData(id);
+  const [championList] = useAtom(championDataAtom);
+  const addResult = useAddResult();
 
   const formik = useFormik({
     initialValues: {
@@ -67,31 +51,24 @@ const AddPlayerResult = () => {
       user: id,
     },
     validationSchema,
-    onSubmit: async (values, { resetForm }) => {
-      try {
-        const formData = {
-          ...values,
-          kills: Number(values.kills),
-          deaths: Number(values.deaths),
-          assists: Number(values.assists),
-        };
-        await api.post("/result", formData);
-
-        resetForm();
-
-        setOpenModal(false);
-      } catch (e) {
-        console.error(e);
-      }
+    onSubmit: (values, { resetForm }) => {
+      const formData = {
+        ...values,
+        kills: Number(values.kills),
+        deaths: Number(values.deaths),
+        assists: Number(values.assists),
+      };
+      addResult.mutate({ data: formData });
+      resetForm();
+      setOpenModal(false);
     },
   });
-
-  if (loading) return <div>Loading...</div>;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setOpenModal(true);
   };
+
   return (
     <>
       <div className="flex flex-col mt-5 py-2 px-20 bg-white shadow-2xl rounded-b-lg">
@@ -110,7 +87,6 @@ const AddPlayerResult = () => {
             <Autocomplete
               id="champion"
               options={championList}
-              loading={loading}
               getOptionLabel={(option) => option.name}
               onChange={(e, value) =>
                 formik.setFieldValue("champion", value?._id)
