@@ -4,7 +4,7 @@ import { useDrag } from "react-dnd";
 const DraggableUser = ({ user }) => {
   const [{ isDragging }, drag] = useDrag({
     type: "USER",
-    item: { id: user._id, name: user.name },
+    item: { id: user._id, name: user.name, mvp: user.isMVP },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -19,7 +19,12 @@ const DraggableUser = ({ user }) => {
       }}
       className="cursor-pointer text-lg"
     >
-      <p>{user.name}</p>
+      <div className="flex items-center">
+        <p>{user.name}</p>{" "}
+        {user.isMVP && (
+          <img src="/images/honeybee.webp" alt="mvp" className="w-6 h-6" />
+        )}
+      </div>
     </div>
   );
 };

@@ -71,15 +71,24 @@ const Roster = ({ userList }) => {
                   key={data._id}
                   className="flex justify-between items-center"
                 >
-                  <p
-                    className={`${
-                      data.today_player
-                        ? "line-through text-dark text-lg"
-                        : "text-lg text-primary"
-                    }`}
-                  >
-                    {data.name}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <p
+                      className={`${
+                        data.today_player
+                          ? "line-through text-dark text-lg"
+                          : "text-lg text-primary"
+                      }`}
+                    >
+                      {data.name}
+                    </p>
+                    {data.isMVP && (
+                      <img
+                        src="/images/honeybee.webp"
+                        alt="mvp"
+                        className="w-6 h-6"
+                      />
+                    )}
+                  </div>
                   <IconButton
                     size="small"
                     onClick={() => handleTogglePlayer(data._id)}
