@@ -24,7 +24,7 @@ const HorizonLine = () => {
   return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
 };
 
-const UserFolder = ({ userList, resultData, championList }) => {
+const UserFolder = ({ userList, resultData }) => {
   const navigate = useNavigate();
 
   const handleMoreInfo = (userId) => {
@@ -34,14 +34,18 @@ const UserFolder = ({ userList, resultData, championList }) => {
   return (
     <div className="grid grid-cols-3 gap-14 justify-items-center">
       {userList.map((user) => {
-        const userResult = resultData
-          .filter((res) => res.user === user._id)
-          .slice(0, 5);
+        const userResult = resultData.filter((res) => res.user === user._id);
+        const userWin = userResult.filter(
+          (res) => res.victoryordefeat === "win"
+        ).length;
+        const userLose = userResult.filter(
+          (res) => res.victoryordefeat === "lose"
+        ).length;
         return (
           <div key={user._id} className="min-w-96">
             <div className="flex items-center justify-between">
               <div className="flex items-end gap-3 text-primary">
-                <p className="border-t border-primary bg-dark rounded-t-lg px-2 text-gray-200 text-xl max-w-20 py-1">
+                <p className="border-t border-primary bg-dark rounded-t-lg px-2 text-gray-200 text-xl max-w-24 py-1">
                   {user.name}
                 </p>
                 <p className="text-sm">{user.game_id}</p>
@@ -73,7 +77,9 @@ const UserFolder = ({ userList, resultData, championList }) => {
                 />
               </div>
               <HorizonLine />
-              <p className="text-lg font-semibold">Recent Played</p>
+              <p className="text-lg font-semibold">
+                Recent Played ({userWin}W {userLose}L)
+              </p>
               <RecentPlayed match={userResult} />
             </div>
           </div>

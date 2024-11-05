@@ -79,7 +79,7 @@ const ChampionStats = ({ userResult, championDatas }) => {
   ];
 
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: 400, maxHeight: 400 }}>
+    <TableContainer component={Paper} sx={{ maxWidth: 500, maxHeight: 400 }}>
       <Table size="small" aria-label="경기 기록" stickyHeader>
         <TableHead>
           <TableRow sx={{ backgroundColor: "#8fa0ff" }}>
