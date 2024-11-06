@@ -41,7 +41,12 @@ const CoinToss = () => {
       <Dialog open={openModal} onClose={() => setOpenModal(false)}>
         <div className="flex flex-col items-center gap-4 p-4">
           {!showResult ? (
-            <Lottie options={defaultOptions} height={300} width={300} />
+            <Lottie
+              options={defaultOptions}
+              height={300}
+              width={300}
+              isClickToPauseDisabled
+            />
           ) : (
             <>
               <div className="flex flex-col gap-5 justify-center items-center">
