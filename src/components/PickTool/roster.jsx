@@ -81,6 +81,13 @@ const Roster = ({ userList }) => {
                     >
                       {data.name}
                     </p>
+                    {data.main_position && (
+                      <img
+                        src={`/images/${data.main_position}.png`}
+                        alt=""
+                        className="w-6 h-6"
+                      />
+                    )}
                     {data.isMVP && (
                       <img
                         src="/images/honeybee.webp"

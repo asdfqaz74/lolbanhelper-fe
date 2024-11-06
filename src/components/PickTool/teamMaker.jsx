@@ -128,7 +128,7 @@ const TeamMaker = ({ userList }) => {
       <TeamDropZone
         teamName=""
         onDropUser={assignUserToTeam}
-        className="flex gap-4 border w-[62.5rem] h-20 px-5 items-center border-gray-400"
+        className="flex gap-4 border w-[68.75rem] h-20 px-5 items-center border-gray-400"
       >
         {userList
           .filter((user) => user.today_player && !user.today_team)

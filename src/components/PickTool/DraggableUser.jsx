@@ -20,9 +20,17 @@ const DraggableUser = ({ user }) => {
       className="cursor-pointer text-lg"
     >
       <div className="flex items-center">
-        <p>{user.name}</p>{" "}
         {user.isMVP && (
           <img src="/images/honeybee.webp" alt="mvp" className="w-6 h-6" />
+        )}
+
+        <p>{user.name}</p>
+        {user.main_position && (
+          <img
+            src={`/images/${user.main_position}.png`}
+            alt={user.main_position}
+            className="w-6 h-6"
+          />
         )}
       </div>
     </div>
