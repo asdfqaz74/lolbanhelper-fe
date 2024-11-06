@@ -5,6 +5,7 @@ module.exports = {
     screens: {
       dblg: "1200px",
       db: "830px",
+      dbsm: "432px",
     },
     extend: {
       keyframes: {

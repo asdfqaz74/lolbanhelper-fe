@@ -43,7 +43,7 @@ const UserFolder = ({ userList, resultData }) => {
           (res) => res.victoryordefeat === "lose"
         ).length;
         return (
-          <div key={user._id} className="min-w-96">
+          <div key={user._id} className="dbsm:min-w-96 min-w-72">
             <div className="flex items-center justify-between">
               <div className="flex items-end gap-3 text-primary">
                 <p className="border-t border-primary bg-dark rounded-t-lg px-2 text-gray-200 text-xl max-w-24 py-1">
