@@ -7,10 +7,16 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { WinLoseBar } from "components/PickTool/WinLossBar";
 
 const ChampionStats = ({ userResult, championDatas }) => {
-  const createData = (name, rateBar, gameCounts, winRate) => {
-    return { name, rateBar, gameCounts, winRate };
+  const createData = (name, winCounts, loseCounts, gameCounts, winRate) => {
+    return {
+      name,
+      rateBar: <WinLoseBar win={winCounts} lose={loseCounts} />,
+      gameCounts,
+      winRate,
+    };
   };
 
   const seenChampions = {};
@@ -56,7 +62,8 @@ const ChampionStats = ({ userResult, championDatas }) => {
         acc.push(
           createData(
             championData.name,
-            `${winCounts}승 ${loseCounts}패`,
+            winCounts,
+            loseCounts,
             gameCounts,
             `${winRate}%`
           )
@@ -97,7 +104,7 @@ const ChampionStats = ({ userResult, championDatas }) => {
         </TableHead>
         <TableBody>
           {row[0].map((row, index) => (
-            <TableRow key={index}>
+            <TableRow key={index} sx={{ height: 40 }}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
