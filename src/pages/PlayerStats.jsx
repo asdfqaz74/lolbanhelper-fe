@@ -77,13 +77,13 @@ const PlayerStats = () => {
           {mostChampionData && (
             <img
               src={`${mostChampionData.image}.jpg`}
-              className="h-[30rem] w-[62.5rem] object-cover rounded-t-xl absolute z-20"
+              className="statslg:h-[30rem] statslg:w-[62.5rem] statsmd:w-[35rem] object-cover rounded-t-xl absolute z-20 statslg:block statsmd:block statssm:block statssm:w-[21rem] hidden"
               alt=""
             />
           )}
-          <div className="z-30 mt-56">
+          <div className="z-30 statsmd:mt-56 mt-24">
             <div className=" flex items-center justify-between mt-5">
-              <span className="bg-dark border-t border-primary text-3xl font-bold text-gray-200 max-w-36 text-center p-4 rounded-t-lg">
+              <span className="bg-dark border-t border-primary text-3xl font-bold text-gray-200 max-w-36 text-center p-4 rounded-t-lg whitespace-nowrap">
                 {playerData.name}
               </span>
               <div className="flex gap-4">
@@ -103,17 +103,17 @@ const PlayerStats = () => {
                 </Button>
               </div>
             </div>
-            <div className="bg-light px-14 py-10 border border-primary rounded-tr-lg">
+            <div className="statssm:bg-light px-14 py-10 statssm:border statssm:border-primary rounded-tr-lg bg-white border-none">
               <p className="text-xl font-semibold mb-5">INFO</p>
               <div className="flex w-full justify-center">
-                <div className="flex w-3/4 justify-between">
-                  <div className="flex justify-start w-1/4 gap-10">
-                    <div className="flex flex-col justify-between font-semibold">
+                <div className="flex text-sm statssm:text-base gap-5 w-3/4 items-center statsmd:justify-between flex-col-reverse statsmd:flex-row">
+                  <div className="flex justify-start statsmd:w-1/3 gap-10 whitespace-nowrap">
+                    <div className="flex flex-col justify-between font-semibold gap-5 ">
                       <p>NickName</p>
                       <p>Main Position</p>
                       <p>Sub Position</p>
                     </div>
-                    <div className="flex flex-col justify-between">
+                    <div className="flex flex-col justify-between gap-5 ">
                       <p>{playerData.game_id}</p>
                       <p>{playerData.main_position}</p>
                       <p>{playerData.sub_position}</p>
@@ -123,13 +123,14 @@ const PlayerStats = () => {
                     <img
                       src={`/images/${playerData.main_position}.png`}
                       alt=""
+                      className="w-8 h-8 dbsm:w-14 dbsm:h-14 statsmd:w-32 statsmd:h-32"
                     />
                   </div>
                 </div>
               </div>
               <HorizonLine />
               <p className="text-xl font-semibold mb-5">RECORD</p>
-              <div className="max-h-[28.125rem] flex justify-around">
+              <div className="flex flex-col justify-around stats:flex-row items-center stats:items-start gap-10">
                 <div className="">
                   <p className="text-lg mb-3">최근 경기</p>
                   <ResultTable

@@ -6,6 +6,10 @@ module.exports = {
       dblg: "1200px",
       db: "830px",
       dbsm: "432px",
+      statslg: "1460px",
+      stats: "1200px",
+      statsmd: "860px",
+      statssm: "580px",
     },
     extend: {
       keyframes: {

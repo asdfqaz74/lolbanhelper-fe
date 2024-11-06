@@ -6,10 +6,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  useMediaQuery,
 } from "@mui/material";
 import { WinLoseBar } from "components/PickTool/WinLossBar";
 
 const ChampionStats = ({ userResult, championDatas }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const createData = (name, winCounts, loseCounts, gameCounts, winRate) => {
     return {
       name,
@@ -86,7 +89,14 @@ const ChampionStats = ({ userResult, championDatas }) => {
   ];
 
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: 500, maxHeight: 400 }}>
+    <TableContainer
+      component={Paper}
+      sx={{
+        whiteSpace: "nowrap",
+        maxWidth: isMobile ? 300 : 500,
+        maxHeight: 400,
+      }}
+    >
       <Table size="small" aria-label="경기 기록" stickyHeader>
         <TableHead>
           <TableRow sx={{ backgroundColor: "#8fa0ff" }}>

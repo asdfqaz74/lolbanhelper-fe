@@ -49,7 +49,7 @@ const UserFolder = ({ userList, resultData }) => {
                 <p className="border-t border-primary bg-dark rounded-t-lg px-2 text-gray-200 text-xl max-w-24 py-1">
                   {user.name}
                 </p>
-                <p className="text-sm">{user.game_id}</p>
+                <p className="dbsm:text-sm text-xs">{user.game_id}</p>
               </div>
               <Button
                 variant="text"
@@ -78,7 +78,7 @@ const UserFolder = ({ userList, resultData }) => {
                 />
               </div>
               <HorizonLine />
-              <p className="text-lg font-semibold">
+              <p className="dbsm:text-lg text-base font-semibold">
                 Recent Played ({userWin}W {userLose}L)
               </p>
               <RecentPlayed match={userResult} />

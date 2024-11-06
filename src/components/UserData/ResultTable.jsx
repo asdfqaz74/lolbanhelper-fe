@@ -6,9 +6,12 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  useMediaQuery,
 } from "@mui/material";
 
 const ResultTable = ({ userResult, championDatas }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   const createData = (name, kills, deaths, assists, result, id) => {
     return { name, kills, deaths, assists, result, id };
   };
@@ -30,7 +33,14 @@ const ResultTable = ({ userResult, championDatas }) => {
     }),
   ];
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: 400, maxHeight: 400 }}>
+    <TableContainer
+      component={Paper}
+      sx={{
+        maxWidth: isMobile ? 300 : 500,
+        maxHeight: 400,
+        whiteSpace: "nowrap",
+      }}
+    >
       <Table size="small" aria-label="경기 기록" stickyHeader>
         <TableHead>
           <TableRow sx={{ backgroundColor: "#8fa0ff" }}>
