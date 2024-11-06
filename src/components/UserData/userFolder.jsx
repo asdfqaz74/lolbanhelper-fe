@@ -8,8 +8,8 @@ const PlusIcon = createSvgIcon(
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={1.5}
+    viewBox="0 3 24 24"
+    strokeWidth={2}
     stroke="currentColor"
   >
     <path
@@ -33,7 +33,7 @@ const UserFolder = ({ userList, resultData }) => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-14 justify-items-center">
+    <div className="grid grid-cols-1 gap-14 justify-items-center dblg:grid-cols-3 db:grid-cols-2">
       {userList.map((user) => {
         const userResult = resultData.filter((res) => res.user === user._id);
         const userWin = userResult.filter(
@@ -53,12 +53,11 @@ const UserFolder = ({ userList, resultData }) => {
               </div>
               <Button
                 variant="text"
-                sx={{ display: "flex" }}
                 size="small"
                 endIcon={<PlusIcon />}
                 onClick={() => handleMoreInfo(user._id)}
               >
-                더보기
+                <p>더보기</p>
               </Button>
             </div>
 

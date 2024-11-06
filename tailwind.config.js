@@ -2,6 +2,10 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    screens: {
+      dblg: "1200px",
+      db: "830px",
+    },
     extend: {
       keyframes: {
         flip: {
