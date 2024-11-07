@@ -3,6 +3,7 @@ import { createSvgIcon } from "@mui/material/utils";
 import RecentPlayed from "./recentPlayed";
 import { useNavigate } from "react-router-dom";
 import HoneyBee from "./HoneyBee";
+import SadBee from "./SadBee";
 
 const PlusIcon = createSvgIcon(
   <svg
@@ -71,6 +72,7 @@ const UserFolder = ({ userList, resultData }) => {
                   </div>
                 </div>
                 <HoneyBee isMVP={user.isMVP} className="max-w-20" />
+                <SadBee isSad={user.isSad} className="max-w-20" />
                 <img
                   src={`/images/${user.main_position}.png`}
                   className="w-20"
