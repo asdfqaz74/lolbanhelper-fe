@@ -3,6 +3,8 @@ import { createSvgIcon } from "@mui/material/utils";
 import RecentPlayed from "./recentPlayed";
 import { useNavigate } from "react-router-dom";
 import HoneyBee from "./HoneyBee";
+import { useAtom } from "jotai";
+import { userSearchAtom } from "atoms/userAtoms";
 
 const PlusIcon = createSvgIcon(
   <svg
@@ -27,6 +29,7 @@ const HorizonLine = () => {
 
 const UserFolder = ({ userList, resultData }) => {
   const navigate = useNavigate();
+  const [searchValue] = useAtom(userSearchAtom);
 
   const handleMoreInfo = (userId) => {
     navigate(`/playerdb/${userId}`);
@@ -34,62 +37,64 @@ const UserFolder = ({ userList, resultData }) => {
 
   return (
     <div className="grid grid-cols-1 gap-14 justify-items-center dblg:grid-cols-3 db:grid-cols-2">
-      {userList.map((user) => {
-        const userResult = resultData.filter((res) => res.user === user._id);
-        const userWin = userResult.filter(
-          (res) => res.victoryordefeat === "win"
-        ).length;
-        const userLose = userResult.filter(
-          (res) => res.victoryordefeat === "lose"
-        ).length;
-        return (
-          <div key={user._id} className="dbsm:min-w-96 min-w-72">
-            <div className="flex items-center justify-between">
-              <div className="flex items-end gap-3 text-primary">
-                <p className="border-t border-primary bg-dark rounded-t-lg px-2 text-gray-200 text-xl max-w-24 py-1">
-                  {user.name}
-                </p>
-                <p className="dbsm:text-sm text-xs">{user.game_id}</p>
-              </div>
-              <Button
-                variant="text"
-                size="small"
-                endIcon={<PlusIcon />}
-                onClick={() => handleMoreInfo(user._id)}
-              >
-                <p>더보기</p>
-              </Button>
-            </div>
-
-            <div className="border border-primary bg-light p-4 flex flex-col shadow-xl rounded-tr-lg">
+      {userList
+        .filter((user) => !searchValue || user.name.includes(searchValue))
+        .map((user) => {
+          const userResult = resultData.filter((res) => res.user === user._id);
+          const userWin = userResult.filter(
+            (res) => res.victoryordefeat === "win"
+          ).length;
+          const userLose = userResult.filter(
+            (res) => res.victoryordefeat === "lose"
+          ).length;
+          return (
+            <div key={user._id} className="dbsm:min-w-96 min-w-72">
               <div className="flex items-center justify-between">
-                <div className="flex flex-col gap-3">
-                  <p className="text-lg font-semibold">Position</p>
-                  <div className="flex flex-col gap-2 whitespace-nowrap text-xs dbsm:text-base">
-                    <p>Main : {user.main_position}</p>
-                    <p>Sub : {user.sub_position}</p>
-                  </div>
+                <div className="flex items-end gap-3 text-primary">
+                  <p className="border-t border-primary bg-dark rounded-t-lg px-2 text-gray-200 text-xl max-w-24 py-1">
+                    {user.name}
+                  </p>
+                  <p className="dbsm:text-sm text-xs">{user.game_id}</p>
                 </div>
-                <HoneyBee
-                  isMVP={user.isMVP}
-                  isSad={user.isSad}
-                  className="max-w-20"
-                />
-                <img
-                  src={`/images/${user.main_position}.png`}
-                  className="w-20"
-                  alt=""
-                />
+                <Button
+                  variant="text"
+                  size="small"
+                  endIcon={<PlusIcon />}
+                  onClick={() => handleMoreInfo(user._id)}
+                >
+                  <p>더보기</p>
+                </Button>
               </div>
-              <HorizonLine />
-              <p className="dbsm:text-lg text-base font-semibold">
-                Recent Played ({userWin}W {userLose}L)
-              </p>
-              <RecentPlayed match={userResult} />
+
+              <div className="border border-primary bg-light p-4 flex flex-col shadow-xl rounded-tr-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col gap-3">
+                    <p className="text-lg font-semibold">Position</p>
+                    <div className="flex flex-col gap-2 whitespace-nowrap text-xs dbsm:text-base">
+                      <p>Main : {user.main_position}</p>
+                      <p>Sub : {user.sub_position}</p>
+                    </div>
+                  </div>
+                  <HoneyBee
+                    isMVP={user.isMVP}
+                    isSad={user.isSad}
+                    className="max-w-20"
+                  />
+                  <img
+                    src={`/images/${user.main_position}.png`}
+                    className="w-20"
+                    alt=""
+                  />
+                </div>
+                <HorizonLine />
+                <p className="dbsm:text-lg text-base font-semibold">
+                  Recent Played ({userWin}W {userLose}L)
+                </p>
+                <RecentPlayed match={userResult} />
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 };
