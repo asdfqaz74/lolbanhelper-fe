@@ -71,16 +71,20 @@ const AddPlayerResult = () => {
 
   return (
     <>
-      <div className="flex flex-col mt-5 py-2 px-20 bg-white shadow-2xl rounded-b-lg">
-        <p>{playerData.name} 님의 전적 추가</p>
+      <div className="flex flex-col mt-5 py-5 px-20 bg-white shadow-2xl rounded-b-lg">
+        <p className="statssm:text-start text-center">
+          {playerData.name} 님의 전적 추가
+        </p>
         {playerData.game_id ? (
-          <p>게임 아이디: {playerData.game_id}</p>
+          <p className="statssm:text-start text-center mb-5">
+            게임 아이디: {playerData.game_id}
+          </p>
         ) : (
           <p>게임 아이디가 없습니다</p>
         )}
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col min-w-96 justify-center place-self-center gap-12"
+          className="flex flex-col statssm:min-w-96 justify-center place-self-center gap-12"
         >
           <div className="flex flex-col gap-4">
             <p>챔피언을 선택해주세요</p>
