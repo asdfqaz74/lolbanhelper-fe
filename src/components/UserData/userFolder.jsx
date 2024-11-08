@@ -65,7 +65,7 @@ const UserFolder = ({ userList, resultData }) => {
               <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-3">
                   <p className="text-lg font-semibold">Position</p>
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 whitespace-nowrap text-xs dbsm:text-base">
                     <p>Main : {user.main_position}</p>
                     <p>Sub : {user.sub_position}</p>
                   </div>
