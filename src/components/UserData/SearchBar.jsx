@@ -20,12 +20,7 @@ export const SearchBar = () => {
       getOptionLabel={(option) => option.name}
       onChange={(e, value) => setSearchValue(value ? value.name : "")}
       renderInput={(params) => (
-        <TextField
-          {...params}
-          label="유저 검색"
-          variant="outlined"
-          sx={{ width: 200, marginBottom: 2 }}
-        />
+        <TextField {...params} label="유저 검색" variant="outlined" />
       )}
     />
   );
