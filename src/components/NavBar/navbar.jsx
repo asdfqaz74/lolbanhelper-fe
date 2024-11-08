@@ -13,7 +13,9 @@ const Navbar = () => {
       </NavLink>
       <NavLink
         to="/team"
-        className={({ isActive }) => (isActive ? "text-primary " : hoverMenu)}
+        className={({ isActive }) =>
+          (isActive ? "text-primary " : hoverMenu) + ` hidden md:block`
+        }
       >
         Team Maker
       </NavLink>

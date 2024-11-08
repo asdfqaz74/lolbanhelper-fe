@@ -10,6 +10,7 @@ module.exports = {
       stats: "1200px",
       statsmd: "860px",
       statssm: "580px",
+      md: "768px",
     },
     extend: {
       keyframes: {
