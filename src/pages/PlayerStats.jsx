@@ -73,7 +73,7 @@ const PlayerStats = () => {
   return (
     <>
       {playerData ? (
-        <div className="flex flex-col my-5 py-10 px-10 statssm:px-20 bg-white shadow-2xl justify-between rounded-b-lg mx-4 z-10">
+        <div className="flex flex-col my-5 pb-10 statssm:pt-10 px-10 statssm:px-20 bg-white shadow-2xl justify-between rounded-b-lg mx-4 z-10">
           {mostChampionData && (
             <img
               src={`${mostChampionData.image}.jpg`}
@@ -104,7 +104,9 @@ const PlayerStats = () => {
               </div>
             </div>
             <div className="statssm:bg-light px-14 py-10 statssm:border statssm:border-primary rounded-tr-lg bg-white border-none">
-              <p className="text-xl font-semibold mb-5">INFO</p>
+              <p className="text-center statssm:text-start text-xl font-semibold mb-5">
+                INFO
+              </p>
               <div className="flex w-full justify-center">
                 <div className="flex text-sm statssm:text-base gap-5 w-3/4 items-center statsmd:justify-between flex-col-reverse statsmd:flex-row">
                   <div className="flex justify-start statsmd:w-1/3 gap-10 whitespace-nowrap">
@@ -129,17 +131,23 @@ const PlayerStats = () => {
                 </div>
               </div>
               <HorizonLine />
-              <p className="text-xl font-semibold mb-5">RECORD</p>
+              <p className="text-center statssm:text-start text-xl font-semibold mb-5">
+                RECORD
+              </p>
               <div className="flex flex-col justify-around stats:flex-row items-center stats:items-start gap-10">
                 <div className="">
-                  <p className="text-lg mb-3">최근 경기</p>
+                  <p className="text-center statssm:text-start text-lg mb-3">
+                    최근 경기
+                  </p>
                   <ResultTable
                     userResult={userResult}
                     championDatas={championData}
                   />
                 </div>
                 <div>
-                  <p className="text-lg mb-3">챔피언 성적</p>
+                  <p className="text-center statssm:text-start text-lg mb-3">
+                    챔피언 성적
+                  </p>
                   <ChampionStats
                     userResult={userResult}
                     championDatas={championData}
