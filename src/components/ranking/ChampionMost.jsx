@@ -4,7 +4,7 @@ export const ChampionMost = ({ mostChampionData, championList }) => {
   return !mostChampionData ? (
     <p>loading...</p>
   ) : (
-    <div className="bg-light flex flex-col border statssm:max-w-96 px-2">
+    <div className="bg-light flex flex-col border statssm:max-w-[31.25rem] px-2 py-3">
       <p className="text-2xl font-semibold text-center mb-5">
         모스트 탑 10 챔피언
       </p>
@@ -22,12 +22,12 @@ export const ChampionMost = ({ mostChampionData, championList }) => {
               <img
                 src={`/images/${rankImages[index]}`}
                 alt=""
-                className="w-10"
+                className="w-10 statssm:w-20"
               />
               <img
                 src={`${championImage}.jpg`}
                 alt=""
-                className="w-32 statssm:w-72 rounded-sm"
+                className="w-32 statssm:w-72 rounded-lg"
               />
               <div className="">
                 <p className="text-lg">{championName}</p>
@@ -36,19 +36,23 @@ export const ChampionMost = ({ mostChampionData, championList }) => {
             </div>
           );
         })}
-        {mostChampionData.slice(3).map((data, index) => {
-          const championName = championList.find(
-            (champion) => champion._id === data._id
-          ).name;
+        <div className="grid grid-cols-2 gap-4 statssm:grid-cols-3 justify-items-center mt-3">
+          {mostChampionData.slice(3).map((data, index) => {
+            const championName = championList.find(
+              (champion) => champion._id === data._id
+            ).name;
 
-          return (
-            <div key={index + 3}>
-              <p>{index + 4}위</p>
-              <p>{championName}</p>
-              <p>{data.count}</p>
-            </div>
-          );
-        })}
+            return (
+              <div key={index + 3} className="w-24 whitespace-nowrap">
+                <p className="font-semibold text-lg">{index + 4}위</p>
+                <div className="flex gap-0 statssm:gap-2 flex-col statssm:flex-row">
+                  <p>{championName}</p>
+                  <p className="text-sm">{data.count}게임</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
