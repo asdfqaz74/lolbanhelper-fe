@@ -65,7 +65,7 @@ const EditPlayer = () => {
 
   return (
     <>
-      <div className="flex flex-col mt-5 py-2 px-20 bg-white shadow-2xl rounded-b-lg">
+      <div className="flex flex-col mt-5 mx-4 py-10 px-20 bg-white shadow-2xl rounded-b-lg">
         <form
           onSubmit={(e) => {
             e.preventDefault();

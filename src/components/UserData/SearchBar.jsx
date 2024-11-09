@@ -1,4 +1,4 @@
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, TextField, useMediaQuery } from "@mui/material";
 import { userDataAtom } from "atoms/dataAtoms";
 import { userSearchAtom } from "atoms/userAtoms";
 import { useAtom } from "jotai";
@@ -6,13 +6,14 @@ import { useAtom } from "jotai";
 export const SearchBar = () => {
   const [userList] = useAtom(userDataAtom);
   const [, setSearchValue] = useAtom(userSearchAtom);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <Autocomplete
       sx={{
         width: 200,
         marginBottom: 2,
-        alignSelf: "end",
+        alignSelf: isMobile ? "center" : "end",
         marginX: 4,
       }}
       id="user-search"

@@ -13,6 +13,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  useMediaQuery,
 } from "@mui/material";
 import { useAddResult, useOneUserData } from "hooks/Data";
 import { useAtom } from "jotai";
@@ -40,6 +41,7 @@ const AddPlayerResult = () => {
   const { data: playerData } = useOneUserData(id);
   const [championList] = useAtom(championDataAtom);
   const addResult = useAddResult();
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const formik = useFormik({
     initialValues: {
@@ -71,22 +73,22 @@ const AddPlayerResult = () => {
 
   return (
     <>
-      <div className="flex flex-col mt-5 py-5 px-20 bg-white shadow-2xl rounded-b-lg">
-        <p className="statssm:text-start text-center">
+      <div className="flex flex-col mt-5 mx-4 py-5 px-20 bg-white shadow-2xl rounded-b-lg">
+        <p className="statssm:text-start text-center font-semibold text-lg">
           {playerData.name} 님의 전적 추가
         </p>
         {playerData.game_id ? (
-          <p className="statssm:text-start text-center mb-5">
-            게임 아이디: {playerData.game_id}
+          <p className="statssm:text-start text-center mb-5 whitespace-nowrap">
+            {playerData.game_id}
           </p>
         ) : (
           <p>게임 아이디가 없습니다</p>
         )}
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col statssm:min-w-96 justify-center place-self-center gap-12"
+          className="flex flex-col statssm:max-w-96 justify-center place-self-center gap-12"
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 place-self-center statssm:place-self-stretch text-center statssm:text-start max-w-48 statssm:max-w-96">
             <p>챔피언을 선택해주세요</p>
             <Autocomplete
               id="champion"
@@ -107,12 +109,11 @@ const AddPlayerResult = () => {
                     formik.touched.champion && Boolean(formik.errors.champion)
                   }
                   helperText={formik.touched.champion && formik.errors.champion}
-                  sx={{ width: "100%" }}
                 />
               )}
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-col statssm:flex-row gap-2">
             <p>승패를 골라주세요</p>
             <FormControl
               error={
@@ -137,7 +138,9 @@ const AddPlayerResult = () => {
             </FormControl>
           </div>
           <div className="flex flex-col gap-4">
-            <p>K/D/A 를 입력해주세요</p>
+            <p className="text-center statssm:text-start">
+              K/D/A 를 입력해주세요
+            </p>
             <div className="flex gap-4 justify-between">
               <FormControl
                 error={formik.touched.kills && Boolean(formik.errors.kills)}
@@ -153,7 +156,7 @@ const AddPlayerResult = () => {
                   }
                   error={formik.touched.kills && Boolean(formik.errors.kills)}
                   helperText={formik.touched.kills && formik.errors.kills}
-                  sx={{ width: 100 }}
+                  sx={{ width: isMobile ? 80 : 100 }}
                 />
               </FormControl>
               <FormControl
@@ -170,7 +173,7 @@ const AddPlayerResult = () => {
                   }
                   error={formik.touched.deaths && Boolean(formik.errors.deaths)}
                   helperText={formik.touched.deaths && formik.errors.deaths}
-                  sx={{ width: 100 }}
+                  sx={{ width: isMobile ? 80 : 100 }}
                 />
               </FormControl>
               <FormControl
@@ -189,7 +192,7 @@ const AddPlayerResult = () => {
                     formik.touched.assists && Boolean(formik.errors.assists)
                   }
                   helperText={formik.touched.assists && formik.errors.assists}
-                  sx={{ width: 100 }}
+                  sx={{ width: isMobile ? 80 : 100 }}
                 />
               </FormControl>
             </div>
