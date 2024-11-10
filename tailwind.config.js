@@ -3,14 +3,14 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     screens: {
-      dblg: "1200px",
-      db: "830px",
-      dbsm: "432px",
       statslg: "1460px",
+      dblg: "1200px",
       stats: "1200px",
+      db: "830px",
       statsmd: "860px",
-      statssm: "580px",
       md: "768px",
+      statssm: "580px",
+      dbsm: "432px",
     },
     extend: {
       keyframes: {

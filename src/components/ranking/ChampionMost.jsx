@@ -4,8 +4,8 @@ export const ChampionMost = ({ mostChampionData, championList }) => {
   return !mostChampionData ? (
     <p>loading...</p>
   ) : (
-    <div className="bg-light flex flex-col border statssm:max-w-[31.25rem] px-2 py-3">
-      <p className="text-2xl font-semibold text-center mb-5">
+    <div className="bg-light flex flex-col border md:min-w-[32rem] px-2 py-3">
+      <p className="text-2xl font-semibold text-center mb-5 text-dark">
         모스트 탑 10 챔피언
       </p>
       <div className="flex flex-col gap-3">
@@ -22,16 +22,18 @@ export const ChampionMost = ({ mostChampionData, championList }) => {
               <img
                 src={`/images/${rankImages[index]}`}
                 alt=""
-                className="w-10 statssm:w-20"
+                className="w-10 object-obtain statssm:w-20 statssm:h-20"
               />
-              <img
-                src={`${championImage}.jpg`}
-                alt=""
-                className="w-32 statssm:w-72 rounded-lg"
-              />
-              <div className="">
-                <p className="text-lg">{championName}</p>
-                <p className="text-sm">{data.count}게임</p>
+              <div className="md:place-items-center">
+                <img
+                  src={`${championImage}.jpg`}
+                  alt=""
+                  className="w-32 dbsm:w-72 rounded-lg"
+                />
+                <div className="flex flex-col md:flex-row md:gap-2 md:items-end">
+                  <p className="text-lg">{championName}</p>
+                  <p className="text-sm">{data.count}게임</p>
+                </div>
               </div>
             </div>
           );
@@ -43,8 +45,13 @@ export const ChampionMost = ({ mostChampionData, championList }) => {
             ).name;
 
             return (
-              <div key={index + 3} className="w-24 whitespace-nowrap">
-                <p className="font-semibold text-lg">{index + 4}위</p>
+              <div
+                key={index + 3}
+                className="w-24 whitespace-nowrap text-center statssm:text-start"
+              >
+                <p className="font-semibold text-lg text-primary">
+                  {index + 4}위
+                </p>
                 <div className="flex gap-0 statssm:gap-2 flex-col statssm:flex-row">
                   <p>{championName}</p>
                   <p className="text-sm">{data.count}게임</p>
