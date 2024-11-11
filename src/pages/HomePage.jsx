@@ -17,17 +17,13 @@ const HomePage = () => {
   const userList = useUserDatas();
 
   return (
-    <div className="my-5 py-10 px-6 justify-between rounded-b-lg md:mx-36">
-      <div className="flex flex-col-reverse statssm:flex-row">
-        <ChampionMost
-          mostChampionData={mostChampionData}
-          championList={championList}
-        />
-        <div>
-          <Notice />
-          <Free />
-        </div>
-      </div>
+    <div className="my-5 py-10 px-6 md:mx-36">
+      <Notice />
+      <Free />
+      <ChampionMost
+        mostChampionData={mostChampionData}
+        championList={championList}
+      />
       <div className="grid grid-cols-1 statssm:grid-cols-3">
         <MostWinRateUser
           mostUserWinRateData={mostUserWinRateData}

@@ -17,7 +17,7 @@ const Navbar = () => {
             팀 매칭은 팀 메이커와 함께!
           </p>
         </div>
-        <div className="flex justify-between mx-auto md:mx-0 mt-4 text-lg h-10 min-w-80 md:max-w-[62.5rem] font-semibold text-slate-600">
+        <div className="flex justify-between mx-auto md:mx-0 mt-8 text-lg h-10 min-w-80 md:max-w-[55rem] font-semibold text-slate-600">
           <NavLink
             to="/"
             className={({ isActive }) =>
