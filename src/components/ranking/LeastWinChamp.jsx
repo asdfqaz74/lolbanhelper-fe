@@ -3,8 +3,8 @@ export const LeastWinChamp = ({ leastWinChampionData, championList }) => {
   return !leastWinChampionData ? (
     <p>loading...</p>
   ) : (
-    <div className="bg-light flex flex-col border md:min-w-[32rem] px-2 py-3">
-      <p className="text-2xl font-semibold text-center mb-5 text-dark">
+    <div className="bg-light flex flex-col border px-2 py-3 min-w-60 max-w-80">
+      <p className="text-base md:text-2xl font-semibold text-center mb-5 text-dark">
         승률 워스트 5 챔피언
       </p>
       <div className="flex flex-col gap-3 mb-3">
@@ -31,7 +31,7 @@ export const LeastWinChamp = ({ leastWinChampionData, championList }) => {
           );
         })}
       </div>
-      <div className="grid grid-cols-2 justify-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center">
         {leastWinChampionData.slice(3).map((data, index) => {
           const championName = championList.find(
             (champion) => champion._id === data._id

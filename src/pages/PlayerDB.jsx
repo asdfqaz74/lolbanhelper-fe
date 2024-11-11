@@ -8,7 +8,7 @@ const PlayerDB = () => {
   useChampionData();
 
   return (
-    <div className="flex flex-col my-5 py-10 px-6 bg-white shadow-2xl justify-between rounded-b-lg mx-4">
+    <div className="flex flex-col my-5 py-10 px-6 justify-between rounded-b-lg mx-4">
       <SearchBar />
       <UserFolder userList={userList} resultData={resultData} />
     </div>

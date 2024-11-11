@@ -4,8 +4,8 @@ export const MostWinRateUser = ({ mostUserWinRateData, userList }) => {
   return !mostUserWinRateData ? (
     <p>loading...</p>
   ) : (
-    <div className="bg-light flex flex-col border md:min-w-[32rem] px-2 py-3">
-      <p className="text-2xl font-semibold text-center mb-5 text-dark">
+    <div className="bg-light flex flex-col border px-2 py-3 min-w-60 max-w-80">
+      <p className="text-base md:text-2xl font-semibold text-center mb-5 text-dark">
         승률 베스트 5 플레이어
       </p>
       <div className="flex flex-col gap-3 mb-3">
@@ -30,7 +30,7 @@ export const MostWinRateUser = ({ mostUserWinRateData, userList }) => {
           );
         })}
       </div>
-      <div className="grid grid-cols-2 justify-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 justify-items-center">
         {mostUserWinRateData.slice(3).map((data, index) => {
           const userName = userList.find((user) => user._id === data._id).name;
 
