@@ -1,37 +1,66 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const hoverMenu = "hover:text-primaryHover transition duration-200";
 
 const Navbar = () => {
   return (
-    <div className="flex justify-around text-sm dbsm:text-lg font-semibold bg-white h-20 items-center border  text-black rounded-b-lg shadow-md mx-4">
-      <NavLink
-        to="/"
-        className={({ isActive }) => (isActive ? "text-primary " : hoverMenu)}
-      >
-        HOME
-      </NavLink>
-      <NavLink
-        to="/team"
-        className={({ isActive }) =>
-          (isActive ? "text-primary " : hoverMenu) + ` hidden md:block`
-        }
-      >
-        Team Maker
-      </NavLink>
-      <NavLink
-        to="/playerdb"
-        className={({ isActive }) => (isActive ? "text-primary" : hoverMenu)}
-      >
-        Player DB
-      </NavLink>
-      <NavLink
-        to="/archive"
-        className={({ isActive }) => (isActive ? "text-primary" : hoverMenu)}
-      >
-        Archive
-      </NavLink>
-    </div>
+    <>
+      <div className="md:mx-40 flex flex-col mt-5">
+        <div className="flex justify-center md:justify-between items-center">
+          <Link to={"/"} className="flex items-center gap-2">
+            <img src="/images/group.png" alt="" className="w-12" />
+            <p className="text-4xl md:text-6xl text-dark font-bold">
+              Team Maker
+            </p>
+          </Link>
+          <p className="hidden md:block md:text-2xl text-dark font-semibold">
+            팀 매칭은 팀 메이커와 함께!
+          </p>
+        </div>
+        <div className="flex justify-between mx-auto md:mx-0 mt-4 text-lg h-10 min-w-80 md:max-w-[62.5rem] font-semibold text-slate-600">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? "text-primary border-b-2 border-primaryActive"
+                : hoverMenu
+            }
+          >
+            HOME
+          </NavLink>
+          <NavLink
+            to="/team"
+            className={({ isActive }) =>
+              (isActive
+                ? "text-primary border-b-2 border-primaryActive"
+                : hoverMenu) + ` hidden md:block`
+            }
+          >
+            Team Maker
+          </NavLink>
+          <NavLink
+            to="/playerdb"
+            className={({ isActive }) =>
+              isActive
+                ? "text-primary border-b-2 border-primaryActive"
+                : hoverMenu
+            }
+          >
+            Player DB
+          </NavLink>
+          <NavLink
+            to="/archive"
+            className={({ isActive }) =>
+              isActive
+                ? "text-primary border-b-2 border-primaryActive"
+                : hoverMenu
+            }
+          >
+            Archive
+          </NavLink>
+        </div>
+      </div>
+    </>
   );
 };
 

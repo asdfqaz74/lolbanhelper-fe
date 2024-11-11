@@ -17,7 +17,7 @@ const HomePage = () => {
   const userList = useUserDatas();
 
   return (
-    <div className="my-5 py-10 px-6 bg-white shadow-2xl justify-between rounded-b-lg md:mx-4">
+    <div className="my-5 py-10 px-6 justify-between rounded-b-lg md:mx-36">
       <div className="flex flex-col-reverse statssm:flex-row">
         <ChampionMost
           mostChampionData={mostChampionData}
