@@ -4,6 +4,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useMediaQuery } from "@mui/material";
 
 export const SwiperChampionMost = ({ mostChampionData, championList }) => {
   const rankImages = [
@@ -19,18 +20,21 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
     "",
   ];
 
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="relative w-full max-w-screen-statsmd">
+      <div className="relative w-full max-w-full">
         <Swiper
-          style={{ width: "100%", maxWidth: "100%" }}
+          className="w-full"
           modules={[Navigation, Autoplay, Pagination]}
           pagination={{ clickable: true, el: ".custom-pagination" }}
           navigation={{ nextEl: ".custom-next", prevEl: null }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop
+          centeredSlides={isMobile ? true : false}
           spaceBetween={30}
-          slidesPerView={3}
+          slidesPerView={isMobile ? 1 : 3}
         >
           {mostChampionData.map((data, index) => {
             const championData = championList.find(
@@ -43,7 +47,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
             const championImage = championData.image;
 
             return (
-              <SwiperSlide key={index} className="">
+              <SwiperSlide key={index} className={`flex flex-col items-center`}>
                 <div className="relative">
                   <img
                     src={rankImages[index]}
@@ -53,10 +57,12 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
                   <img
                     src={`${championImage}.jpg`}
                     alt=""
-                    className="object-contain rounded-lg w-full"
+                    className={`object-contain rounded-lg ${
+                      isMobile ? "w-56" : "w-full"
+                    }`}
                   />
                 </div>
-                <div className="flex justify-between items-center px-3 mt-2">
+                <div className="flex justify-between items-center px-3 mt-2 w-full">
                   <p className="text-lg font-bold">{championName}</p>
                   <p className="text-slate-500">{data.count} 게임</p>
                 </div>
@@ -65,7 +71,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
           })}
         </Swiper>
         {/* Next button */}
-        <div className="custom-next absolute top-1/2 -right-5 transform -translate-y-12 z-10 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md">
+        <div className="custom-next absolute top-1/2 -right-5 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
           <img
             src="/images/arrow.jpg"
             alt=""

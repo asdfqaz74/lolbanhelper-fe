@@ -9,15 +9,15 @@ const Navbar = () => {
         <div className="flex justify-center md:justify-between items-center">
           <Link to={"/"} className="flex items-center gap-2">
             <img src="/images/group.png" alt="" className="w-12" />
-            <p className="text-4xl md:text-6xl text-dark font-bold">
+            <p className="text-4xl md:text-6xl text-dark font-bold whitespace-nowrap">
               Team Maker
             </p>
           </Link>
-          <p className="hidden md:block md:text-2xl text-dark font-semibold">
+          <p className="hidden md:text-2xl text-dark font-semibold dblg:block">
             내전은 팀 메이커와 함께!
           </p>
         </div>
-        <div className="flex justify-between mx-auto md:mx-0 mt-8 text-lg h-10 min-w-80 md:max-w-[45rem] font-semibold text-slate-600">
+        <div className="flex justify-around md:justify-between mx-auto md:mx-0 mt-8 text-base dblg:text-lg h-10 min-w-80 md:min-w-[28.125rem] md:max-w-[45rem] font-semibold text-slate-600">
           <NavLink
             to="/"
             className={({ isActive }) =>

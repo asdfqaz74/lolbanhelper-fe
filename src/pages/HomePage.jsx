@@ -17,14 +17,14 @@ const HomePage = () => {
   const userList = useUserDatas();
 
   return (
-    <div className="my-5 py-10 md:mx-36 place-self-center">
+    <div className="my-5 py-10 md:mx-36 place-self-center w-full">
       <Notice />
       <Free />
       <ChampionMost
         mostChampionData={mostChampionData}
         championList={championList}
       />
-      <div className="grid grid-cols-1 statssm:grid-cols-3 w-[87.5rem] justify-items-center">
+      <div className="grid grid-cols-1 statssm:grid-cols-3 justify-items-center">
         <MostWinRateUser
           mostUserWinRateData={mostUserWinRateData}
           userList={userList}

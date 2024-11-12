@@ -6,7 +6,7 @@ export const ChampionMost = ({ mostChampionData, championList }) => {
   return !mostChampionData ? (
     <p>loading...</p>
   ) : (
-    <div className="flex flex-col px-2 py-3 w-full max-w-screen-statslg justify-center items-center">
+    <div className="flex flex-col px-2 py-3 w-full md:max-w-screen-statslg justify-center items-center">
       <p className="text-2xl font-semibold mb-5 text-dark">
         모스트 탑 10 챔피언
       </p>
