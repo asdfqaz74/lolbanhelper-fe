@@ -4,7 +4,7 @@ export const MostWinRateUser = ({ mostUserWinRateData, userList }) => {
   return !mostUserWinRateData ? (
     <p>loading...</p>
   ) : (
-    <div className="bg-light flex flex-col border px-2 py-3 min-w-60 max-w-80">
+    <div className="bg-light flex flex-col border px-2 py-3 min-w-60 md:min-w-96">
       <p className="text-base md:text-2xl font-semibold text-center mb-5 text-dark">
         승률 베스트 5 플레이어
       </p>
