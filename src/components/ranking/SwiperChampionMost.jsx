@@ -26,7 +26,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
     <div className="flex justify-center items-center w-full">
       <div className="relative w-full max-w-full">
         <Swiper
-          className="w-full"
+          className="w-"
           modules={[Navigation, Autoplay, Pagination]}
           pagination={{ clickable: true, el: ".custom-pagination" }}
           navigation={{ nextEl: ".custom-next", prevEl: ".custom-prev" }}
@@ -34,7 +34,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
           loop
           centeredSlides={isMobile ? true : false}
           spaceBetween={30}
-          slidesPerView={isMobile ? 1 : 3}
+          slidesPerView={isMobile ? 1 : 4}
         >
           {mostChampionData.map((data, index) => {
             const championData = championList.find(
@@ -57,12 +57,12 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
                   <img
                     src={`${championImage}.jpg`}
                     alt=""
-                    className={`object-contain rounded-lg ${
+                    className={`object-contain rounded-t-lg ${
                       isMobile ? "w-56" : "w-full"
                     }`}
                   />
                 </div>
-                <div className="flex justify-around md:justify-between items-center px-3 mt-2 w-full">
+                <div className="flex justify-around md:justify-between items-center px-3 w-56 md:w-full bg-light h-10 rounded-b-lg">
                   <p className="text-lg font-bold">{championName}</p>
                   <p className="text-slate-500">{data.count} 게임</p>
                 </div>
@@ -71,7 +71,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
           })}
         </Swiper>
         {/* Next button */}
-        <div className="custom-next absolute top-1/2 -right-5 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
+        <div className="custom-next absolute top-1/2 right-0 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
           <img
             src="/images/arrow.jpg"
             alt=""
@@ -79,7 +79,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
           />
         </div>
         {/* Previous button */}
-        <div className="custom-prev absolute top-1/2 -left-5 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
+        <div className="custom-prev absolute top-1/2 left-0 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
           <img src="/images/arrow.jpg" alt="" className="rounded-full" />
         </div>
         {/* Pagination */}

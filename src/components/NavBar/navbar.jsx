@@ -5,7 +5,7 @@ const hoverMenu = "hover:text-primaryHover transition duration-300";
 const Navbar = () => {
   return (
     <>
-      <div className="md:px-60 flex flex-col mt-5 top-0 sticky bg-white z-20 shadow-lg">
+      <div className="md:px-60 flex flex-col mt-5 top-0 sticky bg-white shadow-lg z-50">
         <div className="flex justify-center md:justify-between items-center">
           <Link to={"/"} className="flex items-center gap-2">
             <img src="/images/group.png" alt="" className="w-12" />
@@ -26,7 +26,7 @@ const Navbar = () => {
                 : hoverMenu
             }
           >
-            HOME
+            홈
           </NavLink>
           <NavLink
             to="/team"
@@ -36,7 +36,7 @@ const Navbar = () => {
                 : hoverMenu) + ` hidden md:block`
             }
           >
-            Team Maker
+            팀 메이커
           </NavLink>
           <NavLink
             to="/playerdb"
@@ -46,7 +46,7 @@ const Navbar = () => {
                 : hoverMenu
             }
           >
-            Player DB
+            플레이어 정보
           </NavLink>
           <NavLink
             to="/archive"
@@ -56,7 +56,7 @@ const Navbar = () => {
                 : hoverMenu
             }
           >
-            Board
+            커뮤니티
           </NavLink>
         </div>
       </div>

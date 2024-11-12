@@ -1,5 +1,6 @@
 import { Free } from "components/board/Free";
 import { Notice } from "components/board/Notice";
+import { HorizonLine } from "components/etc/HorizonLine";
 import { ChampionMost } from "components/ranking/ChampionMost";
 import { LeastWinChamp } from "components/ranking/LeastWinChamp";
 import { MostWinRateChamp } from "components/ranking/MostWinRateChamp";
@@ -17,30 +18,29 @@ const HomePage = () => {
   const userList = useUserDatas();
 
   return (
-    <div className="my-5 py-10 md:mx-36 flex flex-col items-center">
-      <div>
-        <Notice />
-        <Free />
-      </div>
+    <>
       <ChampionMost
         mostChampionData={mostChampionData}
         championList={championList}
       />
-      <div className="grid grid-cols-1 statssm:grid-cols-3">
-        <MostWinRateUser
-          mostUserWinRateData={mostUserWinRateData}
-          userList={userList}
-        />
-        <MostWinRateChamp
-          mostWinChampionData={mostWinChampionData}
-          championList={championList}
-        />
-        <LeastWinChamp
-          leastWinChampionData={leastWinChampionData}
-          championList={championList}
-        />
+      <div className="mb-5 pb-10 md:mx-36 flex flex-col items-center">
+        {/* <HorizonLine /> */}
+        <div className="grid grid-cols-1 statssm:grid-cols-3 mt-10">
+          <MostWinRateUser
+            mostUserWinRateData={mostUserWinRateData}
+            userList={userList}
+          />
+          <MostWinRateChamp
+            mostWinChampionData={mostWinChampionData}
+            championList={championList}
+          />
+          <LeastWinChamp
+            leastWinChampionData={leastWinChampionData}
+            championList={championList}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

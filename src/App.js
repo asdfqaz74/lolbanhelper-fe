@@ -12,6 +12,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import AddPlayerResult from "./pages/AddPlayerResult";
 import { Provider } from "jotai";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Footer } from "components/footer/Footer";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/playerdb/:id/record" element={<AddPlayerResult />} />
           </Routes>
         </DndProvider>
+        <Footer />
       </QueryClientProvider>
     </Provider>
   );
