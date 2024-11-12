@@ -1,11 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 
-const hoverMenu = "hover:text-primaryHover transition duration-200";
+const hoverMenu = "hover:text-primaryHover transition duration-300";
 
 const Navbar = () => {
   return (
     <>
-      <div className="md:px-36 flex flex-col mt-5 top-0 sticky bg-white z-20">
+      <div className="md:px-60 flex flex-col mt-5 top-0 sticky bg-white z-20 shadow-lg">
         <div className="flex justify-center md:justify-between items-center">
           <Link to={"/"} className="flex items-center gap-2">
             <img src="/images/group.png" alt="" className="w-12" />
@@ -14,10 +14,10 @@ const Navbar = () => {
             </p>
           </Link>
           <p className="hidden md:block md:text-2xl text-dark font-semibold">
-            팀 매칭은 팀 메이커와 함께!
+            내전은 팀 메이커와 함께!
           </p>
         </div>
-        <div className="flex justify-between mx-auto md:mx-0 mt-8 text-lg h-10 min-w-80 md:max-w-[55rem] font-semibold text-slate-600 pb-2">
+        <div className="flex justify-between mx-auto md:mx-0 mt-8 text-lg h-10 min-w-80 md:max-w-[45rem] font-semibold text-slate-600">
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -56,7 +56,7 @@ const Navbar = () => {
                 : hoverMenu
             }
           >
-            Archive
+            Board
           </NavLink>
         </div>
       </div>

@@ -25,7 +25,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
         <Swiper
           style={{ width: "100%", maxWidth: "100%" }}
           modules={[Navigation, Autoplay, Pagination]}
-          pagination={{ clickable: true }}
+          pagination={{ clickable: true, el: ".custom-pagination" }}
           navigation={{ nextEl: ".custom-next", prevEl: null }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop
@@ -65,13 +65,15 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
           })}
         </Swiper>
         {/* Next button */}
-        <div className="custom-next absolute top-1/2 -right-5 transform -translate-y-9 z-10 w-12 h-12 flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white drop-shadow-lg">
+        <div className="custom-next absolute top-1/2 -right-5 transform -translate-y-12 z-10 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md">
           <img
             src="/images/arrow.jpg"
             alt=""
             className="rotate-180 rounded-full"
           />
         </div>
+        {/* Pagination */}
+        <div className="custom-pagination flex justify-center mt-4 space-x-2"></div>
       </div>
     </div>
   );

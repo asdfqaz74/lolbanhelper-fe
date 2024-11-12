@@ -55,3 +55,11 @@ body {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
+.custom-pagination .swiper-pagination-bullet {
+  @apply w-3 h-3 bg-slate-300 opacity-100 rounded-full transition-colors duration-500;
+}
+
+.custom-pagination .swiper-pagination-bullet-active {
+  @apply bg-primaryActive;
+}
