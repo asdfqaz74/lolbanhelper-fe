@@ -1,6 +1,3 @@
-import { Free } from "components/board/Free";
-import { Notice } from "components/board/Notice";
-import { HorizonLine } from "components/etc/HorizonLine";
 import { ChampionMost } from "components/ranking/ChampionMost";
 import { LeastWinChamp } from "components/ranking/LeastWinChamp";
 import { MostWinRateChamp } from "components/ranking/MostWinRateChamp";
