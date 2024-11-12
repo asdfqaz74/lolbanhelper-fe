@@ -18,8 +18,10 @@ const HomePage = () => {
 
   return (
     <div className="my-5 py-10 md:mx-36 flex flex-col items-center">
-      <Notice />
-      <Free />
+      <div>
+        <Notice />
+        <Free />
+      </div>
       <ChampionMost
         mostChampionData={mostChampionData}
         championList={championList}

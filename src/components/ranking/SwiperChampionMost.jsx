@@ -62,7 +62,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
                     }`}
                   />
                 </div>
-                <div className="flex justify-between items-center px-3 mt-2 w-full">
+                <div className="flex justify-around md:justify-between items-center px-3 mt-2 w-full">
                   <p className="text-lg font-bold">{championName}</p>
                   <p className="text-slate-500">{data.count} 게임</p>
                 </div>

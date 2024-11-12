@@ -9,9 +9,12 @@ export const MostWinRateChamp = ({ mostWinChampionData, championList }) => {
       </p>
       <div className="flex flex-col gap-3 mb-3">
         {mostWinChampionData.slice(0, 3).map((data, index) => {
-          const championName = championList.find(
+          const championData = championList.find(
             (champion) => champion._id === data._id
-          ).name;
+          );
+
+          const championImage = championData.small;
+          const championName = championData.name;
 
           return (
             <div key={index} className="flex items-center gap-3">
@@ -19,6 +22,11 @@ export const MostWinRateChamp = ({ mostWinChampionData, championList }) => {
                 src={`/images/${rankImages[index]}`}
                 alt=""
                 className="w-10"
+              />
+              <img
+                src={`${championImage}.jpg`}
+                alt={championName}
+                className="w-12 h-12 rounded-full hidden statssm:block"
               />
               <div>
                 <p className="text-lg font-semibold">{championName}</p>
