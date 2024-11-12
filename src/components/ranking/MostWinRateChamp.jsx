@@ -30,7 +30,7 @@ export const MostWinRateChamp = ({ mostWinChampionData, championList }) => {
               />
               <div>
                 <p className="text-lg font-semibold">{championName}</p>
-                <div className="flex gap-2">
+                <div className="flex gap-2 text-slate-500">
                   <p>{data.total} 게임</p>
                   <p>{(data.winRate * 100).toFixed(2)}%</p>
                 </div>
@@ -51,7 +51,7 @@ export const MostWinRateChamp = ({ mostWinChampionData, championList }) => {
                 {index + 4}위
               </p>
               <p className="text-center">{championName}</p>
-              <div className="flex gap-2 text-sm">
+              <div className="flex gap-2 text-sm text-slate-500">
                 <p>{data.total} 게임</p>
                 <p>{(data.winRate * 100).toFixed(2)}%</p>
               </div>

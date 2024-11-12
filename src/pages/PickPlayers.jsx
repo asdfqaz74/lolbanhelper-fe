@@ -10,7 +10,7 @@ const PickPlayers = () => {
   const userData = useUserDatas();
 
   return (
-    <div className="flex mt-5 px-6 py-10 bg-white shadow-2xl h-[80vh] justify-between rounded-b-lg mx-4">
+    <div className="flex mt-5 px-6 py-10 h-[80vh] justify-between rounded-b-lg mx-4">
       <HowTo />
       <TeamMaker userList={userData} />
 

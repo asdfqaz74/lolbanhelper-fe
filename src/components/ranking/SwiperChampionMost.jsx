@@ -29,7 +29,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
           className="w-full"
           modules={[Navigation, Autoplay, Pagination]}
           pagination={{ clickable: true, el: ".custom-pagination" }}
-          navigation={{ nextEl: ".custom-next", prevEl: null }}
+          navigation={{ nextEl: ".custom-next", prevEl: ".custom-prev" }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop
           centeredSlides={isMobile ? true : false}
@@ -77,6 +77,10 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
             alt=""
             className="rotate-180 rounded-full"
           />
+        </div>
+        {/* Previous button */}
+        <div className="custom-prev absolute top-1/2 -left-5 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
+          <img src="/images/arrow.jpg" alt="" className="rounded-full" />
         </div>
         {/* Pagination */}
         <div className="custom-pagination flex justify-center mt-4 space-x-2"></div>
