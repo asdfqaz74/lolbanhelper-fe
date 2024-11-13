@@ -51,7 +51,6 @@ export const RegistPlayer = () => {
   const isRegisterDisabled = !inputValue || registValue.length >= 10;
   const isNextDisabled = registValue.length <= 9;
 
-  console.log(userList);
   return (
     <div className="my-10 flex flex-col items-center w-[50rem]">
       <div className="flex w-full items-center whitespace-nowrap">
@@ -120,7 +119,7 @@ export const RegistPlayer = () => {
                     <img src="images/honeybee.webp" alt="mvp" className="h-8" />
                   )}
                   <RemoveCircleOutlineIcon
-                    sx={{ color: "red", cursor: "pointer" }}
+                    sx={{ color: "red", cursor: "pointer", width: 15 }}
                     onClick={() =>
                       setRegistValue((prev) =>
                         prev.filter((name) => name !== player)

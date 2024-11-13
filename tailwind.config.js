@@ -17,6 +17,7 @@ module.exports = {
         step1: "0%",
         step2: "-100%",
         step3: "-200%",
+        step4: "-300%",
       },
       keyframes: {
         flip: {
