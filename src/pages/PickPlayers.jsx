@@ -1,17 +1,17 @@
+import { progressAtom } from "atoms/userAtoms";
 import { useUserDatas } from "hooks/Data";
+import { useAtom } from "jotai";
 import { BasePaper } from "pickToolV2/BasePaper";
 import { ProgressBar } from "pickToolV2/ProgressBar";
 
 const PickPlayers = () => {
-  const userList = useUserDatas();
-  console.log(userList);
-
-  const currentStep = "step1";
+  useUserDatas();
+  const [step] = useAtom(progressAtom);
 
   return (
-    <div className="md:mx-80 my-10 flex flex-col items-center">
-      <ProgressBar currentStep={currentStep} />
-      <BasePaper currentStep={currentStep} />
+    <div className="md:mx-80 my-14 flex flex-col items-center">
+      <ProgressBar currentStep={step} />
+      <BasePaper currentStep={step} />
     </div>
   );
 };

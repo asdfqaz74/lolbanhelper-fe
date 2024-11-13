@@ -2,14 +2,14 @@ import { PickTeamLeader } from "./PickTeamLeader";
 import { PickTeamMate } from "./PickTeamMate";
 import { RegistPlayer } from "./RegistPlayer";
 
-export const BasePaper = ({ currentStep = "step1" }) => {
+export const BasePaper = ({ currentStep }) => {
   return (
     <div className="flex items-center justify-center w-full h-full overflow-hidden">
       <div
         className={`flex w-[300%] transition-transform duration-500 ease-in-out ${
-          currentStep === "step1"
+          currentStep === 0
             ? "translate-x-step1"
-            : currentStep === "step2"
+            : currentStep === 1
             ? "translate-x-step2"
             : "translate-x-step3"
         }`}
