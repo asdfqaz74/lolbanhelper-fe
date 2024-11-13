@@ -52,7 +52,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
                   <img
                     src={rankImages[index]}
                     alt=""
-                    className="w-10 absolute top-2 left-2"
+                    className="w-14 absolute top-2 left-2"
                   />
                   <img
                     src={`${championImage}.jpg`}
