@@ -1,6 +1,6 @@
 export const ProgressBar = ({ currentStep = "step1" }) => {
   return (
-    <div className="flex border w-[28.125rem] h-24 text-2xl font-bold overflow-hidden rounded">
+    <div className="flex border w-[28.125rem] h-20 text-2xl font-bold overflow-hidden rounded">
       <div
         className={`flex items-center justify-center py-4 border-r border-gray-300 transition-all duration-500 ${
           currentStep === "step1"

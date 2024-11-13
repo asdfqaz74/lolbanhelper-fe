@@ -9,7 +9,7 @@ const PickPlayers = () => {
   const currentStep = "step1";
 
   return (
-    <div className="md:mx-80 my-10">
+    <div className="md:mx-80 my-10 flex flex-col items-center">
       <ProgressBar currentStep={currentStep} />
       <BasePaper currentStep={currentStep} />
     </div>
