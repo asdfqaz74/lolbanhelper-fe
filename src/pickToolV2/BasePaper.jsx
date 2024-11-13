@@ -5,7 +5,7 @@ import { RegistPlayer } from "./RegistPlayer";
 
 export const BasePaper = ({ currentStep }) => {
   return (
-    <div className="flex items-center justify-center w-full h-full overflow-hidden">
+    <div className="flex items-start justify-center w-full h-full overflow-x-hidden">
       <div
         className={`flex w-[400%] transition-transform duration-500 ease-in-out ${
           currentStep === 0
@@ -17,7 +17,7 @@ export const BasePaper = ({ currentStep }) => {
             : "translate-x-step4"
         }`}
       >
-        <div className="flex-shrink-0 w-full flex justify-center items-center">
+        <div className="flex-shrink-0 w-full flex justify-center items-start">
           <RegistPlayer />
         </div>
         <div className="flex-shrink-0 w-full flex justify-center items-center">

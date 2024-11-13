@@ -8,7 +8,7 @@ import {
   FormControlLabel,
   FormGroup,
 } from "@mui/material";
-import { pickUserAtom, progressAtom } from "atoms/userAtoms";
+import { pickUserAtom, progressAtom, randomPlayersAtom } from "atoms/userAtoms";
 import { useAtom } from "jotai";
 import { useState } from "react";
 
@@ -19,7 +19,7 @@ export const PickTeamLeader = () => {
   const [openNext, setOpenNext] = useState(false); // 다음 다이얼로그
   const [openPickLeaderModal, setOpenPickLeaderModal] = useState(false); // 대장 뽑기 다이얼로그
   const [showResult, setShowResult] = useState(false); // 결과 보여주기 상태
-  const [randomPlayers, setRandomPlayers] = useState([]); // 랜덤으로 뽑힌 선수
+  const [randomPlayers, setRandomPlayers] = useAtom(randomPlayersAtom); // 랜덤으로 뽑힌 선수
 
   // 이전 단계로 돌아가기
   const handlePrev = () => {
@@ -102,11 +102,11 @@ export const PickTeamLeader = () => {
           </button>
           <div className="bg-primary bg-opacity-35 mt-10 w-64 px-4 py-4 flex flex-col gap-6">
             <div className="flex gap-4 text-lg">
-              <p className="text-red-400 font-bold">A팀 :</p>
+              <p className="text-red-400 font-bold">A팀(선) :</p>
               <p> {randomPlayers ? randomPlayers[0] : ""}</p>
             </div>
             <div className="flex gap-4 text-lg">
-              <p className="text-blue-400 font-bold">B팀 :</p>
+              <p className="text-blue-400 font-bold">B팀(후) :</p>
               <p> {randomPlayers ? randomPlayers[1] : ""}</p>
             </div>
           </div>

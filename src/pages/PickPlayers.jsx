@@ -9,7 +9,7 @@ const PickPlayers = () => {
   const [step] = useAtom(progressAtom);
 
   return (
-    <div className="md:mx-80 my-14 flex flex-col items-center">
+    <div className="md:mx-80 my-14 h-screen flex flex-col items-center">
       <ProgressBar currentStep={step} />
       <BasePaper currentStep={step} />
     </div>
