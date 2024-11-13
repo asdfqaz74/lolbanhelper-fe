@@ -13,6 +13,11 @@ module.exports = {
       dbsm: "432px",
     },
     extend: {
+      translate: {
+        step1: "0%",
+        step2: "-100%",
+        step3: "-200%",
+      },
       keyframes: {
         flip: {
           "0%": { transform: "rotateX(0deg)" },
