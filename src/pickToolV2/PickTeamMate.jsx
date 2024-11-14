@@ -213,7 +213,21 @@ export const PickTeamMate = () => {
               </p>
               <div className="flex flex-col justify-center items-center flex-grow gap-6">
                 {teamA.map((player) => (
-                  <p key={player._id}>{player.name}</p>
+                  <div key={player._id} className="flex items-center gap-2">
+                    {player.isMVP && (
+                      <img
+                        src="images/honeybee.webp"
+                        alt="mvp"
+                        className="h-8"
+                      />
+                    )}
+                    <p className="font-semibold">{player.name}</p>
+                    <img
+                      src={`/images/${player.main_position}.png`}
+                      alt={player.main_position}
+                      className="h-8"
+                    />
+                  </div>
                 ))}
               </div>
             </div>
@@ -222,9 +236,21 @@ export const PickTeamMate = () => {
                 <button
                   key={player._id}
                   onClick={() => handlePickPlayer(player)}
-                  className="bg-primary text-white font-semibold px-2 py-1 w-full hover:scale-105 transform transition-transform duration-200 ease-in-out"
+                  className={`${
+                    remainingPlayers.length === 2
+                      ? "bg-slate-500 cursor-not-allowed"
+                      : "bg-primary cursor-pointer"
+                  } text-white font-semibold px-2 py-1 w-full hover:scale-105 transform transition-all duration-200 ease-in-out flex items-center justify-center gap-2`}
                 >
+                  {player.isMVP && (
+                    <img src="images/honeybee.webp" alt="mvp" className="h-5" />
+                  )}
                   {player.name}
+                  <img
+                    src={`/images/${player.main_position}.png`}
+                    alt={player.main_position}
+                    className="h-5"
+                  />
                 </button>
               ))}
             </div>
@@ -240,7 +266,21 @@ export const PickTeamMate = () => {
               </p>
               <div className="flex flex-col justify-center items-center flex-grow gap-6">
                 {teamB.map((player) => (
-                  <p key={player._id}>{player.name}</p>
+                  <div key={player._id} className="flex items-center gap-2">
+                    {player.isMVP && (
+                      <img
+                        src="images/honeybee.webp"
+                        alt="mvp"
+                        className="h-8"
+                      />
+                    )}
+                    <p className="font-semibold">{player.name}</p>
+                    <img
+                      src={`/images/${player.main_position}.png`}
+                      alt={player.main_position}
+                      className="h-8"
+                    />
+                  </div>
                 ))}
               </div>
             </div>
