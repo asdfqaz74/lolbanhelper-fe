@@ -16,6 +16,7 @@ export const SearchBar = () => {
         alignSelf: isMobile ? "center" : "end",
         marginX: 4,
       }}
+      freeSolo
       id="user-search"
       options={userList || []}
       getOptionLabel={(option) => option.name}
