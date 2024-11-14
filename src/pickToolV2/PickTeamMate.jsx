@@ -1,4 +1,10 @@
-import { pickUserAtom, progressAtom, randomPlayersAtom } from "atoms/userAtoms";
+import {
+  pickUserAtom,
+  progressAtom,
+  randomPlayersAtom,
+  teamAAtom,
+  teamBAtom,
+} from "atoms/userAtoms";
 import { useAtom } from "jotai";
 import { useEffect, useMemo, useState } from "react";
 
@@ -6,8 +12,8 @@ export const PickTeamMate = () => {
   const [, setStep] = useAtom(progressAtom); // 진행도
   const [randomPlayers] = useAtom(randomPlayersAtom); // 랜덤으로 뽑힌 선수
   const [registValue] = useAtom(pickUserAtom); // 선택된 선수
-  const [teamA, setTeamA] = useState([]); // 팀 A
-  const [teamB, setTeamB] = useState([]); // 팀 B
+  const [teamA, setTeamA] = useAtom(teamAAtom); // 팀 A
+  const [teamB, setTeamB] = useAtom(teamBAtom); // 팀 B
   const [remainingPlayers, setRemainingPlayers] = useState([]); // 마지막 2명의 선수
   const [currentTeam, setCurrentTeam] = useState("A"); // 현재 선택중인 팀
   const [remainingPicks, setRemainingPicks] = useState(1); // 남은 선택 횟수
@@ -114,22 +120,39 @@ export const PickTeamMate = () => {
     setStep(1);
   };
 
+  const handleNextButton = () => {
+    setStep(3);
+  };
+
   const isRandomAssignDisabled = remainingPlayers.length !== 2;
   const isUndoDisabled = history.length === 0;
+  const isNextDisabled = !(teamA.length === 4 && teamB.length === 4);
   return (
     <>
       <div className="w-[75rem]">
         <div className="flex items-center justify-between gap-5">
           <div className="flex text-2xl font-bold py-10 flex-1 text-center">
-            <p className="text-primary ">
-              {currentTeam === "A" ? teamALeader : teamBLeader} 대장님
-            </p>
-            <p>이 팀을 고르실 차례입니다. (남은 선택 횟수: {remainingPicks})</p>
+            {teamA.length === 4 && teamB.length === 4 ? (
+              <p>팀 배정이 완료되었습니다.</p>
+            ) : remainingPicks === 0 ? (
+              <p>랜덤 배정을 통해 마지막 2명의 선수를 배정합니다.</p>
+            ) : (
+              <>
+                <p className="text-primary ">
+                  {currentTeam === "A" ? teamALeader : teamBLeader} 대장님
+                </p>
+                <p>
+                  이 팀을 고르실 차례입니다. (남은 선택 횟수: {remainingPicks})
+                </p>
+              </>
+            )}
           </div>
           <div className="flex gap-4">
             <button
-              className={`bg-gray-800 text-white font-semibold px-8 py-2 rounded-md transform transition-transform hover:scale-105 duration-500 ${
-                isRandomAssignDisabled ? "cursor-not-allowed" : "cursor-pointer"
+              className={`bg-primary text-white font-semibold rounded-md px-10 py-2 transform transition-all duration-500 ${
+                isRandomAssignDisabled
+                  ? "bg-slate-500 cursor-not-allowed"
+                  : "cursor-pointer hover:scale-105"
               }`}
               onClick={assignRemainingRandomly}
               disabled={isRandomAssignDisabled} // 남은 인원이 2명이 아닐 때는 비활성화
@@ -137,8 +160,10 @@ export const PickTeamMate = () => {
               랜덤 배정
             </button>
             <button
-              className={`bg-gray-800 text-white font-semibold px-8 py-2 rounded-md transform transition-transform hover:scale-105 duration-500 ${
-                isUndoDisabled ? "cursor-not-allowed" : "cursor-pointer"
+              className={`bg-primary text-white font-semibold rounded-md px-10 py-2 transform transition-all duration-500 ${
+                isUndoDisabled
+                  ? "bg-slate-500 cursor-not-allowed"
+                  : "cursor-pointer hover:scale-105"
               }`}
               onClick={handleUndo}
               disabled={isUndoDisabled} // 되돌릴 히스토리가 없을 때 비활성화
@@ -149,44 +174,69 @@ export const PickTeamMate = () => {
         </div>
         <div className="w-full h-full flex justify-between items-center flex-col">
           <div className="flex justify-around w-full h-full">
-            <div className="bg-emerald-400 flex flex-col w-1/3 h-[24rem]">
-              <p className="text-xl font-bold mt-4 text-center">
+            <div
+              className={`${
+                currentTeam === "A" || remainingPicks === 0
+                  ? "bg-primary bg-opacity-35"
+                  : "bg-primary bg-opacity-35 opacity-40"
+              } flex flex-col w-1/3 h-[24rem]`}
+            >
+              <p className="text-xl font-bold mt-4 text-center text-primary">
                 팀 {teamALeader}
               </p>
-              <div className="flex flex-col justify-center items-center flex-grow">
+              <div className="flex flex-col justify-center items-center flex-grow gap-6">
                 {teamA.map((player) => (
                   <p key={player}>{player}</p>
                 ))}
               </div>
             </div>
-            <div className="bg-red-400 flex flex-col py-4 items-center gap-3 w-1/4 h-[24rem]">
+            <div className="flex flex-col py-4 items-center gap-3 w-1/4 h-[24rem]">
               {remainingPlayers.map((player) => (
                 <button
                   key={player}
                   onClick={() => handlePickPlayer(player)}
-                  className="bg-gray-200 text-black px-2 py-1 rounded-md"
+                  className="bg-primary text-white font-semibold px-2 py-1 w-full"
                 >
                   {player}
                 </button>
               ))}
             </div>
-            <div className="bg-sky-400 flex flex-col w-1/3 h-[24rem]">
-              <p className="text-xl font-bold mt-4 text-center">
+            <div
+              className={`${
+                currentTeam === "B" || remainingPicks === 0
+                  ? "bg-primary bg-opacity-35"
+                  : "bg-primary bg-opacity-35 opacity-40"
+              } flex flex-col w-1/3 h-[24rem]`}
+            >
+              <p className="text-xl font-bold mt-4 text-center text-primary">
                 팀 {teamBLeader}
               </p>
-              <div className="flex flex-col justify-center items-center flex-grow">
+              <div className="flex flex-col justify-center items-center flex-grow gap-6">
                 {teamB.map((player) => (
                   <p key={player}>{player}</p>
                 ))}
               </div>
             </div>
           </div>
-          <button
-            className="bg-dark text-white font-semibold px-10 py-2 rounded-md transform transition-transform hover:scale-105 duration-500 mt-4"
-            onClick={handlePrev}
-          >
-            이전
-          </button>
+          <div className="flex w-full justify-evenly mt-4">
+            <button
+              className="bg-dark text-white font-semibold px-10 py-2 rounded-md transform transition-transform hover:scale-105 duration-500"
+              onClick={handlePrev}
+            >
+              이전
+            </button>
+            <button
+              onClick={handleNextButton}
+              disabled={isNextDisabled}
+              className={`${
+                isNextDisabled
+                  ? "bg-slate-500 cursor-not-allowed"
+                  : "bg-primary hover:scale-105"
+              } text-white font-semibold px-10 py-2 rounded-md transform transition-all duration-500`}
+            >
+              다음
+            </button>
+          </div>
         </div>
       </div>
     </>

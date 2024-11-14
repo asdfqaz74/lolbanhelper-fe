@@ -16,7 +16,6 @@ export const PickTeamLeader = () => {
   const [registValue] = useAtom(pickUserAtom); // 선택된 선수
   const [checkedUsers, setCheckedUsers] = useState(registValue); // 체크된 선수
   const [, setStep] = useAtom(progressAtom); // 진행도
-  const [openNext, setOpenNext] = useState(false); // 다음 다이얼로그
   const [openPickLeaderModal, setOpenPickLeaderModal] = useState(false); // 대장 뽑기 다이얼로그
   const [showResult, setShowResult] = useState(false); // 결과 보여주기 상태
   const [randomPlayers, setRandomPlayers] = useAtom(randomPlayersAtom); // 랜덤으로 뽑힌 선수
@@ -29,7 +28,6 @@ export const PickTeamLeader = () => {
   // 다음 단계로 넘어가기
   const handleNextButton = () => {
     setStep(2);
-    setOpenNext(false);
   };
 
   const handleCheckedBoxChange = (e) => {
@@ -120,7 +118,7 @@ export const PickTeamLeader = () => {
           이전
         </button>
         <button
-          onClick={() => setOpenNext(true)}
+          onClick={handleNextButton}
           disabled={isNextDisabled}
           className={`${
             isNextDisabled
@@ -131,14 +129,6 @@ export const PickTeamLeader = () => {
           다음
         </button>
       </div>
-      {/* 다음 다이얼로그 */}
-      <Dialog open={openNext} onClose={() => setOpenNext(false)}>
-        <DialogTitle>다음 단계로 넘어가시겠습니까?</DialogTitle>
-        <DialogActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <Button onClick={handleNextButton}>네</Button>
-          <Button onClick={() => setOpenNext(false)}>아니오</Button>
-        </DialogActions>
-      </Dialog>
 
       {/* 대장 뽑기 다이얼로그 */}
       <Dialog

@@ -18,7 +18,6 @@ export const RegistPlayer = () => {
   const [inputValue, setInputValue] = useState(""); // 검색한 선수
   const [registValue, setRegistValue] = useAtom(pickUserAtom); // 선택된 선수
   const [openReset, setOpenReset] = useState(false); // 초기화 다이얼로그
-  const [openNext, setOpenNext] = useState(false); // 다음 다이얼로그
   const [, setStep] = useAtom(progressAtom); // 진행도
 
   const handleRegister = () => {
@@ -45,7 +44,6 @@ export const RegistPlayer = () => {
   // 다음 단계로 넘어가기
   const handleNextButton = () => {
     setStep(1);
-    setOpenNext(false);
   };
 
   const isRegisterDisabled = !inputValue || registValue.length >= 10;
@@ -141,7 +139,7 @@ export const RegistPlayer = () => {
           초기화
         </button>
         <button
-          onClick={() => setOpenNext(true)}
+          onClick={handleNextButton}
           disabled={isNextDisabled}
           className={`${
             isNextDisabled
@@ -162,15 +160,6 @@ export const RegistPlayer = () => {
         <DialogActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
           <Button onClick={handleRosterResetButton}>초기화</Button>
           <Button onClick={() => setOpenReset(false)}>아니오</Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* 다음 다이얼로그 */}
-      <Dialog open={openNext} onClose={() => setOpenNext(false)}>
-        <DialogTitle>다음 단계로 넘어가시겠습니까?</DialogTitle>
-        <DialogActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <Button onClick={handleNextButton}>네</Button>
-          <Button onClick={() => setOpenNext(false)}>아니오</Button>
         </DialogActions>
       </Dialog>
     </div>
