@@ -1,3 +1,4 @@
+import { userDataAtom } from "atoms/dataAtoms";
 import {
   pickUserAtom,
   progressAtom,
@@ -19,15 +20,25 @@ export const PickTeamMate = () => {
   const [remainingPicks, setRemainingPicks] = useState(1); // 남은 선택 횟수
   const [pickStep, setPickStep] = useState(1); // 선택 단계
   const [history, setHistory] = useState([]); // 히스토리
+  const [userList] = useAtom(userDataAtom); // 유저 데이터
+
+  // 유저 데이터에서 선택된 선수를 매칭합니다.
+  const selectedPlayers = useMemo(() => {
+    return userList.filter((user) => registValue.includes(user.name));
+  }, [registValue, userList]);
 
   // 선택된 선수에서 랜덤으로 뽑힌 선수를 제외합니다.
   const filteredPlayers = useMemo(() => {
-    return registValue.filter((player) => !randomPlayers.includes(player));
-  }, [registValue, randomPlayers]);
+    return selectedPlayers.filter((user) => !randomPlayers.includes(user.name));
+  }, [selectedPlayers, randomPlayers]);
 
   // A팀 B팀 대장 설정
-  const teamALeader = randomPlayers[0];
-  const teamBLeader = randomPlayers[1];
+  const teamALeader = selectedPlayers.find(
+    (player) => player.name === randomPlayers[0]
+  );
+  const teamBLeader = selectedPlayers.find(
+    (player) => player.name === randomPlayers[1]
+  );
 
   // 랜덤으로 뽑힌 선수를 제외한 나머지 선수를 저장합니다.
   useEffect(() => {
@@ -63,7 +74,9 @@ export const PickTeamMate = () => {
     }
 
     // 대기 인원에서 해당 선수 제거
-    setRemainingPlayers((prev) => prev.filter((pick) => pick !== player));
+    setRemainingPlayers((prev) =>
+      prev.filter((pick) => pick._id !== player._id)
+    );
 
     // 다음 선택 단계로 진행
     if (remainingPicks === 1) {
@@ -87,6 +100,7 @@ export const PickTeamMate = () => {
       setRemainingPicks((prev) => prev - 1);
     }
   };
+
   // 마지막 남은 선수 2명을 랜덤 배정
   const assignRemainingRandomly = () => {
     const shuffledRemaining = [...remainingPlayers];
@@ -102,6 +116,7 @@ export const PickTeamMate = () => {
     setRemainingPlayers([]);
   };
 
+  // 되돌리기
   const handleUndo = () => {
     if (history.length === 0) return;
 
@@ -116,13 +131,18 @@ export const PickTeamMate = () => {
     setHistory((prev) => prev.slice(0, -1));
   };
 
+  // 이전 단계로 돌아가기
   const handlePrev = () => {
     setStep(1);
   };
 
+  // 다음 단계로 넘어가기
   const handleNextButton = () => {
     setStep(3);
   };
+
+  console.log(teamA);
+  console.log(teamB);
 
   const isRandomAssignDisabled = remainingPlayers.length !== 2;
   const isUndoDisabled = history.length === 0;
@@ -139,7 +159,14 @@ export const PickTeamMate = () => {
             ) : (
               <>
                 <p className="text-primary ">
-                  {currentTeam === "A" ? teamALeader : teamBLeader} 대장님
+                  {currentTeam === "A"
+                    ? teamALeader
+                      ? teamALeader.name
+                      : "A팀 대장"
+                    : teamBLeader
+                    ? teamBLeader.name
+                    : "B팀 대장"}
+                  대장님
                 </p>
                 <p>
                   이 팀을 고르실 차례입니다. (남은 선택 횟수: {remainingPicks})
@@ -179,25 +206,25 @@ export const PickTeamMate = () => {
                 currentTeam === "A" || remainingPicks === 0
                   ? "bg-primary bg-opacity-35"
                   : "bg-primary bg-opacity-35 opacity-40"
-              } flex flex-col w-1/3 h-[24rem]`}
+              } flex flex-col w-1/3 h-[24rem] transform transition-all duration-300`}
             >
               <p className="text-xl font-bold mt-4 text-center text-primary">
-                팀 {teamALeader}
+                팀 {teamALeader ? teamALeader.name : "A"}
               </p>
               <div className="flex flex-col justify-center items-center flex-grow gap-6">
                 {teamA.map((player) => (
-                  <p key={player}>{player}</p>
+                  <p key={player._id}>{player.name}</p>
                 ))}
               </div>
             </div>
             <div className="flex flex-col py-4 items-center gap-3 w-1/4 h-[24rem]">
               {remainingPlayers.map((player) => (
                 <button
-                  key={player}
+                  key={player._id}
                   onClick={() => handlePickPlayer(player)}
-                  className="bg-primary text-white font-semibold px-2 py-1 w-full"
+                  className="bg-primary text-white font-semibold px-2 py-1 w-full hover:scale-105 transform transition-transform duration-200 ease-in-out"
                 >
-                  {player}
+                  {player.name}
                 </button>
               ))}
             </div>
@@ -206,14 +233,14 @@ export const PickTeamMate = () => {
                 currentTeam === "B" || remainingPicks === 0
                   ? "bg-primary bg-opacity-35"
                   : "bg-primary bg-opacity-35 opacity-40"
-              } flex flex-col w-1/3 h-[24rem]`}
+              } flex flex-col w-1/3 h-[24rem] transform transition-all duration-300`}
             >
               <p className="text-xl font-bold mt-4 text-center text-primary">
-                팀 {teamBLeader}
+                팀 {teamBLeader ? teamBLeader.name : "B"}
               </p>
               <div className="flex flex-col justify-center items-center flex-grow gap-6">
                 {teamB.map((player) => (
-                  <p key={player}>{player}</p>
+                  <p key={player._id}>{player.name}</p>
                 ))}
               </div>
             </div>

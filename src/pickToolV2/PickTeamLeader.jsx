@@ -101,11 +101,15 @@ export const PickTeamLeader = () => {
           <div className="bg-primary bg-opacity-35 mt-10 w-64 px-4 py-4 flex flex-col gap-6">
             <div className="flex gap-4 text-lg">
               <p className="text-red-400 font-bold">A팀(선) :</p>
-              <p> {randomPlayers ? randomPlayers[0] : ""}</p>
+              <p className="font-bold">
+                {randomPlayers ? randomPlayers[0] : ""}
+              </p>
             </div>
             <div className="flex gap-4 text-lg">
               <p className="text-blue-400 font-bold">B팀(후) :</p>
-              <p> {randomPlayers ? randomPlayers[1] : ""}</p>
+              <p className="font-bold">
+                {randomPlayers ? randomPlayers[1] : ""}
+              </p>
             </div>
           </div>
         </div>
