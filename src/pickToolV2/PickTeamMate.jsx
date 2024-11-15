@@ -1,8 +1,10 @@
 import { userDataAtom } from "atoms/dataAtoms";
 import {
+  historyAtom,
   pickUserAtom,
   progressAtom,
   randomPlayersAtom,
+  remainingPlayersAtom,
   teamAAtom,
   teamBAtom,
 } from "atoms/userAtoms";
@@ -15,11 +17,11 @@ export const PickTeamMate = () => {
   const [registValue] = useAtom(pickUserAtom); // 선택된 선수
   const [teamA, setTeamA] = useAtom(teamAAtom); // 팀 A
   const [teamB, setTeamB] = useAtom(teamBAtom); // 팀 B
-  const [remainingPlayers, setRemainingPlayers] = useState([]); // 마지막 2명의 선수
+  const [remainingPlayers, setRemainingPlayers] = useAtom(remainingPlayersAtom); // 대장 뽑기 후 남은 선수
   const [currentTeam, setCurrentTeam] = useState("A"); // 현재 선택중인 팀
   const [remainingPicks, setRemainingPicks] = useState(1); // 남은 선택 횟수
   const [pickStep, setPickStep] = useState(1); // 선택 단계
-  const [history, setHistory] = useState([]); // 히스토리
+  const [history, setHistory] = useAtom(historyAtom); // 히스토리
   const [userList] = useAtom(userDataAtom); // 유저 데이터
 
   // 유저 데이터에서 선택된 선수를 매칭합니다.
@@ -42,8 +44,13 @@ export const PickTeamMate = () => {
 
   // 랜덤으로 뽑힌 선수를 제외한 나머지 선수를 저장합니다.
   useEffect(() => {
-    setRemainingPlayers(filteredPlayers);
-  }, [filteredPlayers]);
+    const initialRemainingPlayers = filteredPlayers.filter(
+      (player) =>
+        !teamA.some((teamAPlayer) => teamAPlayer._id === player._id) &&
+        !teamB.some((teamBPlayer) => teamBPlayer._id === player._id)
+    );
+    setRemainingPlayers(initialRemainingPlayers);
+  }, [filteredPlayers, setRemainingPlayers, teamA, teamB]);
 
   // 히스토리 저장
   const saveHistory = () => {
