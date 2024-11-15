@@ -24,9 +24,24 @@ module.exports = {
           "0%": { transform: "rotateX(0deg)" },
           "100%": { transform: "rotateX(360deg)" },
         },
+        slideInLeft: {
+          "0%": { transform: "translateX(-100%)", opactiy: 0 },
+          "100%": { transform: "translateX(0)", opacity: 1 },
+        },
+        slideInRight: {
+          "0%": { transform: "translateX(100%)", opacity: 0 },
+          "100%": { transform: "translateX(0)", opacity: 1 },
+        },
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
       },
       animation: {
         flip: "flip 1s ease",
+        slideInLeft: "slideInLeft 2s ease-out",
+        slideInRight: "slideInRight 2s ease-out",
+        fadeIn: "fadeIn 4s ease-out",
       },
       transformOrigin: {
         transformstyle3d: "preserve-3d",
@@ -45,6 +60,7 @@ module.exports = {
         scissors: "url('/public/images/Scissors.png')",
         paper: "url('/public/images/Paper.png')",
         rsp: "url('/public/images/rsp.png')",
+        backgroundLobby: "url('/public/images/background-lobby.jpg')",
       },
     },
   },

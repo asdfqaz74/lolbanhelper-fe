@@ -91,14 +91,8 @@ export const PickTeamLeader = () => {
             </FormGroup>
           </div>
         </div>
-        <div className="flex flex-col items-center">
-          <button
-            onClick={handlePickLeader}
-            className="bg-dark text-white font-semibold rounded-md px-10 py-2 transform transition-transform duration-500 hover:scale-110"
-          >
-            대장 뽑기
-          </button>
-          <div className="bg-primary bg-opacity-35 mt-10 w-64 px-4 py-4 flex flex-col gap-6">
+        <div className="flex flex-col items-center gap-10">
+          <div className="bg-primary bg-opacity-35 mt-6 w-64 px-4 py-4 flex flex-col gap-6">
             <div className="flex gap-4 text-lg">
               <p className="text-red-400 font-bold">A팀(선) :</p>
               <p className="font-bold">
@@ -112,6 +106,12 @@ export const PickTeamLeader = () => {
               </p>
             </div>
           </div>
+          <button
+            onClick={handlePickLeader}
+            className="bg-dark text-white font-semibold rounded-md px-10 py-2 transform transition-transform duration-500 hover:scale-110"
+          >
+            대장 뽑기
+          </button>
         </div>
       </div>
       <div className="flex justify-evenly w-full mt-5">
@@ -149,8 +149,14 @@ export const PickTeamLeader = () => {
               <div className="text-center text-2xl font-semibold">
                 {randomPlayers.length > 0 ? (
                   <>
-                    <p>A팀 : {randomPlayers[0]}</p>
-                    <p>B팀 : {randomPlayers[1]}</p>
+                    <div className="flex gap-2">
+                      <p className="mb-3 text-red-400">A팀(선) : </p>
+                      <p> {randomPlayers[0]}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <p className="text-blue-400">B팀(선) : </p>
+                      <p> {randomPlayers[1]}</p>
+                    </div>
                   </>
                 ) : (
                   "선수가 선택되지 않았습니다."
@@ -160,19 +166,43 @@ export const PickTeamLeader = () => {
           )}
         </div>
         <DialogActions>
-          <Button
-            onClick={() => setOpenPickLeaderModal(false)}
-            color="secondary"
-          >
-            닫기
-          </Button>
-          <Button
-            onClick={handleConfirmPick}
-            color="primary"
-            variant="contained"
-          >
-            대장 뽑기
-          </Button>
+          {showResult ? (
+            // 결과 화면에서 확인 버튼만 보이게 설정
+            <Button
+              onClick={() => setOpenPickLeaderModal(false)}
+              color="primary"
+              variant="contained"
+            >
+              확인
+            </Button>
+          ) : randomPlayers.length > 0 ? (
+            // 대장 뽑기가 완료된 상태에서 확인 버튼 표시
+            <div className="flex items-center justify-end w-full gap-5">
+              <Button
+                onClick={handleConfirmPick}
+                color="primary"
+                variant="contained"
+              >
+                다시 뽑기
+              </Button>
+              <Button
+                onClick={() => setOpenPickLeaderModal(false)}
+                color="primary"
+                variant="contained"
+              >
+                확인
+              </Button>
+            </div>
+          ) : (
+            // 대장 뽑기 버튼 표시
+            <Button
+              onClick={handleConfirmPick}
+              color="primary"
+              variant="contained"
+            >
+              대장 뽑기
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>

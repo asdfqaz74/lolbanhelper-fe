@@ -7,7 +7,7 @@ export const BasePaper = ({ currentStep }) => {
   return (
     <div className="flex items-start justify-center w-full h-full overflow-x-hidden">
       <div
-        className={`flex w-[400%] transition-transform duration-500 ease-in-out ${
+        className={`flex w-[400%] transition-transform duration-700 ease-in-out ${
           currentStep === 0
             ? "translate-x-step1"
             : currentStep === 1

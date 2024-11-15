@@ -9,3 +9,7 @@ export const teamAAtom = atom([]); // A팀 상태
 export const teamBAtom = atom([]); // B팀 상태
 export const remainingPlayersAtom = atom([]); // 남은 유저 상태
 export const historyAtom = atom([]); // 히스토리 상태
+export const selectedPlayerAtom = atom([]); // 선택된 유저 상태
+export const currentTeamAtom = atom("A"); // 현재 팀 상태
+export const remainingPickCountAtom = atom(1); // 남은 픽 횟수 상태
+export const pickStepAtom = atom(1); // 픽 단계 상태

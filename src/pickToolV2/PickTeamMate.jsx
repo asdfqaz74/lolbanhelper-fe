@@ -1,15 +1,19 @@
 import { userDataAtom } from "atoms/dataAtoms";
 import {
+  currentTeamAtom,
   historyAtom,
+  pickStepAtom,
   pickUserAtom,
   progressAtom,
   randomPlayersAtom,
+  remainingPickCountAtom,
   remainingPlayersAtom,
+  selectedPlayerAtom,
   teamAAtom,
   teamBAtom,
 } from "atoms/userAtoms";
 import { useAtom } from "jotai";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 export const PickTeamMate = () => {
   const [, setStep] = useAtom(progressAtom); // 진행도
@@ -18,16 +22,21 @@ export const PickTeamMate = () => {
   const [teamA, setTeamA] = useAtom(teamAAtom); // 팀 A
   const [teamB, setTeamB] = useAtom(teamBAtom); // 팀 B
   const [remainingPlayers, setRemainingPlayers] = useAtom(remainingPlayersAtom); // 대장 뽑기 후 남은 선수
-  const [currentTeam, setCurrentTeam] = useState("A"); // 현재 선택중인 팀
-  const [remainingPicks, setRemainingPicks] = useState(1); // 남은 선택 횟수
-  const [pickStep, setPickStep] = useState(1); // 선택 단계
+  const [currentTeam, setCurrentTeam] = useAtom(currentTeamAtom); // 현재 선택중인 팀
+  const [remainingPicks, setRemainingPicks] = useAtom(remainingPickCountAtom); // 남은 선택 횟수
+  const [pickStep, setPickStep] = useAtom(pickStepAtom); // 선택 단계
   const [history, setHistory] = useAtom(historyAtom); // 히스토리
   const [userList] = useAtom(userDataAtom); // 유저 데이터
+  const [, setSelectedPlayer] = useAtom(selectedPlayerAtom); // 선택된 선수
 
   // 유저 데이터에서 선택된 선수를 매칭합니다.
   const selectedPlayers = useMemo(() => {
     return userList.filter((user) => registValue.includes(user.name));
   }, [registValue, userList]);
+
+  useEffect(() => {
+    setSelectedPlayer(selectedPlayers);
+  }, [selectedPlayers, setSelectedPlayer]);
 
   // 선택된 선수에서 랜덤으로 뽑힌 선수를 제외합니다.
   const filteredPlayers = useMemo(() => {
@@ -148,9 +157,6 @@ export const PickTeamMate = () => {
     setStep(3);
   };
 
-  console.log(teamA);
-  console.log(teamB);
-
   const isRandomAssignDisabled = remainingPlayers.length !== 2;
   const isUndoDisabled = history.length === 0;
   const isNextDisabled = !(teamA.length === 4 && teamB.length === 4);
@@ -208,6 +214,7 @@ export const PickTeamMate = () => {
         </div>
         <div className="w-full h-full flex justify-between items-center flex-col">
           <div className="flex justify-around w-full h-full">
+            {/* A팀 */}
             <div
               className={`${
                 currentTeam === "A" || remainingPicks === 0
@@ -238,6 +245,7 @@ export const PickTeamMate = () => {
                 ))}
               </div>
             </div>
+            {/* 대기열 */}
             <div className="flex flex-col py-4 items-center gap-3 w-1/4 h-[24rem]">
               {remainingPlayers.map((player) => (
                 <button
@@ -261,6 +269,7 @@ export const PickTeamMate = () => {
                 </button>
               ))}
             </div>
+            {/* B팀 */}
             <div
               className={`${
                 currentTeam === "B" || remainingPicks === 0
