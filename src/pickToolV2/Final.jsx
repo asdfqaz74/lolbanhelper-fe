@@ -86,7 +86,7 @@ export const Final = () => {
                     : ""
                 }`}
                 style={{
-                  animationDelay: `${index * 0.2}s`,
+                  animationDelay: `${index * 0.3}s`,
                   animationFillMode: "forwards",
                 }}
               >
@@ -105,7 +105,7 @@ export const Final = () => {
                   step === 3 ? `animate-slideInRight` : ""
                 }`}
                 style={{
-                  animationDelay: `${index * 0.2}s`,
+                  animationDelay: `${index * 0.3}s`,
                   animationFillMode: "forwards",
                 }}
               >
