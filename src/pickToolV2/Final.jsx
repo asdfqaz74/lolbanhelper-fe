@@ -1,4 +1,6 @@
+import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import {
+  checkedAtom,
   currentTeamAtom,
   historyAtom,
   pickStepAtom,
@@ -12,11 +14,12 @@ import {
   teamBAtom,
 } from "atoms/userAtoms";
 import { useAtom } from "jotai";
+import { useState } from "react";
 
 export const Final = () => {
   const [step, setStep] = useAtom(progressAtom); // 진행도
   const [, setSelectedPlayer] = useAtom(selectedPlayerAtom); // 선택된 선수
-  const [randomPlayers, setRandomPlayers] = useAtom(randomPlayersAtom); // 랜덤으로 뽑힌 선수
+  const [randomPlayers, setRandomPlayers] = useAtom(randomPlayersAtom); // 랜덤으로 뽑힌 대장선수
   const [teamA, setTeamA] = useAtom(teamAAtom); // A팀
   const [teamB, setTeamB] = useAtom(teamBAtom); // B팀
   const [, setRemainingPlayers] = useAtom(remainingPlayersAtom); // 남은 선수
@@ -25,9 +28,15 @@ export const Final = () => {
   const [, setPickStep] = useAtom(pickStepAtom); // 픽 단계
   const [, setCurrentTeam] = useAtom(currentTeamAtom); // 현재 팀
   const [, setRemainingPickCount] = useAtom(remainingPickCountAtom); // 남은 픽 횟수
+  const [, setCheckedUsers] = useAtom(checkedAtom); // 체크된 선수
+  const [initModalOpen, setInitModalOpen] = useState(false); // 초기화 다이얼로그
 
   const handlePrev = () => {
     setStep(2);
+  };
+
+  const handleInitModal = () => {
+    setInitModalOpen(true);
   };
 
   const handleInit = () => {
@@ -42,6 +51,9 @@ export const Final = () => {
     setPickStep(1);
     setCurrentTeam("A");
     setRemainingPickCount(1);
+    setCheckedUsers([]);
+
+    setInitModalOpen(false);
   };
 
   const teamAPosition = [
@@ -123,12 +135,19 @@ export const Final = () => {
           </button>
           <button
             className="text-white font-semibold px-10 py-2 rounded-md transform transition-all duration-500 bg-primary hover:scale-105"
-            onClick={handleInit}
+            onClick={handleInitModal}
           >
             처음
           </button>
         </div>
       </div>
+      <Dialog onClose={() => initModalOpen(false)} open={initModalOpen}>
+        <DialogTitle>초기화를 진행하시겠습니까?</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleInit}>초기화</Button>
+          <Button onClick={() => setInitModalOpen(false)}>아니오</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

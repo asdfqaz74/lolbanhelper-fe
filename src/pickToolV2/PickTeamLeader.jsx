@@ -8,18 +8,24 @@ import {
   FormControlLabel,
   FormGroup,
 } from "@mui/material";
-import { pickUserAtom, progressAtom, randomPlayersAtom } from "atoms/userAtoms";
+import {
+  checkedAtom,
+  pickUserAtom,
+  progressAtom,
+  randomPlayersAtom,
+} from "atoms/userAtoms";
 import { useAtom } from "jotai";
 import { useState } from "react";
 
 export const PickTeamLeader = () => {
   const [registValue] = useAtom(pickUserAtom); // 선택된 선수
-  const [checkedUsers, setCheckedUsers] = useState(registValue); // 체크된 선수
+  const [checkedUsers, setCheckedUsers] = useAtom(checkedAtom); // 체크된 선수
   const [, setStep] = useAtom(progressAtom); // 진행도
   const [openPickLeaderModal, setOpenPickLeaderModal] = useState(false); // 대장 뽑기 다이얼로그
   const [showResult, setShowResult] = useState(false); // 결과 보여주기 상태
   const [randomPlayers, setRandomPlayers] = useAtom(randomPlayersAtom); // 랜덤으로 뽑힌 선수
 
+  console.log(checkedUsers);
   // 이전 단계로 돌아가기
   const handlePrev = () => {
     setStep(0);
