@@ -1,10 +1,13 @@
 import {
   Autocomplete,
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControlLabel,
+  FormGroup,
   TextField,
 } from "@mui/material";
 import { userDataAtom } from "atoms/dataAtoms";
@@ -12,6 +15,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { pickUserAtom, progressAtom } from "atoms/userAtoms";
+import { useAddUser } from "hooks/Data";
 
 export const RegistPlayer = () => {
   const [userList] = useAtom(userDataAtom); // 유저 데이터
@@ -19,6 +23,8 @@ export const RegistPlayer = () => {
   const [registValue, setRegistValue] = useAtom(pickUserAtom); // 선택된 선수
   const [openReset, setOpenReset] = useState(false); // 초기화 다이얼로그
   const [, setStep] = useAtom(progressAtom); // 진행도
+
+  const addUser = useAddUser(); // 선수 추가 함수
 
   const handleRegister = () => {
     // 선수 중복 방지
@@ -28,10 +34,32 @@ export const RegistPlayer = () => {
       return;
     }
 
+    // 유저 데이터에 없으면 선수 추가
+    if (!userList.find((user) => user.name === inputValue)) {
+      addUser.mutate(inputValue, {
+        onSuccess: () => {
+          setInputValue("");
+        },
+      });
+      setRegistValue((prev) => [...prev, inputValue]);
+      setInputValue("");
+      return;
+    }
+
     // 선수 등록
     if (inputValue) {
       setRegistValue((prev) => [...prev, inputValue]);
       setInputValue("");
+    }
+  };
+
+  const handleRegisterChecked = (e) => {
+    const { checked, name } = e.target;
+
+    if (checked) {
+      setRegistValue((prev) => [...prev, name]);
+    } else {
+      setRegistValue((prev) => prev.filter((user) => user !== name));
     }
   };
 
@@ -70,13 +98,13 @@ export const RegistPlayer = () => {
           }}
           id="user-search"
           options={userList || []}
-          getOptionLabel={(option) => option.name}
+          getOptionLabel={(option) => `${option.name} ${option.game_id}`}
           inputValue={inputValue}
           onInputChange={(e, newInputValue) => setInputValue(newInputValue)}
           renderInput={(params) => (
             <TextField
               {...params}
-              label="유저 검색"
+              label="유저 검색 및 추가"
               variant="outlined"
               placeholder="등록할 선수의 이름을 입력하세요"
               sx={{ backgroundColor: "white" }}
@@ -95,8 +123,32 @@ export const RegistPlayer = () => {
           등록
         </button>
       </div>
-      <div className="bg-primary bg-opacity-30 w-full h-96 px-20 py-5 text-lg ">
-        <div className="grid grid-cols-2 justify-items-center gap-6">
+      <div className="bg-primary bg-opacity-30 w-full h-96 pr-20 py-5 text-lg flex justify-between">
+        <div className=" h-full overflow-auto pl-4 scrollbar-hide border-r border-primary">
+          <img
+            src="/images/icon-sub.png"
+            alt=""
+            className="w-8 place-self-center"
+          />
+          <FormGroup>
+            <div className="grid grid-cols-2 w-60 pl-2">
+              {userList.map((user) => (
+                <FormControlLabel
+                  key={user._id}
+                  control={
+                    <Checkbox
+                      name={user.name}
+                      checked={registValue.includes(user.name)}
+                      onChange={handleRegisterChecked}
+                    />
+                  }
+                  label={user.name}
+                />
+              ))}
+            </div>
+          </FormGroup>
+        </div>
+        <div className="grid grid-cols-2 gap-6">
           {registValue.map((player, index) => {
             const user = userList.find((user) => user.name === player);
             const userMainLine = user?.main_position;

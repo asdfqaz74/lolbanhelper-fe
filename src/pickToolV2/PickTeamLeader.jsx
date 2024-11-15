@@ -25,7 +25,6 @@ export const PickTeamLeader = () => {
   const [showResult, setShowResult] = useState(false); // 결과 보여주기 상태
   const [randomPlayers, setRandomPlayers] = useAtom(randomPlayersAtom); // 랜덤으로 뽑힌 선수
 
-  console.log(checkedUsers);
   // 이전 단계로 돌아가기
   const handlePrev = () => {
     setStep(0);
