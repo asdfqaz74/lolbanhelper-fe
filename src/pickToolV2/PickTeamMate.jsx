@@ -162,9 +162,9 @@ export const PickTeamMate = () => {
   const isNextDisabled = !(teamA.length === 4 && teamB.length === 4);
   return (
     <>
-      <div className="w-[75rem]">
+      <div className="dblg:w-[75rem] lg:w-[60rem] db:w-[50rem]">
         <div className="flex items-center justify-between gap-5">
-          <div className="flex text-2xl font-bold py-10 flex-1 text-center">
+          <div className="flex db:text-lg lg:text-2xl font-bold py-10 flex-1 text-center">
             {teamA.length === 4 && teamB.length === 4 ? (
               <p>팀 배정이 완료되었습니다.</p>
             ) : remainingPicks === 0 ? (

@@ -78,7 +78,8 @@ export const RegistPlayer = () => {
   const isNextDisabled = registValue.length <= 9;
 
   return (
-    <div className="my-10 flex flex-col items-center w-[50rem]">
+    <div className="my-10 flex flex-col items-center w-[40rem] db:w-[50rem]">
+      {/* 선수 검색 및 추가 */}
       <div className="flex w-full items-center whitespace-nowrap">
         <label
           htmlFor="user-search"
@@ -123,8 +124,10 @@ export const RegistPlayer = () => {
           등록
         </button>
       </div>
+
       <div className="bg-primary bg-opacity-30 w-full h-96 pr-20 py-5 text-lg flex justify-between">
-        <div className=" h-full overflow-auto pl-4 scrollbar-hide border-r border-primary">
+        {/* 선수 간편 등록 */}
+        <div className=" h-full overflow-auto pr-10 db:pr-0 pl-4 scrollbar-hide border-r border-primary">
           <img
             src="/images/icon-sub.png"
             alt=""
@@ -148,7 +151,9 @@ export const RegistPlayer = () => {
             </div>
           </FormGroup>
         </div>
-        <div className="grid grid-cols-2 gap-6">
+
+        {/* 출전하는 선수 목록 */}
+        <div className="grid grid-cols-2 gap-6 pl-20 whitespace-nowrap">
           {registValue.map((player, index) => {
             const user = userList.find((user) => user.name === player);
             const userMainLine = user?.main_position;
@@ -183,6 +188,8 @@ export const RegistPlayer = () => {
           })}
         </div>
       </div>
+
+      {/* 초기화 및 다음 버튼 */}
       <div className="flex justify-around w-full mt-5">
         <button
           onClick={() => setOpenReset(true)}

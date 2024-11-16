@@ -6,6 +6,7 @@ module.exports = {
       statslg: "1460px",
       dblg: "1200px",
       stats: "1200px",
+      lg: "1000px",
       db: "830px",
       statsmd: "860px",
       md: "768px",

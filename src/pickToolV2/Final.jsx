@@ -72,7 +72,7 @@ export const Final = () => {
 
   return (
     <>
-      <div className="w-[60rem] flex flex-col bg-backgroundLobby h-96 relative">
+      <div className="w-[45rem] lg:w-[60rem] flex flex-col bg-backgroundLobby h-96 relative">
         <p className="text-4xl font-bold text-white text-center pt-10 mb-10">
           팀이 확정되었습니다!
         </p>
@@ -92,6 +92,7 @@ export const Final = () => {
             </p>
             {teamA.map((player, index) => (
               <p
+                key={index}
                 className={`absolute ${teamAPosition[index]} opacity-0  ${
                   step === 3
                     ? `animate-slideInLeft delay-[${index * 0.2}s]`
@@ -113,6 +114,7 @@ export const Final = () => {
             </p>
             {teamB.map((player, index) => (
               <p
+                key={index}
                 className={`absolute ${teamBPosition[index]} opacity-0 ${
                   step === 3 ? `animate-slideInRight` : ""
                 }`}
