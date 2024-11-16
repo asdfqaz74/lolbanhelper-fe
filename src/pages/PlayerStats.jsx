@@ -73,7 +73,7 @@ const PlayerStats = () => {
   return (
     <>
       {playerData ? (
-        <div className="flex flex-col my-5 pb-10 statssm:pt-10 px-10 statssm:px-20 bg-white shadow-2xl justify-between rounded-b-lg mx-4 z-10">
+        <div className="flex flex-col my-5 pb-10 statssm:pt-10 px-10 statssm:px-20 justify-between rounded-b-lg mx-4 z-10">
           {mostChampionData && (
             <img
               src={`${mostChampionData.image}.jpg`}
