@@ -17,6 +17,7 @@ import {
 } from "atoms/userAtoms";
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { OddsWinning } from "./OddsWinning";
 
 export const Final = () => {
   const [step, setStep] = useAtom(progressAtom); // 진행도
@@ -81,7 +82,7 @@ export const Final = () => {
 
   return (
     <>
-      <div className="w-[45rem] lg:w-[60rem] flex flex-col bg-backgroundLobby h-96 relative">
+      <div className="w-[45rem] lg:w-[60rem] flex flex-col bg-backgroundLobby h-[30rem] relative">
         <p className="text-4xl font-bold text-white text-center pt-10">
           팀이 확정되었습니다!
         </p>
@@ -89,18 +90,26 @@ export const Final = () => {
           <span className="font-bold text-primary">선블루팀</span>은
           <span className="font-bold text-primary"> {firstBlueTeam}</span>팀
           입니다.
-          <span className="pl-2">
-            예상 우승팀은{" "}
-            {winRate?.teamAWinRate > winRate?.teamBWinRate
-              ? winRate?.teamAWinRate
-              : winRate?.teamBWinRate}
-            %로{" "}
-            {winRate?.teamAWinRate > winRate?.teamBWinRate
-              ? randomPlayers[0]
-              : randomPlayers[1]}{" "}
-            입니다.
-          </span>
         </p>
+        <div className="flex flex-col items-center gap-2 justify-center mb-5">
+          <p className="text-white font-semibold text-lg">
+            <span className="text-primary">
+              {winRate?.teamAWinRate > winRate?.teamBWinRate
+                ? winRate?.teamAWinRate
+                : winRate?.teamBWinRate}
+              %{" "}
+            </span>
+            만큼{" "}
+            <span className="text-primary">
+              {winRate?.teamAWinRate > winRate?.teamBWinRate
+                ? randomPlayers[0]
+                : randomPlayers[1]}
+              팀
+            </span>
+            이 이길 확률이 높습니다.
+          </p>
+          <OddsWinning winRate={winRate} />
+        </div>
 
         <div
           className={`${
