@@ -60,6 +60,7 @@ export const Final = () => {
     setRemainingPickCount(1);
     setCheckedUsers([]);
     setFirstBlueTeam("");
+    setWinRate({});
 
     setInitModalOpen(false);
   };
