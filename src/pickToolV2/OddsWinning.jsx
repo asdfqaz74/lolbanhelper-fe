@@ -25,7 +25,7 @@ export const OddsWinning = ({ winRate }) => {
       return;
     }
 
-    const width = 300;
+    const width = 400;
     const teamAWidth = (teamAWinRate / total) * width;
     const teamBWidth = (teamBWinRate / total) * width;
 
@@ -34,7 +34,7 @@ export const OddsWinning = ({ winRate }) => {
       .attr("x", 0)
       .attr("y", 0)
       .attr("width", width / 2)
-      .attr("height", 20)
+      .attr("height", 30)
       .attr("fill", "#3065ac")
       .transition()
       .duration(3000)
@@ -46,7 +46,7 @@ export const OddsWinning = ({ winRate }) => {
       .attr("x", width / 2)
       .attr("y", 0)
       .attr("width", width / 2)
-      .attr("height", 20)
+      .attr("height", 30)
       .attr("fill", "#f44336")
       .transition()
       .duration(3000)
@@ -57,10 +57,11 @@ export const OddsWinning = ({ winRate }) => {
     const teamAText = svg
       .append("text")
       .attr("x", width / 4) // teamA 막대의 중앙에 위치
-      .attr("y", 13) // 막대의 중간 위치
+      .attr("y", 19) // 막대의 중간 위치
       .attr("text-anchor", "middle") // 중앙 정렬
       .attr("fill", "white")
-      .attr("font-size", "10px")
+      .attr("font-size", "12px")
+      .attr("font-weight", "bold")
       .text("50");
 
     teamAText
@@ -78,10 +79,11 @@ export const OddsWinning = ({ winRate }) => {
     const teamBText = svg
       .append("text")
       .attr("x", (3 * width) / 4) // teamB 막대의 중앙에 위치
-      .attr("y", 13) // 막대의 중간 위치
+      .attr("y", 19) // 막대의 중간 위치
       .attr("text-anchor", "middle") // 중앙 정렬
       .attr("fill", "white")
-      .attr("font-size", "10px")
+      .attr("font-size", "12px")
+      .attr("font-weight", "bold")
       .text("50");
 
     teamBText
@@ -97,5 +99,5 @@ export const OddsWinning = ({ winRate }) => {
       .attr("x", teamAWidth + teamBWidth / 2);
   }, [winRate]);
 
-  return <svg ref={ref} width={300} height={20}></svg>;
+  return <svg ref={ref} width={400} height={30}></svg>;
 };

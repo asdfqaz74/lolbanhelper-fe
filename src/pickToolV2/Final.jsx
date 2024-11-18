@@ -83,15 +83,13 @@ export const Final = () => {
   return (
     <>
       <div className="w-[45rem] lg:w-[60rem] flex flex-col bg-backgroundLobby h-[30rem] relative">
-        <p className="text-4xl font-bold text-white text-center pt-10">
-          팀이 확정되었습니다!
-        </p>
-        <p className="text-lg text-white text-center mb-5">
-          <span className="font-bold text-primary">선블루팀</span>은
+        <p className="text-4xl text-white text-center my-5">
+          <span>선 </span>
+          <span className="font-bold text-primary">블루팀</span>은
           <span className="font-bold text-primary"> {firstBlueTeam}</span>팀
           입니다.
         </p>
-        <div className="flex flex-col items-center gap-2 justify-center mb-5">
+        <div className="flex flex-col items-center gap-4 justify-center mb-10">
           <p className="text-white font-semibold text-lg">
             <span className="text-primary">
               {winRate?.teamAWinRate > winRate?.teamBWinRate
@@ -163,7 +161,7 @@ export const Final = () => {
             ))}
           </div>
         </div>
-        <div className="w-full mt-10 flex justify-evenly absolute bottom-1">
+        <div className="w-full mt-10 flex justify-evenly absolute bottom-5">
           <button
             className="bg-dark text-white font-semibold px-10 py-2 rounded-md transform transition-transform hover:scale-105 duration-500"
             onClick={handlePrev}
