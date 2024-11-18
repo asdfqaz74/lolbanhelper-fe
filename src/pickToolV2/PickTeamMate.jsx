@@ -1,4 +1,4 @@
-import { userDataAtom } from "atoms/dataAtoms";
+import { resultDataAtom, userDataAtom } from "atoms/dataAtoms";
 import {
   currentTeamAtom,
   firstBlueTeamAtom,
@@ -12,6 +12,7 @@ import {
   selectedPlayerAtom,
   teamAAtom,
   teamBAtom,
+  winRateAtom,
 } from "atoms/userAtoms";
 import { useAtom } from "jotai";
 import { useEffect, useMemo } from "react";
@@ -30,6 +31,8 @@ export const PickTeamMate = () => {
   const [userList] = useAtom(userDataAtom); // 유저 데이터
   const [, setSelectedPlayer] = useAtom(selectedPlayerAtom); // 선택된 선수
   const [, setFirstBlueTeam] = useAtom(firstBlueTeamAtom); // 선블루팀
+  const [, setWinRate] = useAtom(winRateAtom); // 승률
+  const [resultData] = useAtom(resultDataAtom); // 결과 데이터
 
   // 유저 데이터에서 선택된 선수를 매칭합니다.
   const selectedPlayers = useMemo(() => {
@@ -164,9 +167,73 @@ export const PickTeamMate = () => {
     }
   };
 
+  // A팀 팀원과 결과 데이터를 이용하여 A팀의 승률을 계산합니다.
+  const calculateWinRate = (team) => {
+    const teamWin = team.map((player) => {
+      const playerData = resultData.filter((data) => data.user === player._id);
+      const playerWin = playerData.filter(
+        (data) => data.victoryordefeat === "win"
+      );
+
+      return playerWin.length / playerData.length;
+    });
+
+    const teamWinRate = teamWin.reduce((acc, cur) => acc + cur, 0);
+
+    return teamWinRate / 4;
+  };
+
+  // A팀장과 B팀장의 승률을 계산합니다.
+  const calculateLeaderWinRate = () => {
+    const teamALeaderData = resultData.filter(
+      (data) => data.user === teamALeader._id
+    );
+    const teamBLeaderData = resultData.filter(
+      (data) => data.user === teamBLeader._id
+    );
+
+    const teamALeaderWin = teamALeaderData.filter(
+      (data) => data.victoryordefeat === "win"
+    );
+
+    const teamBLeaderWin = teamBLeaderData.filter(
+      (data) => data.victoryordefeat === "win"
+    );
+
+    const teamALeaderWinRate = teamALeaderWin.length / teamALeaderData.length;
+    const teamBLeaderWinRate = teamBLeaderWin.length / teamBLeaderData.length;
+
+    return { teamALeaderWinRate, teamBLeaderWinRate };
+  };
+
+  // A팀과 B팀의 승률을 계산합니다. (팀원 + 팀장)
+  const calculateTeamWinRate = () => {
+    const teamAWinRate = calculateWinRate(teamA);
+    const teamBWinRate = calculateWinRate(teamB);
+
+    const { teamALeaderWinRate, teamBLeaderWinRate } = calculateLeaderWinRate();
+
+    const total =
+      teamAWinRate + teamALeaderWinRate + teamBWinRate + teamBLeaderWinRate;
+    const adjustedA = (
+      ((teamAWinRate + teamALeaderWinRate) / total) *
+      100
+    ).toFixed(2);
+    const adjustedB = (
+      ((teamBWinRate + teamBLeaderWinRate) / total) *
+      100
+    ).toFixed(2);
+
+    return {
+      teamAWinRate: adjustedA,
+      teamBWinRate: adjustedB,
+    };
+  };
+
   // 다음 단계로 넘어가기
   const handleNextButton = () => {
     randomBlueTeam();
+    setWinRate(calculateTeamWinRate());
     setStep(3);
   };
 

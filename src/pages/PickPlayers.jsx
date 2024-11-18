@@ -1,11 +1,12 @@
 import { progressAtom } from "atoms/userAtoms";
-import { useUserDatas } from "hooks/Data";
+import { useResultData, useUserDatas } from "hooks/Data";
 import { useAtom } from "jotai";
 import { BasePaper } from "pickToolV2/BasePaper";
 import { ProgressBar } from "pickToolV2/ProgressBar";
 
 const PickPlayers = () => {
   useUserDatas();
+  useResultData();
   const [step] = useAtom(progressAtom);
 
   return (

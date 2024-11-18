@@ -13,6 +13,7 @@ import {
   selectedPlayerAtom,
   teamAAtom,
   teamBAtom,
+  winRateAtom,
 } from "atoms/userAtoms";
 import { useAtom } from "jotai";
 import { useState } from "react";
@@ -32,6 +33,7 @@ export const Final = () => {
   const [, setCheckedUsers] = useAtom(checkedAtom); // 체크된 선수
   const [firstBlueTeam, setFirstBlueTeam] = useAtom(firstBlueTeamAtom); // 선블루팀
   const [initModalOpen, setInitModalOpen] = useState(false); // 초기화 다이얼로그
+  const [winRate, setWinRate] = useAtom(winRateAtom); // 승률
 
   // 이전 단계로 돌아가기
   const handlePrev = () => {
@@ -76,6 +78,8 @@ export const Final = () => {
     "top-40 left-40",
   ];
 
+  console.log(winRate);
+
   return (
     <>
       <div className="w-[45rem] lg:w-[60rem] flex flex-col bg-backgroundLobby h-96 relative">
@@ -86,6 +90,17 @@ export const Final = () => {
           <span className="font-bold text-primary">선블루팀</span>은
           <span className="font-bold text-primary"> {firstBlueTeam}</span>팀
           입니다.
+          <span className="pl-2">
+            예상 우승팀은{" "}
+            {winRate?.teamAWinRate > winRate?.teamBWinRate
+              ? winRate?.teamAWinRate
+              : winRate?.teamBWinRate}
+            %로{" "}
+            {winRate?.teamAWinRate > winRate?.teamBWinRate
+              ? randomPlayers[0]
+              : randomPlayers[1]}{" "}
+            입니다.
+          </span>
         </p>
 
         <div
