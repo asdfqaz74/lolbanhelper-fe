@@ -1,6 +1,7 @@
 import { userDataAtom } from "atoms/dataAtoms";
 import {
   currentTeamAtom,
+  firstBlueTeamAtom,
   historyAtom,
   pickStepAtom,
   pickUserAtom,
@@ -28,6 +29,7 @@ export const PickTeamMate = () => {
   const [history, setHistory] = useAtom(historyAtom); // 히스토리
   const [userList] = useAtom(userDataAtom); // 유저 데이터
   const [, setSelectedPlayer] = useAtom(selectedPlayerAtom); // 선택된 선수
+  const [, setFirstBlueTeam] = useAtom(firstBlueTeamAtom); // 선블루팀
 
   // 유저 데이터에서 선택된 선수를 매칭합니다.
   const selectedPlayers = useMemo(() => {
@@ -152,8 +154,19 @@ export const PickTeamMate = () => {
     setStep(1);
   };
 
+  // 랜덤으로 선정된 선수 중 A팀 대장과 B팀 대장을 설정합니다.
+  const randomBlueTeam = () => {
+    const random = Math.floor(Math.random() * 2);
+    if (random === 0) {
+      setFirstBlueTeam(randomPlayers[0] || "A");
+    } else {
+      setFirstBlueTeam(randomPlayers[1] || "B");
+    }
+  };
+
   // 다음 단계로 넘어가기
   const handleNextButton = () => {
+    randomBlueTeam();
     setStep(3);
   };
 

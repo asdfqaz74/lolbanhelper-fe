@@ -3,6 +3,7 @@ import { resultDataAtom, userDataAtom } from "atoms/dataAtoms";
 import {
   checkedAtom,
   currentTeamAtom,
+  firstBlueTeamAtom,
   historyAtom,
   pickStepAtom,
   pickUserAtom,
@@ -30,16 +31,20 @@ export const Final = () => {
   const [, setCurrentTeam] = useAtom(currentTeamAtom); // 현재 팀
   const [, setRemainingPickCount] = useAtom(remainingPickCountAtom); // 남은 픽 횟수
   const [, setCheckedUsers] = useAtom(checkedAtom); // 체크된 선수
+  const [firstBlueTeam, setFirstBlueTeam] = useAtom(firstBlueTeamAtom); // 선블루팀
   const [initModalOpen, setInitModalOpen] = useState(false); // 초기화 다이얼로그
 
+  // 이전 단계로 돌아가기
   const handlePrev = () => {
     setStep(2);
   };
 
+  // 초기화 다이얼로그 열기
   const handleInitModal = () => {
     setInitModalOpen(true);
   };
 
+  // 초기화
   const handleInit = () => {
     setStep(0);
     setSelectedPlayer([]);
@@ -53,17 +58,18 @@ export const Final = () => {
     setCurrentTeam("A");
     setRemainingPickCount(1);
     setCheckedUsers([]);
+    setFirstBlueTeam("");
 
     setInitModalOpen(false);
   };
 
+  // 팀원 위치
   const teamAPosition = [
     "top-10 right-10",
     "top-20 right-20",
     "top-[7.5rem] right-[7.5rem]",
     "top-40 right-40",
   ];
-
   const teamBPosition = [
     "top-10 left-10",
     "top-20 left-20",
@@ -74,9 +80,15 @@ export const Final = () => {
   return (
     <>
       <div className="w-[45rem] lg:w-[60rem] flex flex-col bg-backgroundLobby h-96 relative">
-        <p className="text-4xl font-bold text-white text-center pt-10 mb-10">
+        <p className="text-4xl font-bold text-white text-center pt-10">
           팀이 확정되었습니다!
         </p>
+        <p className="text-lg text-white text-center mb-5">
+          <span className="font-bold text-primary">선블루팀</span>은
+          <span className="font-bold text-primary"> {firstBlueTeam}</span>팀
+          입니다.
+        </p>
+
         <div
           className={`${
             step === 3 ? "animate-fadeIn" : ""

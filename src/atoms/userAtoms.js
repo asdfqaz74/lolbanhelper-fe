@@ -13,3 +13,4 @@ export const selectedPlayerAtom = atom([]); // 선택된 유저 상태
 export const currentTeamAtom = atom("A"); // 현재 팀 상태
 export const remainingPickCountAtom = atom(1); // 남은 픽 횟수 상태
 export const pickStepAtom = atom(1); // 픽 단계 상태
+export const firstBlueTeamAtom = atom(""); // 선블루팀 상태
