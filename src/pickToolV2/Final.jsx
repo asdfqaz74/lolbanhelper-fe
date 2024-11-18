@@ -1,5 +1,4 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
-import { resultDataAtom, userDataAtom } from "atoms/dataAtoms";
 import {
   checkedAtom,
   currentTeamAtom,
