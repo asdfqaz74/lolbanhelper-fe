@@ -35,6 +35,17 @@ export const PickTeamLeader = () => {
     setStep(2);
   };
 
+  // 전체선택 버튼 클릭 시
+  const handleSelectAll = () => {
+    // 체크된 선수가 있으면 초기화
+    if (checkedUsers.length > 0) {
+      setCheckedUsers([]);
+    } else {
+      // 체크된 선수가 없으면 전체선수를 체크
+      setCheckedUsers(registValue);
+    }
+  };
+
   const handleCheckedBoxChange = (e) => {
     const { checked, name } = e.target;
 
@@ -72,13 +83,22 @@ export const PickTeamLeader = () => {
 
   return (
     <div className="flex flex-col items-center w-[50rem]">
-      <p className="text-2xl font-bold mb-5">대장을 뽑아주세요!</p>
       <div className="flex justify-evenly w-full items-start">
         <div className="flex flex-col">
-          <p className="text-center">대장 후보를 골라주세요</p>
+          <div className="flex justify-between items-center mb-2">
+            <p className="text-center text-lg font-semibold">
+              대장 후보를 골라주세요
+            </p>
+            <button
+              className="bg-primary px-2 py-2 rounded-md text-white font-semibold"
+              onClick={handleSelectAll}
+            >
+              전체선택
+            </button>
+          </div>
           <div className="flex px-2 py-2 bg-primary bg-opacity-35">
             <FormGroup>
-              <div className="grid grid-cols-2 h-96 w-60 pl-2">
+              <div className="grid grid-cols-2 justify-items-center h-96 w-64 ">
                 {registValue.map((user) => (
                   <FormControlLabel
                     key={user}
