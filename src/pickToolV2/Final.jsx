@@ -79,8 +79,6 @@ export const Final = () => {
     "top-40 left-40",
   ];
 
-  console.log(winRate);
-
   return (
     <>
       <div className="w-[45rem] lg:w-[60rem] flex flex-col bg-backgroundLobby h-96 relative">
