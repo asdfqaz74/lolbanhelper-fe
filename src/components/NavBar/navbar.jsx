@@ -56,7 +56,7 @@ const Navbar = () => {
                 : hoverMenu
             }
           >
-            커뮤니티
+            매치 히스토리
           </NavLink>
         </div>
       </div>

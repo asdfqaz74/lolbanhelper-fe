@@ -5,7 +5,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ResultTable from "components/UserData/ResultTable";
 import ChampionStats from "components/UserData/ChampionStats";
 import { useChampionData, useOneUserData, useResultData } from "hooks/Data";
-import { FileUploader } from "components/UserData/FileUploader";
+// import { FileUploader } from "components/UserData/FileUploader";
 
 const HorizonLine = () => {
   return <div className="w-full h-0.5 bg-primary my-5 rounded-full"></div>;
@@ -104,7 +104,7 @@ const PlayerStats = () => {
                     수정하기
                   </Button>
                 </div>
-                <FileUploader />
+                {/* <FileUploader /> */}
               </div>
             </div>
             <div className="statssm:bg-light px-14 py-10 statssm:border statssm:border-primary rounded-tr-lg bg-white border-none">
