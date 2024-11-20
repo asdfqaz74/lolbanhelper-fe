@@ -8,3 +8,4 @@ export {
 export { useResultData, useAddResult } from "./Result";
 export { useHomeData } from "./home";
 export { useChampionData } from "./useChampionData";
+export { useUnprocessed } from "./match";

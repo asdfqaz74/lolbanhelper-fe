@@ -49,7 +49,7 @@ const Navbar = () => {
             플레이어 정보
           </NavLink>
           <NavLink
-            to="/archive"
+            to="/history"
             className={({ isActive }) =>
               isActive
                 ? "text-primary border-b-2 border-primaryActive"

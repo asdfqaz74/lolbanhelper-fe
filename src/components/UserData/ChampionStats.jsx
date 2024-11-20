@@ -8,7 +8,7 @@ import {
   TableRow,
   useMediaQuery,
 } from "@mui/material";
-import { WinLoseBar } from "components/PickTool/WinLossBar";
+import { WinLoseBar } from "components/UserData/WinLossBar";
 
 const ChampionStats = ({ userResult, championDatas }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
