@@ -86,97 +86,154 @@ const ReadyToHistory = () => {
       <p className="text-2xl font-bold">
         매치 작성을 위해 아이디를 기입해주세요.
       </p>
-      <div className="flex justify-evenly bg-lime-300">
+      <div className="flex flex-col dblg:flex-row max-w-[35rem] dblg:min-w-full justify-evenly bg-lime-300">
         <div className="bg-slate-500">
           <p className="text-center text-2xl font-semibold">블루팀</p>
-          {blueTeamWithChampionData.map((data, index) => {
-            return (
-              <div
-                key={`${data?.id || "blue"}-${index}`}
-                className="flex items-center"
-              >
-                <img
-                  src={`${data.small}.jpg`}
-                  alt={data.champion}
-                  className="w-8 rounded-full"
-                />
-                <p className="text-lg">{data?.champion_kr}</p>
-                <Autocomplete
-                  sx={{ width: 250 }}
-                  freeSolo
-                  id="user-search"
-                  options={userList || []}
-                  value={data.summonerName || ""}
-                  onChange={(e, value) => {
-                    const selectedValue =
-                      typeof value === "string" ? value : value?.name || "";
-                    handleSummonerNameChange("blueTeam", index, selectedValue);
-                  }}
-                  getOptionLabel={(option) =>
-                    typeof option === "string" ? option : option.game_id || ""
-                  } // 문자열 또는 객체 처리
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="소환사 이름"
-                      variant="outlined"
-                      size="small"
-                    />
-                  )}
-                />
-                <p>K {data?.kills}</p>
-                <p>D {data?.deaths}</p>
-                <p>A {data?.assists}</p>
-              </div>
-            );
-          })}
+          <table className="table-auto min-w-full border-collapse border border-gray-300">
+            <thead>
+              <tr className="bg-gray-700 text-white">
+                <th className="border border-gray-300 p-2 text-left">챔피언</th>
+                <th className="border border-gray-300 p-2 text-left">
+                  소환사 이름
+                </th>
+                <th className="border border-gray-300 p-2">K</th>
+                <th className="border border-gray-300 p-2">D</th>
+                <th className="border border-gray-300 p-2">A</th>
+              </tr>
+            </thead>
+            <tbody>
+              {blueTeamWithChampionData.map((data, index) => {
+                return (
+                  <tr key={`blue-${data.id}`}>
+                    <td className="p-2 flex items-center space-x-2">
+                      <img
+                        src={`${data.small}.jpg`}
+                        alt={data.champion}
+                        className="w-8 rounded-full"
+                      />
+                      <p className="text-lg">{data?.champion_kr}</p>
+                    </td>
+                    <td className=" p-2">
+                      <Autocomplete
+                        sx={{ width: 250 }}
+                        freeSolo
+                        id="user-search"
+                        options={userList || []}
+                        value={data.summonerName || ""}
+                        onChange={(e, value) => {
+                          const selectedValue =
+                            typeof value === "string"
+                              ? value
+                              : value?.name || "";
+                          handleSummonerNameChange(
+                            "blueTeam",
+                            index,
+                            selectedValue
+                          );
+                        }}
+                        getOptionLabel={(option) =>
+                          typeof option === "string"
+                            ? option
+                            : option.game_id || ""
+                        } // 문자열 또는 객체 처리
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="소환사 이름"
+                            variant="outlined"
+                            size="small"
+                          />
+                        )}
+                      />
+                    </td>
+                    <td className=" p-2 text-center w-10">
+                      <p>{data?.kills}</p>
+                    </td>
+                    <td className=" p-2 text-center w-10">
+                      <p>{data?.deaths}</p>
+                    </td>
+                    <td className=" p-2 text-center w-10">
+                      <p>{data?.assists}</p>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
         <div className="bg-sky-500">
           <p className="text-center text-lg font-semibold">레드팀</p>
-          {redTeamWithChampionData.map((data, index) => {
-            return (
-              <div
-                key={`${data?.id || "red"}-${index}`}
-                className="flex items-center"
-              >
-                <img
-                  src={`${data.small}.jpg`}
-                  alt={data.champion}
-                  className="w-8 rounded-full"
-                />
-                <p>{data?.champion_kr}</p>
-                <Autocomplete
-                  sx={{ width: 250 }}
-                  freeSolo
-                  id="user-search"
-                  options={userList || []} // 유저 리스트
-                  value={data.summonerName || ""} // 현재 소환사 이름
-                  onChange={(e, value) => {
-                    const selectedValue =
-                      typeof value === "string"
-                        ? value // 사용자가 직접 입력한 경우
-                        : value?.name || ""; // Autocomplete 옵션을 선택한 경우
-                    handleSummonerNameChange("redTeam", index, selectedValue);
-                  }}
-                  getOptionLabel={(option) =>
-                    typeof option === "string" ? option : option.game_id || ""
-                  } // 문자열 또는 객체 처리
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="소환사 이름"
-                      variant="outlined"
-                      size="small"
-                    />
-                  )}
-                />
-
-                <p>K {data?.kills}</p>
-                <p>D {data?.deaths}</p>
-                <p>A {data?.assists}</p>
-              </div>
-            );
-          })}
+          <table className="table-auto min-w-full border-collapse border border-gray-300">
+            <thead>
+              <tr className="bg-gray-700 text-white">
+                <th className="border border-gray-300 p-2 text-left">챔피언</th>
+                <th className="border border-gray-300 p-2 text-left">
+                  소환사 이름
+                </th>
+                <th className="border border-gray-300 p-2">K</th>
+                <th className="border border-gray-300 p-2">D</th>
+                <th className="border border-gray-300 p-2">A</th>
+              </tr>
+            </thead>
+            <tbody>
+              {redTeamWithChampionData.map((data, index) => {
+                return (
+                  <tr key={`red-${data.id}`}>
+                    <td className="p-2 flex items-center space-x-2">
+                      <img
+                        src={`${data.small}.jpg`}
+                        alt={data.champion}
+                        className="w-8 rounded-full"
+                      />
+                      <p className="text-lg">{data?.champion_kr}</p>
+                    </td>
+                    <td className=" p-2">
+                      <Autocomplete
+                        sx={{ width: 250 }}
+                        freeSolo
+                        id="user-search"
+                        options={userList || []}
+                        value={data.summonerName || ""}
+                        onChange={(e, value) => {
+                          const selectedValue =
+                            typeof value === "string"
+                              ? value
+                              : value?.name || "";
+                          handleSummonerNameChange(
+                            "redTeam",
+                            index,
+                            selectedValue
+                          );
+                        }}
+                        getOptionLabel={(option) =>
+                          typeof option === "string"
+                            ? option
+                            : option.game_id || ""
+                        } // 문자열 또는 객체 처리
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="소환사 이름"
+                            variant="outlined"
+                            size="small"
+                          />
+                        )}
+                      />
+                    </td>
+                    <td className=" p-2 text-center w-10">
+                      <p>{data?.kills}</p>
+                    </td>
+                    <td className=" p-2 text-center w-10">
+                      <p>{data?.deaths}</p>
+                    </td>
+                    <td className=" p-2 text-center w-10">
+                      <p>{data?.assists}</p>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
