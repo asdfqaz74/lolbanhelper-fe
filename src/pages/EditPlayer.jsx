@@ -15,7 +15,6 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useState } from "react";
 import { useOneUserData, useUserUpdateData } from "hooks/Data";
-import { fetchPUUIDBySummonerName } from "utils/riotApi";
 
 const validationSchema = yup.object({
   name: yup
@@ -65,18 +64,6 @@ const EditPlayer = () => {
     setOpenModal(true);
   };
 
-  const fetchPUUID = async () => {
-    try {
-      const summonerName = formik.values.game_id;
-      if (!summonerName) return;
-
-      const puuid = await fetchPUUIDBySummonerName(summonerName);
-      formik.setFieldValue("PUUID", puuid);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   return (
     <>
       <div className="flex flex-col mt-5 mx-4 py-10 px-20 bg-white shadow-2xl rounded-b-lg">
@@ -104,16 +91,6 @@ const EditPlayer = () => {
             onChange={formik.handleChange}
             error={formik.touched.game_id && Boolean(formik.errors.game_id)}
             helperText={formik.touched.game_id && formik.errors.game_id}
-          />
-          <Button variant="outlined" color="primary" onClick={fetchPUUID}>
-            PUUID 가져오기
-          </Button>
-          <TextField
-            id="puuid"
-            name="puuid"
-            label="PUUID"
-            value={formik.values.PUUID}
-            onChange={formik.handleChange}
           />
           <FormControl
             error={

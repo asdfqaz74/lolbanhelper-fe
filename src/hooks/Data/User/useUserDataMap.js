@@ -7,7 +7,7 @@ export const useUserDataMap = () => {
 
   const userMap = useMemo(() => {
     if (userData) {
-      return new Map(userData.map((user) => [user.name, user]));
+      return new Map(userData.map((user) => [user.game_id, user]));
     }
     return null;
   }, [userData]);
