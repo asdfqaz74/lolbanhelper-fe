@@ -10,9 +10,7 @@ export const useUnprocessed = () => {
   const { data, status } = useQuery({
     queryKey: ["unprocessedMatch"],
     queryFn: async () => {
-      const response = await api
-        .get("/match")
-        .then((res) => res.data.data.statsJson);
+      const response = await api.get("/match").then((res) => res.data.data);
       return response;
     },
     staleTime: 1000 * 60 * 5,
@@ -21,7 +19,7 @@ export const useUnprocessed = () => {
 
   useEffect(() => {
     if (status === "success" && data) {
-      setUnprocessed(data);
+      setUnprocessed(data || null);
     }
   }, [data, setUnprocessed, status]);
 

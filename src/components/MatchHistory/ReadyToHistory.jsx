@@ -1,12 +1,13 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { championDataAtom, userDataAtom } from "atoms/dataAtoms";
-import { useUnprocessed } from "hooks/Data";
-import { useAddManyResult } from "hooks/Data";
-import { useUserDataMap } from "hooks/Data/User/useUserDataMap";
+import {
+  useUnprocessed,
+  useUpdateProcessed,
+  useAddManyResult,
+  useUserDataMap,
+} from "hooks/Data";
 import { useAtom } from "jotai";
 import { useState } from "react";
-
-const sortedPosition = ["TOP", "JUNGLE", "MIDDLE", "BOTTOM", "UTILITY"];
 
 const ReadyToHistory = () => {
   const [blueSearchValue, setBlueSearchValue] = useState([]);
@@ -16,8 +17,13 @@ const ReadyToHistory = () => {
   const [userList] = useAtom(userDataAtom);
   const userMap = useUserDataMap();
   const addManyResult = useAddManyResult();
+  const updateProcessed = useUpdateProcessed();
 
-  if (status !== "success") {
+  const { statsJson, _id } = unprocessed;
+
+  console.log(statsJson);
+
+  if (status === "pending") {
     return (
       <div className="flex justify-center items-center h-96">
         <div className="text-2xl text-gray-400">로딩중입니다.</div>
@@ -25,7 +31,7 @@ const ReadyToHistory = () => {
     );
   }
 
-  if (!unprocessed) {
+  if (!unprocessed || !statsJson || statsJson.length === 0) {
     return (
       <div className="flex justify-center items-center h-96">
         <div className="text-2xl text-gray-400">데이터가 없습니다.</div>
@@ -41,16 +47,9 @@ const ReadyToHistory = () => {
     ])
   );
 
-  // unprocessed를 sortedPosition에 따라 정렬
-  const sortedUnprocessed = unprocessed.sort((a, b) => {
-    return (
-      sortedPosition.indexOf(a.position) - sortedPosition.indexOf(b.position)
-    );
-  });
-
   // 블루팀, 레드팀으로 나누기
-  let blueTeam = sortedUnprocessed.filter((data) => data.team === "BLUE");
-  let redTeam = sortedUnprocessed.filter((data) => data.team === "RED");
+  let blueTeam = statsJson.filter((data) => data.team === "BLUE");
+  let redTeam = statsJson.filter((data) => data.team === "RED");
 
   // 블루팀, 레드팀에 championMap 데이터 추가
   blueTeam = blueTeam.map((data) => {
@@ -75,18 +74,22 @@ const ReadyToHistory = () => {
 
   // 유저 검색 값 변경
   const handleSearchChange = (team, index, value) => {
+    const user = userMap.get(value);
     if (team === "BLUE") {
       setBlueSearchValue((prev) => {
         const newValue = [...prev];
         newValue[index] = value;
         return newValue;
       });
+      blueTeam[index].summonerName = user?.game_id || "";
     } else {
       setRedSearchValue((prev) => {
         const newValue = [...prev];
         newValue[index] = value;
         return newValue;
       });
+
+      redTeam[index].summonerName = user?.game_id || "";
     }
   };
 
@@ -116,12 +119,41 @@ const ReadyToHistory = () => {
       };
     });
 
+    const updatedBlueTeam = blueTeam.map((data, index) => ({
+      ...data,
+      summonerName: blueSearchValue[index] || "",
+    }));
+
+    const updatedRedTeam = redTeam.map((data, index) => ({
+      ...data,
+      summonerName: redSearchValue[index] || "",
+    }));
+
+    const statsJson = [...updatedBlueTeam, ...updatedRedTeam];
+
     // 5대5 경기 데이터로 변환
+    const processedMatch = {
+      _id,
+      statsJson,
+    };
 
     // 개인 전적 데이터 합치기
     const allRecords = [...processedBlueTeam, ...processedRedTeam];
 
+    // 데이터 제출
+    updateProcessed.mutate(processedMatch, {
+      onSuccess: () => {
+        console.log("성공");
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
     addManyResult.mutate(allRecords);
+
+    // 상태 초기화
+    setBlueSearchValue([]);
+    setRedSearchValue([]);
   };
 
   return (
