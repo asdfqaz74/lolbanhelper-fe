@@ -12,8 +12,4 @@ export const unprocessedMatchAtom = atom({
   statsJson: [],
   processed: false,
 }); // 처리되지 않은 경기 데이터
-export const oneProcessedMatchAtom = atom({
-  _id: null,
-  statsJson: [],
-  processed: true,
-}); // 처리된 경기 데이터
+export const oneProcessedMatchAtom = atom([]); // 처리된 경기 데이터
