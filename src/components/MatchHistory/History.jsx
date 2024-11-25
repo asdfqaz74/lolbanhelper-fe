@@ -1,5 +1,4 @@
 import { oneProcessedMatchAtom } from "atoms/dataAtoms";
-import { useOneProcessed } from "hooks/Data";
 import { useAtom } from "jotai";
 
 const History = () => {
