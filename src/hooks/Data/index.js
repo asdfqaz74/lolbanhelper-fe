@@ -9,4 +9,4 @@ export {
 export { useResultData, useAddResult, useAddManyResult } from "./Result";
 export { useHomeData } from "./home";
 export { useChampionData } from "./useChampionData";
-export { useUnprocessed, useUpdateProcessed } from "./match";
+export { useUnprocessed, useUpdateProcessed, useOneProcessed } from "./match";

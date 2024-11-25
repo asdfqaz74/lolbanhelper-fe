@@ -1,10 +1,11 @@
 import { History, ReadyToHistory } from "components/MatchHistory";
-import { useChampionData, useUserDatas } from "hooks/Data";
+import { useChampionData, useOneProcessed, useUserDatas } from "hooks/Data";
 import { useUserDataMap } from "hooks/Data/User/useUserDataMap";
 
 const MatchHistory = () => {
   useChampionData();
   useUserDatas();
+  useOneProcessed();
   const userMap = useUserDataMap();
 
   return (
