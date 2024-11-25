@@ -11,27 +11,18 @@ export const useOneProcessed = () => {
     queryKey: ["oneProcessedMatch"],
     queryFn: async () => {
       const response = await api.get("/match/one").then((res) => {
-        console.log(res.data.data.statsJson);
         return res.data.data.statsJson;
       });
-      console.log("status1", status);
-      console.log("response", response);
       return response;
     },
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 60,
   });
-
-  console.log("status2", status);
-  console.log("data", data);
-
   useEffect(() => {
-    console.log("useEffect status", status);
-    console.log("data2", data);
     if (data) {
       setOneProcessed(data || null);
     }
-  }, [data, status]);
+  }, [data, status, setOneProcessed]);
 
   return { data, status };
 };
