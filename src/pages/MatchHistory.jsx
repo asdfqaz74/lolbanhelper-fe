@@ -5,12 +5,12 @@ import { useUserDataMap } from "hooks/Data/User/useUserDataMap";
 const MatchHistory = () => {
   useChampionData();
   useUserDatas();
-  useOneProcessed();
+  const status = useOneProcessed();
   const userMap = useUserDataMap();
 
   return (
     <div className="md:mx-36">
-      <History />
+      <History status={status} />
       <ReadyToHistory userMap={userMap} />
     </div>
   );

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import api from "utils/api";
 
 export const useOneProcessed = () => {
-  const [oneProcessed, setOneProcessed] = useAtom(oneProcessedMatchAtom);
+  const [, setOneProcessed] = useAtom(oneProcessedMatchAtom);
 
   const { data, status } = useQuery({
     queryKey: ["oneProcessedMatch"],
@@ -25,5 +25,5 @@ export const useOneProcessed = () => {
     }
   }, [data, setOneProcessed, status]);
 
-  return { oneProcessed, status };
+  return status;
 };

@@ -1,8 +1,19 @@
 import { oneProcessedMatchAtom } from "atoms/dataAtoms";
 import { useAtom } from "jotai";
 
-const History = () => {
+const History = ({ status }) => {
   const [oneProcessed] = useAtom(oneProcessedMatchAtom);
+
+  if (status === "pending") {
+    return (
+      <div className="my-10">
+        <p className="text-4xl font-bold">최근 게임</p>
+        <div className="flex justify-center items-center h-96 bg-slate-300">
+          <div className="text-2xl text-gray-400">로딩중입니다.</div>
+        </div>
+      </div>
+    );
+  }
 
   console.log(oneProcessed);
 
