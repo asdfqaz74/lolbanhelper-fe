@@ -18,13 +18,14 @@ const ReadyToHistory = () => {
   const userMap = useUserDataMap();
   const addManyResult = useAddManyResult();
   const updateProcessed = useUpdateProcessed();
+  const [loading, setLoading] = useState(false);
 
   const { statsJson, _id } = unprocessed;
 
   if (status === "pending") {
     return (
       <div className="my-10">
-        <p className="text-4xl font-bold">매치 작성하기</p>
+        <p className="text-4xl font-bold mb-4">매치 작성하기</p>
         <div className="flex justify-center items-center h-96 bg-slate-300">
           <div className="text-2xl text-gray-400">로딩중입니다.</div>
         </div>
@@ -35,7 +36,7 @@ const ReadyToHistory = () => {
   if (!unprocessed || !statsJson || statsJson.length === 0) {
     return (
       <div className="my-10">
-        <p className="text-4xl font-bold">매치 작성하기</p>
+        <p className="text-4xl font-bold mb-4">매치 작성하기</p>
         <div className="flex justify-center items-center h-96 bg-slate-300">
           <div className="text-2xl text-gray-400">
             모든 매치가 처리되었습니다.
@@ -101,6 +102,7 @@ const ReadyToHistory = () => {
 
   // 제출 버튼 클릭
   const handleSubmitButton = () => {
+    setLoading(true);
     // 개인 전적 데이터로 변환
     const processedBlueTeam = blueTeam.map((data, index) => {
       const user = userMap.get(blueSearchValue[index]);
@@ -150,16 +152,16 @@ const ReadyToHistory = () => {
       onSuccess: () => {
         addManyResult.mutate(allRecords, {
           onSuccess: () => {
-            console.log("성공");
+            setLoading(false);
             window.location.reload();
           },
           onError: (error) => {
             console.log(error);
           },
         });
-        console.log("성공");
       },
       onError: (error) => {
+        setLoading(false);
         console.log(error);
       },
     });
@@ -170,26 +172,28 @@ const ReadyToHistory = () => {
   };
 
   return (
-    <div className="my-10">
-      <p className="text-4xl font-bold">매치 작성하기</p>
-      <div className="bg-slate-400">
-        <div className="flex justify-evenly">
-          <div className="bg-yellow-200 flex flex-col">
-            <p>블루팀</p>
-            <table className="table-auto">
-              <thead>
+    <div className="my-10 w-full">
+      <p className="text-4xl font-bold mb-4">매치 작성하기</p>
+      <div className="bg-slate-300 p-2 w-full">
+        <div className="flex justify-evenly w-full">
+          <div className="bg-sky-200 flex flex-col w-[33rem]">
+            <p className="text-blue-500 text-2xl text-center font-bold">
+              블루팀
+            </p>
+            <table className="table-auto m-2">
+              <thead className="bg-slate-500 text-white">
                 <tr>
                   <th>챔피언</th>
                   <th>유저</th>
-                  <th>K</th>
-                  <th>D</th>
-                  <th>A</th>
+                  <th className="w-12">K</th>
+                  <th className="w-12">D</th>
+                  <th className="w-12">A</th>
                 </tr>
               </thead>
               <tbody>
                 {blueTeam.map((data, index) => (
                   <tr key={`blue-${index}`}>
-                    <td className="flex items-center space-x-2">
+                    <td className="flex items-center gap-2">
                       <img
                         src={`${data.small}.jpg`}
                         alt={data.champion_kr}
@@ -199,7 +203,7 @@ const ReadyToHistory = () => {
                     </td>
                     <td>
                       <Autocomplete
-                        sx={{ width: 250 }}
+                        sx={{ width: 200 }}
                         options={userList}
                         id="user-search"
                         getOptionLabel={(option) =>
@@ -222,35 +226,37 @@ const ReadyToHistory = () => {
                       />
                     </td>
                     <td>
-                      <p>{data.kills}</p>
+                      <p className="text-center">{data.kills}</p>
                     </td>
                     <td>
-                      <p>{data.deaths}</p>
+                      <p className="text-center">{data.deaths}</p>
                     </td>
                     <td>
-                      <p>{data.assists}</p>
+                      <p className="text-center">{data.assists}</p>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <div className="bg-green-200 flex flex-col">
-            <p>레드팀</p>
-            <table className="table-auto">
-              <thead>
+          <div className="bg-rose-100 flex flex-col w-[33rem]">
+            <p className="text-red-500 text-2xl text-center font-bold">
+              레드팀
+            </p>
+            <table className="table-auto m-2">
+              <thead className="bg-slate-500 text-white">
                 <tr>
                   <th>챔피언</th>
                   <th>유저</th>
-                  <th>K</th>
-                  <th>D</th>
-                  <th>A</th>
+                  <th className="w-12">K</th>
+                  <th className="w-12">D</th>
+                  <th className="w-12">A</th>
                 </tr>
               </thead>
               <tbody>
                 {redTeam.map((data, index) => (
                   <tr key={`red-${index}`}>
-                    <td className="flex items-center space-x-2">
+                    <td className="flex items-center gap-2">
                       <img
                         src={`${data.small}.jpg`}
                         alt={data.champion_kr}
@@ -260,7 +266,7 @@ const ReadyToHistory = () => {
                     </td>
                     <td>
                       <Autocomplete
-                        sx={{ width: 250 }}
+                        sx={{ width: 200 }}
                         options={userList}
                         id="user-search"
                         getOptionLabel={(option) =>
@@ -283,13 +289,13 @@ const ReadyToHistory = () => {
                       />
                     </td>
                     <td>
-                      <p>{data.kills}</p>
+                      <p className="text-center">{data.kills}</p>
                     </td>
                     <td>
-                      <p>{data.deaths}</p>
+                      <p className="text-center">{data.deaths}</p>
                     </td>
                     <td>
-                      <p>{data.assists}</p>
+                      <p className="text-center">{data.assists}</p>
                     </td>
                   </tr>
                 ))}
@@ -297,7 +303,18 @@ const ReadyToHistory = () => {
             </table>
           </div>
         </div>
-        <button onClick={handleSubmitButton}>제출</button>
+      </div>
+      <div className="flex justify-end">
+        <button
+          onClick={handleSubmitButton}
+          className={`${
+            loading
+              ? "bg-slate-400 cursor-not-allowed"
+              : "bg-primary bg-opacity-70 hover:bg-opacity-100 transform hover:scale-105 duration-200"
+          } px-4 py-2 rounded-lg mt-4 text-white font-semibold`}
+        >
+          {loading ? "제출중" : "제출하기"}
+        </button>
       </div>
     </div>
   );
