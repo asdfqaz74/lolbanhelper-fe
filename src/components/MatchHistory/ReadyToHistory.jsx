@@ -23,25 +23,25 @@ const ReadyToHistory = () => {
 
   if (status === "pending") {
     return (
-      <>
-        <p>매치 작성하기</p>
+      <div className="my-10">
+        <p className="text-4xl font-bold">매치 작성하기</p>
         <div className="flex justify-center items-center h-96 bg-slate-300">
           <div className="text-2xl text-gray-400">로딩중입니다.</div>
         </div>
-      </>
+      </div>
     );
   }
 
   if (!unprocessed || !statsJson || statsJson.length === 0) {
     return (
-      <>
-        <p>매치 작성하기</p>
+      <div className="my-10">
+        <p className="text-4xl font-bold">매치 작성하기</p>
         <div className="flex justify-center items-center h-96 bg-slate-300">
           <div className="text-2xl text-gray-400">
             모든 매치가 처리되었습니다.
           </div>
         </div>
-      </>
+      </div>
     );
   }
 
@@ -170,8 +170,8 @@ const ReadyToHistory = () => {
   };
 
   return (
-    <div>
-      <p>매치 작성하기</p>
+    <div className="my-10">
+      <p className="text-4xl font-bold">매치 작성하기</p>
       <div className="bg-slate-400">
         <div className="flex justify-evenly">
           <div className="bg-yellow-200 flex flex-col">

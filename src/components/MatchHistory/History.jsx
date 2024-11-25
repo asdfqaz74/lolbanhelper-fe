@@ -14,15 +14,15 @@ const History = () => {
   console.log(blueTeam, redTeam);
   return (
     <div className="my-10">
-      <p>최근 게임</p>
-      <p>
+      <p className="text-4xl font-bold">최근 게임</p>
+      <p className="text-center text-xl">
         {blueTeam.win ? (
           <span>
-            <span>블루팀</span> 승리
+            <span className="text-cyan-500">블루팀</span> 승리
           </span>
         ) : (
           <span>
-            <span>레드팀</span> 승리
+            <span className="text-rose-500 font-bold">레드팀</span> 승리
           </span>
         )}
       </p>
@@ -91,13 +91,13 @@ const History = () => {
                     <p>{data.summonerName}</p>
                   </td>
                   <td>
-                    <p>{data.kills}</p>
+                    <p className="text-center">{data.kills}</p>
                   </td>
                   <td>
-                    <p>{data.deaths}</p>
+                    <p className="text-center">{data.deaths}</p>
                   </td>
                   <td>
-                    <p>{data.assists}</p>
+                    <p className="text-center">{data.assists}</p>
                   </td>
                   <td>
                     <p className="text-center">{data.cs}</p>
@@ -136,19 +136,19 @@ const History = () => {
                     />
                     <p>{data.champion_kr}</p>
                   </td>
-                  <td>
-                    <p className="whitespace-nowrap overflow-hidden text-ellipsis w-28">
+                  <td className="w-32">
+                    <p className="whitespace-nowrap overflow-hidden text-ellipsis">
                       {data.summonerName}
                     </p>
                   </td>
                   <td>
-                    <p>{data.kills}</p>
+                    <p className="text-center">{data.kills}</p>
                   </td>
                   <td>
-                    <p>{data.deaths}</p>
+                    <p className="text-center">{data.deaths}</p>
                   </td>
                   <td>
-                    <p>{data.assists}</p>
+                    <p className="text-center">{data.assists}</p>
                   </td>
                   <td>
                     <p className="text-center">{data.cs}</p>
