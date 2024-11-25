@@ -1,9 +1,4 @@
-import { oneProcessedMatchAtom } from "atoms/dataAtoms";
-import { useAtom } from "jotai";
-
-const History = ({ status }) => {
-  const [oneProcessed] = useAtom(oneProcessedMatchAtom);
-
+const History = ({ status, oneProcessed }) => {
   if (status === "pending") {
     return (
       <div className="my-10">
@@ -15,13 +10,10 @@ const History = ({ status }) => {
     );
   }
 
-  console.log(oneProcessed);
-
   const blueTeam = oneProcessed.slice(0, 5);
   const redTeam = oneProcessed.slice(5, 10);
   const reverseRedTeam = redTeam.toReversed();
 
-  console.log(blueTeam, redTeam);
   return (
     <div className="my-10">
       <p className="text-4xl font-bold">최근 게임</p>
