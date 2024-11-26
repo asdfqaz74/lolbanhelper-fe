@@ -1,3 +1,5 @@
+import { DealtBar } from "./DealtBar";
+
 const History = ({ status, oneProcessed }) => {
   if (status === "pending") {
     return (
@@ -63,15 +65,7 @@ const History = ({ status, oneProcessed }) => {
                 <th>A</th>
                 <th>CS</th>
                 <th className="text-sm text-red-600 bg-red-100">입힌 피해량</th>
-                <th className="text-sm text-orange-600 bg-orange-100">
-                  입힌 물리피해
-                </th>
-                <th className="text-sm text-blue-600 bg-blue-100">
-                  입힌 마법피해
-                </th>
-                <th className="text-sm text-purple-600 bg-purple-100">
-                  입힌 고정피해
-                </th>
+                <th className="text-sm text-center">그래프</th>
                 <th className="text-sm">받은 피해량</th>
                 <th className="text-sm">시야 점수</th>
                 <th className="text-sm">와드를 산 횟수</th>
@@ -107,14 +101,8 @@ const History = ({ status, oneProcessed }) => {
                   <td>
                     <p className="text-center">{data.totalDamage_dealt}</p>
                   </td>
-                  <td>
-                    <p className="text-center">{data.physicalDamage_dealt}</p>
-                  </td>
-                  <td>
-                    <p className="text-center">{data.magicDamage_dealt}</p>
-                  </td>
-                  <td>
-                    <p className="text-center">{data.trueDamage_dealt}</p>
+                  <td className="w-[400px]">
+                    <DealtBar data={data} />
                   </td>
                   <td>
                     <p className="text-center">{data.totalDamage_taken}</p>
@@ -159,13 +147,9 @@ const History = ({ status, oneProcessed }) => {
                     <p className="text-center">{data.totalDamage_dealt}</p>
                   </td>
                   <td>
-                    <p className="text-center">{data.physicalDamage_dealt}</p>
-                  </td>
-                  <td>
-                    <p className="text-center">{data.magicDamage_dealt}</p>
-                  </td>
-                  <td>
-                    <p className="text-center">{data.trueDamage_dealt}</p>
+                    <td className="w-[400px]">
+                      <DealtBar data={data} />
+                    </td>
                   </td>
                   <td>
                     <p className="text-center">{data.totalDamage_taken}</p>

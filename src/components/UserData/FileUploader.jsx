@@ -25,23 +25,28 @@ export const FileUploader = () => {
       await uploadRoflFile(file);
       setMessage("업로드 성공");
     } catch (e) {
-      setMessage("업로드 실패 :" + e.message);
+      setMessage("업로드 실패");
     } finally {
       setUpLoading(false);
+      window.location.reload();
     }
   };
 
   return (
-    <div className="flex items-center justify-center">
-      <input type="file" accept=".rofl" onChange={handleFileChange} />
-      <button
-        onClick={handleUpload}
-        disabled={uploading}
-        className="bg-primary text-white px-4 py-2 rounded-md ml-2"
-      >
-        {uploading ? "업로딩 중..." : "업로드"}
-      </button>
-      {message && <p>{message}</p>}
+    <div className="flex items-end justify-start">
+      <div>
+        <div className="flex gap-5 mb-2">
+          <input type="file" accept=".rofl" onChange={handleFileChange} />
+          <button
+            onClick={handleUpload}
+            disabled={uploading}
+            className="bg-primary text-white px-4 py-2 rounded-md ml-2"
+          >
+            {uploading ? "업로딩 중..." : "매치추가"}
+          </button>
+        </div>
+        {message && <p className="text-end">{message}</p>}
+      </div>
     </div>
   );
 };

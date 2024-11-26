@@ -1,5 +1,6 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { championDataAtom, userDataAtom } from "atoms/dataAtoms";
+import { FileUploader } from "components/UserData/FileUploader";
 import {
   useUnprocessed,
   useUpdateProcessed,
@@ -25,7 +26,10 @@ const ReadyToHistory = () => {
   if (status === "pending") {
     return (
       <div className="my-10">
-        <p className="text-4xl font-bold mb-4">매치 작성하기</p>
+        <div className="flex justify-between">
+          <p className="text-4xl font-bold mb-4">매치 작성하기</p>
+          <FileUploader />
+        </div>
         <div className="flex justify-center items-center h-96 bg-slate-300">
           <div className="text-2xl text-gray-400">로딩중입니다.</div>
         </div>
@@ -36,7 +40,10 @@ const ReadyToHistory = () => {
   if (!unprocessed || !statsJson || statsJson.length === 0) {
     return (
       <div className="my-10">
-        <p className="text-4xl font-bold mb-4">매치 작성하기</p>
+        <div className="flex justify-between">
+          <p className="text-4xl font-bold mb-4">매치 작성하기</p>
+          <FileUploader />
+        </div>
         <div className="flex justify-center items-center h-96 bg-slate-300">
           <div className="text-2xl text-gray-400">
             모든 매치가 처리되었습니다.
@@ -173,7 +180,10 @@ const ReadyToHistory = () => {
 
   return (
     <div className="my-10 w-full">
-      <p className="text-4xl font-bold mb-4">매치 작성하기</p>
+      <div className="flex justify-between">
+        <p className="text-4xl font-bold mb-4">매치 작성하기</p>
+        <FileUploader />
+      </div>
       <div className="bg-slate-300 p-2 w-full">
         <div className="flex justify-evenly w-full">
           <div className="bg-sky-200 flex flex-col w-[33rem]">
