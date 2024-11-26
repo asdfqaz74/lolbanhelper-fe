@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-export const DealtBar = ({ data }) => {
+export const DealtBar = ({ data, maxDamage }) => {
   const ref = useRef();
   const maxWidth = 350;
-  const maxTotalDamage = 40000;
+  const maxTotalDamage = maxDamage.maxDamage;
 
   useEffect(() => {
     const svg = d3.select(ref.current);
@@ -125,7 +125,7 @@ export const DealtBar = ({ data }) => {
         .attr("font-size", "10px")
         .text(trueDamage);
     }
-  }, [data]);
+  }, [data, maxTotalDamage]);
 
   return (
     <svg

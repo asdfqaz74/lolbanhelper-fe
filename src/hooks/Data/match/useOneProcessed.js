@@ -5,13 +5,13 @@ import { useEffect } from "react";
 import api from "utils/api";
 
 export const useOneProcessed = () => {
-  const [, setOneProcessed] = useAtom(oneProcessedMatchAtom);
+  const [oneProcessed, setOneProcessed] = useAtom(oneProcessedMatchAtom);
 
   const { data, status } = useQuery({
     queryKey: ["oneProcessedMatch"],
     queryFn: async () => {
       const response = await api.get("/match/one").then((res) => {
-        return res.data.data.statsJson;
+        return res.data.data;
       });
       return response;
     },
@@ -20,9 +20,9 @@ export const useOneProcessed = () => {
   });
   useEffect(() => {
     if (data) {
-      setOneProcessed(data || null);
+      setOneProcessed(data.statsJson || null);
     }
   }, [data, status, setOneProcessed]);
 
-  return { data, status };
+  return { data, status, oneProcessed };
 };

@@ -1,6 +1,6 @@
 import { DealtBar } from "./DealtBar";
 
-const History = ({ status, oneProcessed }) => {
+const History = ({ status, oneProcessed, damage }) => {
   if (status === "pending") {
     return (
       <div className="my-10">
@@ -102,7 +102,7 @@ const History = ({ status, oneProcessed }) => {
                     <p className="text-center">{data.totalDamage_dealt}</p>
                   </td>
                   <td className="w-[400px]">
-                    <DealtBar data={data} />
+                    <DealtBar data={data} maxDamage={damage} />
                   </td>
                   <td>
                     <p className="text-center">{data.totalDamage_taken}</p>
@@ -148,7 +148,7 @@ const History = ({ status, oneProcessed }) => {
                   </td>
                   <td>
                     <td className="w-[400px]">
-                      <DealtBar data={data} />
+                      <DealtBar data={data} maxDamage={damage} />
                     </td>
                   </td>
                   <td>
