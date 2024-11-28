@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
+// data는 각 플레이어
+// maxDamage는 원본 데이터
 export const DealtBar = ({ data, maxDamage }) => {
   const ref = useRef();
   const maxWidth = 350;

@@ -13,6 +13,7 @@ import AddPlayerResult from "./pages/AddPlayerResult";
 import { Provider } from "jotai";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Footer } from "components/footer/Footer";
+import MatchGroup from "pages/MatchGroup";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/team" element={<PickPlayers />} />
             <Route path="/playerdb" element={<PlayerDB />} />
             <Route path="/history" element={<MatchHistory />} />
+            <Route path="/history/group" element={<MatchGroup />} />
             <Route path="/playerdb/:id" element={<PlayerStats />} />
             <Route path="/playerdb/:id/edit" element={<EditPlayer />} />
             <Route path="/playerdb/:id/record" element={<AddPlayerResult />} />

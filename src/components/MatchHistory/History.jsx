@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { DealtBar } from "./DealtBar";
 
 const History = ({ status, oneProcessed, damage }) => {
@@ -18,15 +19,21 @@ const History = ({ status, oneProcessed, damage }) => {
 
   return (
     <div className="my-10">
-      <p className="text-4xl font-bold">최근 게임</p>
+      <div className="flex justify-between">
+        <p className="text-4xl font-bold">최근 게임</p>
+        <Link to="/history/group" className="text-center block text-blue-500">
+          더보기
+        </Link>
+      </div>
       <p className="text-center text-xl">
         {blueTeam.win ? (
           <span>
-            <span className="text-cyan-500">블루팀</span> 승리
+            <span className="text-cyan-500 text-2xl">블루팀</span> 승리
           </span>
         ) : (
           <span>
-            <span className="text-rose-500 font-bold">레드팀</span> 승리
+            <span className="text-rose-500 font-bold text-2xl">레드팀</span>{" "}
+            승리
           </span>
         )}
       </p>
@@ -83,7 +90,7 @@ const History = ({ status, oneProcessed, damage }) => {
                     />
                     <p>{data.champion_kr}</p>
                   </td>
-                  <td>
+                  <td className="whitespace-nowrap overflow-hidden text-ellipsis max-w-28">
                     <p>{data.summonerName}</p>
                   </td>
                   <td>
