@@ -9,7 +9,7 @@ const PlayerDB2 = () => {
 
   return (
     <div className="md:mx-36 flex justify-center">
-      <UserTable recentMatch={recentMatch} />
+      <UserTable recentMatch={recentMatch} status={status} />
     </div>
   );
 };

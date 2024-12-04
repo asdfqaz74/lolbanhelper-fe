@@ -15,7 +15,6 @@ export const useRecentMatch = () => {
         .then((res) => res.data.data);
       return response;
     },
-    placeholderData: recentMatch,
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 60,
   });
