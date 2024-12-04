@@ -14,3 +14,4 @@ export const unprocessedMatchAtom = atom({
 }); // 처리되지 않은 경기 데이터
 export const oneProcessedMatchAtom = atom([]); // 처리된 경기 데이터
 export const processedMatchAtom = atom([]); // 처리된 경기 데이터
+export const recentMatchAtom = atom([]); // 최근 5경기 데이터

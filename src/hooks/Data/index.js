@@ -7,7 +7,12 @@ export {
   useUserDataMap,
 } from "./User";
 
-export { useResultData, useAddResult, useAddManyResult } from "./Result";
+export {
+  useResultData,
+  useAddResult,
+  useAddManyResult,
+  useRecentMatch,
+} from "./Result";
 
 export { useHomeData } from "./home";
 

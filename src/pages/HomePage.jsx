@@ -22,7 +22,7 @@ const HomePage = () => {
       />
       <div className="mb-5 pb-10 md:mx-36 flex flex-col items-center">
         {/* <HorizonLine /> */}
-        <div className="grid grid-cols-1 statssm:grid-cols-3 mt-10">
+        <div className="grid grid-cols-1 gap-5 statssm:grid-cols-3 mt-10">
           <MostWinRateUser
             mostUserWinRateData={mostUserWinRateData}
             userList={userList}

@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/NavBar/navbar";
 import PickPlayers from "./pages/PickPlayers";
 import HomePage from "./pages/HomePage";
-import PlayerDB from "./pages/PlayerDB";
+import PlayerDB2 from "./pages/PlayerDB2";
 import MatchHistory from "./pages/MatchHistory";
 import PlayerStats from "./pages/PlayerStats";
 import EditPlayer from "./pages/EditPlayer";
@@ -26,7 +26,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/team" element={<PickPlayers />} />
-            <Route path="/playerdb" element={<PlayerDB />} />
+            <Route path="/playerdb" element={<PlayerDB2 />} />
             <Route path="/history" element={<MatchHistory />} />
             <Route path="/history/group" element={<MatchGroup />} />
             <Route path="/playerdb/:id" element={<PlayerStats />} />

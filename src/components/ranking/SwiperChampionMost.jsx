@@ -26,13 +26,12 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
     <div className="flex justify-center items-center w-full">
       <div className="relative w-full max-w-full">
         <Swiper
-          className="w-"
           modules={[Navigation, Autoplay, Pagination]}
           pagination={{ clickable: true, el: ".custom-pagination" }}
           navigation={{ nextEl: ".custom-next", prevEl: ".custom-prev" }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop
-          centeredSlides={isMobile ? true : false}
+          loopAdditionalSlides={1}
           spaceBetween={30}
           slidesPerView={isMobile ? 1 : 4}
         >
@@ -71,7 +70,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
           })}
         </Swiper>
         {/* Next button */}
-        <div className="custom-next absolute top-1/2 right-0 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
+        <div className="custom-next absolute top-1/2 -right-5 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
           <img
             src="/images/arrow.jpg"
             alt=""
@@ -79,7 +78,7 @@ export const SwiperChampionMost = ({ mostChampionData, championList }) => {
           />
         </div>
         {/* Previous button */}
-        <div className="custom-prev absolute top-1/2 left-0 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
+        <div className="custom-prev absolute top-1/2 -left-5 transform -translate-y-12 z-10 w-10 h-10 md:flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-200 transition border bg-white shadow-md hidden">
           <img src="/images/arrow.jpg" alt="" className="rounded-full" />
         </div>
         {/* Pagination */}
