@@ -1,16 +1,12 @@
 const WinBox = () => {
   return (
-    <div className="bg-blue-600 w-6 text-center text-white rounded-full m-1">
-      W
-    </div>
+    <div className="bg-blue-600 w-6 text-center text-white rounded-full">W</div>
   );
 };
 
 const LoseBox = () => {
   return (
-    <div className="bg-red-600 w-6 text-center text-white rounded-full m-1">
-      L
-    </div>
+    <div className="bg-red-600 w-6 text-center text-white rounded-full">L</div>
   );
 };
 

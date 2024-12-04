@@ -25,7 +25,7 @@ export const UserTable = ({ recentMatch, status }) => {
             <tr key={index} className="bg-slate-300 animate-pulse h-10">
               <td className="w-1/12 py-2"></td>
               <td className="w-1/12 py-2 text-center whitespace-nowrap">
-                {index === 0 && "Now Loading..."}
+                <div className="h-5 mx-auto w-1/2 bg-gray-500 rounded"></div>
               </td>
               <td className="w-2/12 py-2">
                 <div className="h-5 mx-auto w-1/2 bg-gray-500 rounded"></div>
@@ -48,9 +48,7 @@ export const UserTable = ({ recentMatch, status }) => {
               <td className="w-1/12 py-2">
                 <div className="h-5 mx-auto w-1/2 bg-gray-500 rounded"></div>
               </td>
-              <td className="w-3/12 py-2">
-                <div className="bg-gray-500 w-6 rounded-full"></div>
-              </td>
+              <td className="w-3/12 flex justify-evenly py-2 text-center"></td>
             </tr>
           ))}
         </tbody>
