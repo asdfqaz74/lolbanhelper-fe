@@ -5,8 +5,6 @@ const { useRecentMatch } = require("hooks/Data");
 const PlayerDB2 = () => {
   const { recentMatch, status } = useRecentMatch();
 
-  console.log(status);
-
   return (
     <div className="md:mx-36 flex justify-center">
       <UserTable recentMatch={recentMatch} status={status} />
