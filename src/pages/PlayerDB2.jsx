@@ -6,7 +6,7 @@ const PlayerDB2 = () => {
   const { recentMatch, status } = useRecentMatch();
 
   return (
-    <div className="md:mx-36 flex justify-center">
+    <div className="mx-5 md:mx-36 flex justify-center">
       <UserTable recentMatch={recentMatch} status={status} />
     </div>
   );

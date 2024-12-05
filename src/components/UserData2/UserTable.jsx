@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { WinLoseBar } from "./WinLoseBar";
+import { useMediaQuery } from "@mui/material";
 
 export const UserTable = ({ recentMatch, status }) => {
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
+  const isDesktop = useMediaQuery("(min-width: 1200px)");
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   if (status !== "success") {
     return (
@@ -82,27 +85,45 @@ export const UserTable = ({ recentMatch, status }) => {
   const sortedData = sortData(recentMatch);
 
   return (
-    <table className="table-auto w-full my-10 border-separate border-spacing-y-4">
+    <table
+      className={`table-auto w-full ${
+        isMobile ? "" : "min-w-[50.9375rem]"
+      } my-10 border-separate border-spacing-y-4`}
+    >
       <thead>
         <tr>
-          <th className="w-1/12"></th>
+          {!isMobile && <th className="w-1/12"></th>}
           <th
             className="w-1/12 cursor-pointer hover:scale-110"
             onClick={() => handleSort("userName")}
           >
             <div className="flex justify-center items-center whitespace-nowrap">
-              이름 <img src="/images/asc.svg" alt="" className="w-5" />
+              이름{" "}
+              {isDesktop && (
+                <img src="/images/asc.svg" alt="" className="w-5" />
+              )}
             </div>
           </th>
           <th className="w-2/12">닉네임</th>
-          <th className="w-1/12 whitespace-nowrap">메인 포지션</th>
-          <th className="w-1/12 whitespace-nowrap">서브 포지션</th>
+          {!isMobile && (
+            <th className="w-1/12 whitespace-nowrap">
+              {isDesktop ? "메인 포지션" : "메인"}
+            </th>
+          )}
+          {!isMobile && (
+            <th className="w-1/12 whitespace-nowrap">
+              {isDesktop ? "서브 포지션" : "서브"}
+            </th>
+          )}
           <th
             className="w-1/12 cursor-pointer hover:scale-110"
             onClick={() => handleSort("totalCount")}
           >
             <div className="flex justify-center items-center whitespace-nowrap">
-              총 <img src="/images/asc.svg" alt="" className="w-5" />
+              총{" "}
+              {isDesktop && (
+                <img src="/images/asc.svg" alt="" className="w-5" />
+              )}
             </div>
           </th>
           <th
@@ -110,7 +131,10 @@ export const UserTable = ({ recentMatch, status }) => {
             onClick={() => handleSort("winCount")}
           >
             <div className="flex justify-center items-center whitespace-nowrap">
-              승 <img src="/images/asc.svg" alt="" className="w-5" />
+              승{" "}
+              {isDesktop && (
+                <img src="/images/asc.svg" alt="" className="w-5" />
+              )}
             </div>
           </th>
           <th
@@ -118,11 +142,14 @@ export const UserTable = ({ recentMatch, status }) => {
             onClick={() => handleSort("loseCount")}
           >
             <div className="flex justify-center items-center whitespace-nowrap">
-              패 <img src="/images/asc.svg" alt="" className="w-5" />
+              패{" "}
+              {isDesktop && (
+                <img src="/images/asc.svg" alt="" className="w-5" />
+              )}
             </div>
           </th>
           <th className="w-1/12">승률</th>
-          <th className="w-3/12">최근 5경기</th>
+          {!isMobile && <th className="w-3/12">최근 5경기</th>}
         </tr>
       </thead>
       <tbody className=" text-center">
@@ -135,38 +162,42 @@ export const UserTable = ({ recentMatch, status }) => {
               key={data.userId}
               className="bg-slate-200 transition-transform hover:scale-105 duration-300 cursor-pointer"
             >
-              <td className="w-1/12">
-                {isMvp ? (
-                  <img
-                    src="/images/honeybee.webp"
-                    alt=""
-                    className="w-8 mx-auto"
-                  />
-                ) : isSad ? (
-                  <img
-                    src="/images/sadbee.png"
-                    alt=""
-                    className="w-8 mx-auto"
-                  />
-                ) : (
-                  ""
-                )}
-              </td>
+              {!isMobile && (
+                <td className="w-1/12">
+                  {isMvp ? (
+                    <img
+                      src="/images/honeybee.webp"
+                      alt=""
+                      className="w-8 mx-auto"
+                    />
+                  ) : isSad ? (
+                    <img
+                      src="/images/sadbee.png"
+                      alt=""
+                      className="w-8 mx-auto"
+                    />
+                  ) : (
+                    ""
+                  )}
+                </td>
+              )}
               <td className="w-1/12 overflow-hidden whitespace-nowrap text-ellipsis py-2">
                 {data.userName}
               </td>
               <td className="w-2/12 overflow-hidden whitespace-nowrap text-ellipsis">
                 {data.nickname}
               </td>
-              <td className="w-1/12">{data.mainPosition}</td>
-              <td className="w-1/12">{data.subPosition}</td>
+              {!isMobile && <td className="w-1/12">{data.mainPosition}</td>}
+              {!isMobile && <td className="w-1/12">{data.subPosition}</td>}
               <td className="w-1/12">{data.totalCount}</td>
               <td className="w-1/12">{data.winCount}</td>
               <td className="w-1/12">{data.loseCount}</td>
               <td className="w-1/12">{data.userWinRate}%</td>
-              <td className="w-3/12 text-center">
-                <WinLoseBar recentMatches={recentMatch} />
-              </td>
+              {!isMobile && (
+                <td className="w-3/12 text-center whitespace-nowrap">
+                  <WinLoseBar recentMatches={recentMatch} />
+                </td>
+              )}
             </tr>
           );
         })}
