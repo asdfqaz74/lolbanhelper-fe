@@ -113,12 +113,7 @@ export const UserTable = ({ recentMatch, status }) => {
           >
             패
           </th>
-          <th
-            className="w-1/12 cursor-pointer hover:scale-110"
-            onClick={() => handleSort("winRate")}
-          >
-            승률
-          </th>
+          <th className="w-1/12">승률</th>
           <th className="w-3/12">최근 5경기</th>
         </tr>
       </thead>
