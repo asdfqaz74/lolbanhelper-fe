@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { WinLoseBar } from "./WinLoseBar";
 
 export const UserTable = ({ recentMatch, status }) => {
-  console.log(status);
+  const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
 
   if (status !== "success") {
     return (
@@ -56,24 +57,73 @@ export const UserTable = ({ recentMatch, status }) => {
     );
   }
 
+  const sortData = (data) => {
+    if (!sortConfig.key) return data;
+
+    const sortedData = [...data].sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key])
+        return sortConfig.direction === "ascending" ? -1 : 1;
+      if (a[sortConfig.key] > b[sortConfig.key])
+        return sortConfig.direction === "ascending" ? 1 : -1;
+      return 0;
+    });
+
+    return sortedData;
+  };
+
+  const handleSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = sortData(recentMatch);
+
   return (
     <table className="table-auto w-full my-10 border-separate border-spacing-y-4">
       <thead>
         <tr>
           <th className="w-1/12"></th>
-          <th className="w-1/12">이름</th>
+          <th
+            className="w-1/12 cursor-pointer hover:scale-110"
+            onClick={() => handleSort("userName")}
+          >
+            이름
+          </th>
           <th className="w-2/12">닉네임</th>
           <th className="w-1/12 whitespace-nowrap">메인 포지션</th>
           <th className="w-1/12 whitespace-nowrap">서브 포지션</th>
-          <th className="w-1/12">총</th>
-          <th className="w-1/12">승</th>
-          <th className="w-1/12">패</th>
-          <th className="w-1/12">승률</th>
+          <th
+            className="w-1/12 cursor-pointer hover:scale-110"
+            onClick={() => handleSort("totalCount")}
+          >
+            총
+          </th>
+          <th
+            className="w-1/12 cursor-pointer hover:scale-110"
+            onClick={() => handleSort("winCount")}
+          >
+            승
+          </th>
+          <th
+            className="w-1/12 cursor-pointer hover:scale-110"
+            onClick={() => handleSort("loseCount")}
+          >
+            패
+          </th>
+          <th
+            className="w-1/12 cursor-pointer hover:scale-110"
+            onClick={() => handleSort("winRate")}
+          >
+            승률
+          </th>
           <th className="w-3/12">최근 5경기</th>
         </tr>
       </thead>
       <tbody className=" text-center">
-        {recentMatch.map((data) => {
+        {sortedData.map((data) => {
           const recentMatch = data.recentMatches;
           const isMvp = data.isMvp;
           const isSad = data.isSad;
