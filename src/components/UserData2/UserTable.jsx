@@ -90,7 +90,9 @@ export const UserTable = ({ recentMatch, status }) => {
             className="w-1/12 cursor-pointer hover:scale-110"
             onClick={() => handleSort("userName")}
           >
-            이름
+            <div className="flex justify-center items-center whitespace-nowrap">
+              이름 <img src="/images/asc.svg" alt="" className="w-5" />
+            </div>
           </th>
           <th className="w-2/12">닉네임</th>
           <th className="w-1/12 whitespace-nowrap">메인 포지션</th>
@@ -99,19 +101,25 @@ export const UserTable = ({ recentMatch, status }) => {
             className="w-1/12 cursor-pointer hover:scale-110"
             onClick={() => handleSort("totalCount")}
           >
-            총
+            <div className="flex justify-center items-center whitespace-nowrap">
+              총 <img src="/images/asc.svg" alt="" className="w-5" />
+            </div>
           </th>
           <th
             className="w-1/12 cursor-pointer hover:scale-110"
             onClick={() => handleSort("winCount")}
           >
-            승
+            <div className="flex justify-center items-center whitespace-nowrap">
+              승 <img src="/images/asc.svg" alt="" className="w-5" />
+            </div>
           </th>
           <th
             className="w-1/12 cursor-pointer hover:scale-110"
             onClick={() => handleSort("loseCount")}
           >
-            패
+            <div className="flex justify-center items-center whitespace-nowrap">
+              패 <img src="/images/asc.svg" alt="" className="w-5" />
+            </div>
           </th>
           <th className="w-1/12">승률</th>
           <th className="w-3/12">최근 5경기</th>
