@@ -6,8 +6,8 @@ export const RecentMatchGraph = ({ winOrLose, winRate }) => {
 
   useEffect(() => {
     const svg = d3.select(ref.current);
-    const width = 150;
-    const height = 150;
+    const width = 130;
+    const height = 130;
     const radius = Math.min(width, height) / 2;
 
     // `winOrLose` 데이터를 win/lose 개수로 변환
@@ -33,7 +33,7 @@ export const RecentMatchGraph = ({ winOrLose, winRate }) => {
     const pie = d3.pie().value((d) => d.value);
     const data_ready = pie(processedData);
 
-    const arc = d3.arc().innerRadius(50).outerRadius(radius); // 도넛 모양
+    const arc = d3.arc().innerRadius(30).outerRadius(radius); // 도넛 모양
 
     // 기존 SVG 초기화
     svg.selectAll("*").remove();
@@ -86,5 +86,5 @@ export const RecentMatchGraph = ({ winOrLose, winRate }) => {
       });
   }, [winOrLose, winRate]);
 
-  return <svg ref={ref} width={100} height={100}></svg>;
+  return <svg ref={ref}></svg>;
 };
