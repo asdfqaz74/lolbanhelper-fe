@@ -6,9 +6,10 @@ import { UserDetailDialog } from "./UserDetailDialog";
 export const UserTable = ({ recentMatch, status }) => {
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
   const [dialogUserId, setDialogUserId] = useState(null);
+  const [dialogUserName, setDialogUserName] = useState(null);
+  const [dialogNickname, setDialogNickname] = useState(null);
   const isDesktop = useMediaQuery("(min-width: 1200px)");
   const isMobile = useMediaQuery("(max-width: 768px)");
-  console.log(dialogUserId);
 
   if (status !== "success") {
     return (
@@ -87,12 +88,16 @@ export const UserTable = ({ recentMatch, status }) => {
 
   const sortedData = sortData(recentMatch);
 
-  const handleRowClick = (userId) => {
+  const handleRowClick = (userId, userName, nickname) => {
     setDialogUserId(userId);
+    setDialogUserName(userName);
+    setDialogNickname(nickname);
   };
 
   const handleCloseDialog = () => {
     setDialogUserId(null);
+    setDialogUserName(null);
+    setDialogNickname(null);
   };
 
   return (
@@ -166,14 +171,26 @@ export const UserTable = ({ recentMatch, status }) => {
         </thead>
         <tbody className=" text-center">
           {sortedData.map((data) => {
-            const recentMatch = data.recentMatches;
-            const isMvp = data.isMvp;
-            const isSad = data.isSad;
+            const {
+              userId,
+              userName,
+              nickname,
+              recentMatches,
+              isMvp,
+              isSad,
+              mainPosition,
+              subPosition,
+              totalCount,
+              winCount,
+              loseCount,
+              userWinRate,
+            } = data;
+
             return (
               <tr
-                key={data.userId}
+                key={userId}
                 className="bg-slate-200 transition-transform hover:scale-105 duration-300 cursor-pointer"
-                onClick={() => handleRowClick(data.userId)}
+                onClick={() => handleRowClick(userId, userName, nickname)}
               >
                 {!isMobile && (
                   <td className="w-1/12">
@@ -195,20 +212,20 @@ export const UserTable = ({ recentMatch, status }) => {
                   </td>
                 )}
                 <td className="w-1/12 overflow-hidden whitespace-nowrap text-ellipsis py-2">
-                  {data.userName}
+                  {userName}
                 </td>
                 <td className="w-2/12 overflow-hidden whitespace-nowrap text-ellipsis">
-                  {data.nickname}
+                  {nickname}
                 </td>
-                {!isMobile && <td className="w-1/12">{data.mainPosition}</td>}
-                {!isMobile && <td className="w-1/12">{data.subPosition}</td>}
-                <td className="w-1/12">{data.totalCount}</td>
-                <td className="w-1/12">{data.winCount}</td>
-                <td className="w-1/12">{data.loseCount}</td>
-                <td className="w-1/12">{data.userWinRate}%</td>
+                {!isMobile && <td className="w-1/12">{mainPosition}</td>}
+                {!isMobile && <td className="w-1/12">{subPosition}</td>}
+                <td className="w-1/12">{totalCount}</td>
+                <td className="w-1/12">{winCount}</td>
+                <td className="w-1/12">{loseCount}</td>
+                <td className="w-1/12">{userWinRate}%</td>
                 {!isMobile && (
                   <td className="w-3/12 text-center whitespace-nowrap">
-                    <WinLoseBar recentMatches={recentMatch} />
+                    <WinLoseBar recentMatches={recentMatches} />
                   </td>
                 )}
               </tr>
@@ -220,6 +237,8 @@ export const UserTable = ({ recentMatch, status }) => {
         open={!!dialogUserId}
         userId={dialogUserId}
         onClose={handleCloseDialog}
+        userName={dialogUserName}
+        nickname={dialogNickname}
       />
     </>
   );

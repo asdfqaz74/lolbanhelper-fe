@@ -12,7 +12,6 @@ api.interceptors.request.use(
     return request;
   },
   function (e) {
-    console.log("Request Error: ", e);
     return Promise.reject(e);
   }
 );
@@ -23,7 +22,6 @@ api.interceptors.response.use(
   },
   function (error) {
     error = error.response.data;
-    console.log("Response Error: ", error);
     return Promise.reject(error);
   }
 );

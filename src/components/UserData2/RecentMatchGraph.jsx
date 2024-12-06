@@ -76,7 +76,7 @@ export const RecentMatchGraph = ({ winOrLose, winRate }) => {
     // winRate 값을 0에서 점점 증가
     let currentRate = { rate: 0 };
     d3.transition()
-      .duration(600)
+      .duration(1000)
       .tween("text", () => {
         const interpolate = d3.interpolate(0, winRate);
         return function (t) {
