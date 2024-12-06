@@ -44,7 +44,7 @@ export const UserDetailDialog = ({ open, onClose, userId }) => {
           onLoad={handleImageLoad}
           className={`${imageLoaded ? "block" : "hidden"}`}
         />
-        <div className="flex p-2 justify-between">
+        <div className="flex p-5 justify-between">
           <div className="flex flex-col gap-5">
             <p className="text-2xl font-bold">{data.name}</p>
             <p className="text-2xl text-gray-500">{data.nickname}</p>
