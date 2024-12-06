@@ -5,6 +5,7 @@ export {
   useUserDatas,
   useOneUserData,
   useUserDataMap,
+  useUserDetail,
 } from "./User";
 
 export {

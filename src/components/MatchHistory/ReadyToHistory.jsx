@@ -120,6 +120,7 @@ const ReadyToHistory = () => {
         deaths: data.deaths,
         assists: data.assists,
         victoryordefeat: data.win ? "win" : "lose",
+        position: data.position,
       };
     });
     const processedRedTeam = redTeam.map((data, index) => {
@@ -131,6 +132,7 @@ const ReadyToHistory = () => {
         deaths: data.deaths,
         assists: data.assists,
         victoryordefeat: data.win ? "win" : "lose",
+        position: data.position,
       };
     });
 
