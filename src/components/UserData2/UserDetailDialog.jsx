@@ -36,22 +36,31 @@ export const UserDetailDialog = ({ open, onClose, userId }) => {
           className={`${imageLoaded ? "hidden" : "block"}`}
         />
         <img
-          src={`${data.main_character_image.image}.jpg`}
+          src={
+            `${data?.main_character_image?.image}.jpg` ||
+            "/images/placeholder.svg"
+          }
           alt=""
           onLoad={handleImageLoad}
           className={`${imageLoaded ? "block" : "hidden"}`}
         />
-        <div>{data.name}</div>
-        <div>{data.nickname}</div>
-        <div className="flex">
-          <div className="flex flex-col items-center">
-            <p className="text-lg font-semibold">최근 10게임</p>
-            <RecentMatchGraph
-              winOrLose={data.winOrLose}
-              winRate={data.winRate}
-            />
+        <div className="flex p-2 justify-between">
+          <div className="flex flex-col gap-5">
+            <p className="text-2xl font-bold">{data.name}</p>
+            <p className="text-2xl text-gray-500">{data.nickname}</p>
           </div>
-          <RecentPositionGraph data={data.recentPosition} />
+          <div className="flex flex-col">
+            <p className="text-2xl font-semibold text-center">최근 10게임</p>
+            <div className="flex items-center">
+              <div className="flex flex-col items-center ">
+                <RecentMatchGraph
+                  winOrLose={data.winOrLose}
+                  winRate={data.winRate}
+                />
+              </div>
+              <RecentPositionGraph data={data.recentPosition} />
+            </div>
+          </div>
         </div>
       </div>
     </Dialog>

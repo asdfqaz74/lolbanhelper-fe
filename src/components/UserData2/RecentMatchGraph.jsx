@@ -56,7 +56,8 @@ export const RecentMatchGraph = ({ winOrLose, winRate }) => {
       .attr("stroke", "white")
       .style("stroke-width", "2px")
       .transition()
-      .duration(600)
+      .duration(1000)
+      .ease(d3.easeCubicInOut)
       .attrTween("d", function (d) {
         const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
         return function (t) {
@@ -85,5 +86,5 @@ export const RecentMatchGraph = ({ winOrLose, winRate }) => {
       });
   }, [winOrLose, winRate]);
 
-  return <svg ref={ref}></svg>;
+  return <svg ref={ref} width={100} height={100}></svg>;
 };
