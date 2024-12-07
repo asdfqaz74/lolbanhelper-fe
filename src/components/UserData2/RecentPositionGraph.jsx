@@ -6,9 +6,9 @@ export const RecentPositionGraph = ({ data }) => {
 
   useEffect(() => {
     const svg = d3.select(ref.current);
-    const width = 250;
-    const height = 200;
-    const margin = { top: 20, right: 20, bottom: 50, left: 20 };
+    const width = 150;
+    const height = 150;
+    const margin = { top: 20, right: 0, bottom: 50, left: 0 };
 
     const positionImage = {
       TOP: "images/탑.png",
@@ -101,5 +101,5 @@ export const RecentPositionGraph = ({ data }) => {
       .attr("href", (d) => positionImage[d.position]);
   }, [data]);
 
-  return <svg ref={ref} width={250} height={200}></svg>;
+  return <svg ref={ref} width={150} height={150}></svg>;
 };

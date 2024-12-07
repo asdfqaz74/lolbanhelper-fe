@@ -6,8 +6,8 @@ export const RecentMatchGraph = ({ winOrLose, winRate }) => {
 
   useEffect(() => {
     const svg = d3.select(ref.current);
-    const width = 130;
-    const height = 130;
+    const width = 150;
+    const height = 150;
     const radius = Math.min(width, height) / 2;
 
     // `winOrLose` 데이터를 win/lose 개수로 변환

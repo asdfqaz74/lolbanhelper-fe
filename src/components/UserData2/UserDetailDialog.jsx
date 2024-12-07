@@ -56,62 +56,71 @@ export const UserDetailDialog = ({
       onClose={handleClose}
       sx={{ maxHeight: "900px", overflow: "hidden" }}
     >
-      <img
-        src="/images/placeholder.svg"
-        alt=""
-        className={`${
-          imageLoaded ? "hidden" : "block"
-        } w-[36.4375rem] h-[20.4962rem]`}
-      />
-      <img
-        src={`${data?.image}.jpg` || "/images/placeholder.svg"}
-        alt=""
-        onLoad={handleImageLoad}
-        className={`${imageLoaded ? "block" : "hidden"}`}
-      />
-      <div className="flex flex-col p-5">
-        <div className="flex justify-between">
-          <div className="flex flex-col gap-5">
-            <p className="text-2xl font-bold">
+      <div className="scrollbar-thumb-[#779EF2] scrollbar-track-gray-300 h-[900px] overflow-y-scroll scrollbar-thin scroll-smooth">
+        <img
+          src="/images/placeholder.svg"
+          alt=""
+          className={`${
+            imageLoaded ? "hidden" : "block"
+          } w-[36.4375rem] h-[20.4962rem]`}
+        />
+        <img
+          src={`${data?.image}.jpg` || "/images/placeholder.svg"}
+          alt=""
+          onLoad={handleImageLoad}
+          className={`${imageLoaded ? "block" : "hidden"}`}
+        />
+        <div className="flex flex-col p-5">
+          <div className="flex gap-5 items-end">
+            <p className="text-4xl font-bold">
               {data?.name || userName || "알수없음"}
             </p>
             <p className="text-2xl text-gray-500">
               {data?.nickname || nickname || "알수없음"}
             </p>
           </div>
-          <div className="flex flex-col">
-            <p className="text-2xl font-semibold text-center">최근 10게임</p>
-            <div className="flex items-center">
-              <div className="flex flex-col items-center ">
-                {data?.winOrLose && data?.winRate ? (
-                  <RecentMatchGraph
-                    winOrLose={data.winOrLose}
-                    winRate={data.winRate}
-                  />
+          <HorizonLine color={"bg-gray-300"} />
+          <div className="mt-5">
+            <p className="text-2xl">최근 10게임</p>
+            <div className="flex flex-col mt-5">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col items-center">
+                  {data?.winOrLose && data?.winRate ? (
+                    <div className="bg-[#DEE8FC] py-2 px-4">
+                      <p className="text-xl">승률</p>
+                      <RecentMatchGraph
+                        winOrLose={data.winOrLose}
+                        winRate={data.winRate}
+                      />
+                    </div>
+                  ) : (
+                    <p className="text-gray-500">데이터가 없습니다.</p>
+                  )}
+                </div>
+                {data?.recentPosition ? (
+                  <div className="bg-[#DEE8FC] py-2 px-4">
+                    <p className="text-xl">선택한 포지션</p>
+                    <RecentPositionGraph data={data.recentPosition} />
+                  </div>
                 ) : (
                   <p className="text-gray-500">데이터가 없습니다.</p>
                 )}
               </div>
-              {data?.recentPosition ? (
-                <RecentPositionGraph data={data.recentPosition} />
-              ) : (
-                <p className="text-gray-500">데이터가 없습니다.</p>
-              )}
             </div>
           </div>
-        </div>
-        <HorizonLine color={"bg-gray-300"} />
-        <div className="mt-2">
-          <p className="text-2xl font-bold">최근 매치 (5경기)</p>
-          {data?.match ? (
-            <RecentMatch
-              match={data.match}
-              matchMe={data.matchMe}
-              status={status}
-            />
-          ) : (
-            <p className="text-gray-500">데이터가 없습니다.</p>
-          )}
+          <HorizonLine color={"bg-gray-300"} />
+          <div className="mt-2">
+            <p className="text-2xl font-bold">최근 매치 (5경기)</p>
+            {data?.match ? (
+              <RecentMatch
+                match={data.match}
+                matchMe={data.matchMe}
+                status={status}
+              />
+            ) : (
+              <p className="text-gray-500">데이터가 없습니다.</p>
+            )}
+          </div>
         </div>
       </div>
     </Dialog>
