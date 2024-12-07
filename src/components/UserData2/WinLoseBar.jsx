@@ -16,7 +16,7 @@ export const WinLoseBar = ({ recentMatches }) => {
       {typeof recentMatches === "string" && (
         <p className="text-center">최근 전적이 없습니다</p>
       )}
-      <div className="flex justify-evenly">
+      <div className="flex justify-center gap-2">
         {Array.isArray(recentMatches) &&
           recentMatches.map((match, index) =>
             match === "win" ? <WinBox key={index} /> : <LoseBox key={index} />

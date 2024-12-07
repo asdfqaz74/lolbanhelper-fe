@@ -105,9 +105,9 @@ export const UserTable = ({ recentMatch, status }) => {
       <table
         className={`table-auto w-full ${
           isMobile ? "" : "min-w-[50.9375rem]"
-        } my-10 border-separate border-spacing-y-4`}
+        } my-10 border-collapse`}
       >
-        <thead>
+        <thead className="bg-[#CCCDDE] h-12">
           <tr>
             {!isMobile && <th className="w-1/12"></th>}
             <th
@@ -169,7 +169,7 @@ export const UserTable = ({ recentMatch, status }) => {
             {!isMobile && <th className="w-3/12">최근 5경기</th>}
           </tr>
         </thead>
-        <tbody className=" text-center">
+        <tbody className=" text-center ">
           {sortedData.map((data) => {
             const {
               userId,
@@ -189,7 +189,7 @@ export const UserTable = ({ recentMatch, status }) => {
             return (
               <tr
                 key={userId}
-                className="bg-slate-200 transition-transform hover:scale-105 duration-300 cursor-pointer"
+                className="border-[#C1C9F8] border-y bg-[#F1F2FF] hover:bg-[#D4D7FF]  cursor-pointer transition-colors duration-200"
                 onClick={() => handleRowClick(userId, userName, nickname)}
               >
                 {!isMobile && (

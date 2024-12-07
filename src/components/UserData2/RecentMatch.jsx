@@ -32,15 +32,20 @@ export const RecentMatch = ({ match, matchMe, status }) => {
             <div
               className={`absolute right-0 top-0 h-full w-8 rounded-r-md cursor-pointer ${
                 matchData.win
-                  ? "bg-[#476096] hover:bg-[#5C8EF2]"
-                  : "bg-[#8d4d5b] hover:bg-[#F24464]"
+                  ? "bg-[#476096] group hover:bg-[#5C8EF2]"
+                  : "bg-[#8d4d5b] group hover:bg-[#F24464]"
               }`}
-            ></div>
-            <img
-              src="/images/arrow.svg"
-              alt=""
-              className="absolute right-2.5 bottom-1 w-3 "
-            />
+            >
+              <img
+                src="/images/arrow.svg"
+                alt=""
+                className={`absolute right-2.5 bottom-1 w-3 ${
+                  matchData.win
+                    ? "bg-[#476096] group-hover:bg-[#5C8EF2]"
+                    : "bg-[#8d4d5b] group-hover:bg-[#F24464]"
+                }`}
+              />
+            </div>
             <div>
               {matchData.win ? (
                 <p className="text-[#5C8EF2] font-semibold">승리</p>
