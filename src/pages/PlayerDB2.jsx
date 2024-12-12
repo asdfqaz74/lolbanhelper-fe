@@ -11,5 +11,4 @@ const PlayerDB2 = () => {
     </div>
   );
 };
-
 export default PlayerDB2;
